@@ -2,20 +2,6 @@
 #include <stdlib.h>
 #include "../include/biblioteca.h"
 
-void clear() {
-    #ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif
-}
-
-
-void clearBuffer(){
-    while (getchar() != '\n');
-}
-
-
 int main() {
     int response = 0;
     
@@ -42,7 +28,8 @@ int main() {
 
         switch (response) {
             case 1:
-                printf("Gerenciando livros...\n");
+                clear();
+                gerenciarLivros();
                 return 0;
             case 2:
                 printf("Gerenciando usuários...\n");
@@ -68,7 +55,6 @@ int main() {
         }
 
         clear();
-
     }
 
     return 0;

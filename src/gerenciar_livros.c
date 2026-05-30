@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/biblioteca.h"
 
 int gerenciarLivros() {
     int response = 0;
@@ -27,23 +28,23 @@ int gerenciarLivros() {
 
         switch (response) {
             case 1:
-                cadastrarLivro();
-                break;
+                printf("Cadastrando livro...\n");
+                return 0;
             case 2:
-                removerLivro();
-                break;
+                printf("Removendo livro...\n");
+                return 0;
             case 3:
-                listarLivros();
-                break;
+                printf("Listando todos os livros...\n");
+                return 0;
             case 4:
-                buscarLivro();
-                break;
+                printf("Buscando livro...\n");
+                return 0;
             case 5:
-                informarEmprestimos();
-                break;
+                printf("Informando empréstimos...\n");
+                return 0;
             case 6:
-                atualizarLivro();
-                break;
+                printf("Atualizando informações de um livro...\n");
+                return 0;
             default:
                 printf("Opção inválida. Por favor, escolha uma opção válida.\n");
                 printf("Pressione Enter para continuar...");
@@ -55,4 +56,5 @@ int gerenciarLivros() {
         clear();
     }
 
+    return 0;
 }
