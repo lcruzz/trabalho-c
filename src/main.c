@@ -8,7 +8,7 @@ int main() {
     while (1) {
         printf("==========================================\n");
         printf("  Sistema de Gerenciamento de Biblioteca  \n");
-        printf("==========================================\n");
+        printf("==========================================\n\n");
     
         printf("[1] Gerenciar Livros \n");
         printf("[2] Gerenciar usuários \n");
@@ -17,7 +17,7 @@ int main() {
         printf("[5] Relatórios \n");
         printf("[0] Sair \n\n");
     
-        if (!(scanf("%d", &response)) || response > 5 || response < 0) {
+        if (!(scanf(" %d", &response)) || response > 5 || response < 0) {
             clearBuffer();
             printf("Entrada inválida. Por favor, insira um número válido.\n");
             printf("Pressione Enter para continuar...");
@@ -30,19 +30,15 @@ int main() {
             case 1:
                 clear();
                 gerenciarLivros();
-                return 0;
+                break;
             case 2:
-                printf("Gerenciando usuários...\n");
-                return 0;
+                break;
             case 3:
-                printf("Realizando empréstimo...\n");
-                return 0;
+                break;
             case 4:
-                printf("Registrando devolução...\n");
-                return 0;
+                break;
             case 5:
-                printf("Gerando relatórios...\n");
-                return 0;
+                break;
             case 0:
                 printf("Saindo do sistema. Até logo!\n");
                 return 0;
