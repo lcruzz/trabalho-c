@@ -64,17 +64,23 @@ int gerenciarLivros() {
 int cadastrarLivro() {
     Livro novoLivro;
 
-    FILE *file = fopen("../data/livros.txt", "a");
+    FILE *file = fopen("data/livros.txt", "a");
     if (file == NULL) {
-        printf("Erro ao abrir o arquivo de livros.\n");
+        printf("Erro ao abrir o arquivo de livros: ../data/livros.txt\n");
+        printf("(verifique se o executável está sendo executado a partir de src/)\n");
+        printf("Pressione Enter para continuar...");
+        clearBuffer();
+        getchar();
         return -1;
     }
+
+    clearBuffer();
 
     printf("Digite o título do livro: ");
     fgets(novoLivro.titulo, sizeof(novoLivro.titulo), stdin);
     novoLivro.titulo[strcspn(novoLivro.titulo, "\n")] = '\0';
 
-    fprintf(file, "%s\n", novoLivro.titulo);
+    fprintf(file, "Titulo: %s\n", novoLivro.titulo);
     fclose(file);
 
     return 0;
