@@ -19,7 +19,7 @@ void clearBuffer(){
 
 // Função para retirar espaços das bordas de uma string
 void retirarEspacoDasBordas(char *str) {
-    int inicio, j = 0;
+    int inicio = 0, j = 0;
     int fim = strlen(str) - 1;
 
     while (str[inicio] == ' ') inicio++;
@@ -34,11 +34,32 @@ void retirarEspacoDasBordas(char *str) {
 }
 
 void retirarEspacoDoMeio(char *str) {
-
+    int i = 0, j = 0;
+    int dentro_espaco = 0;
+    
+    while (str[i]) {
+        if (str[i] != ' ') {
+            str[j++] = str[i];
+            dentro_espaco = 0;
+        } else if (!dentro_espaco) {
+            str[j++] = ' ';
+            dentro_espaco = 1;
+        }
+        i++;
+    }
+    str[j] = '\0';
 }
 
-// Função para tratar strings, removendo espaços extras e convertendo para manúsculas
+// Função para converter uma string para minúsculas
+void converterParaMinusculo(char *str) {
+    for (int i = 0; i < strlen(str) - 1; i++) {
+        str[i] = tolower(str[i]);
+    }
+}
+
+// Função para tratar strings, removendo espaços extras e convertendo para minúsculas
 void tratarString(char *str) {
     retirarEspacoDasBordas(str);
-
+    retirarEspacoDoMeio(str);
+    converterParaMinusculo(str);
 }

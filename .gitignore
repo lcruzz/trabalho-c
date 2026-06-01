@@ -1,0 +1,9 @@
+# Arquivo .gitignore para o projeto de gerenciamento de biblioteca
+
+# Ignorar arquivos de configuração do Visual Studio Code
+
+.vscode/
+
+# Ignorar executáveis gerados
+*.exe
+*.out

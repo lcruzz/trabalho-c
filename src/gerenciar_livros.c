@@ -80,6 +80,8 @@ int cadastrarLivro() {
     fgets(novoLivro.titulo, sizeof(novoLivro.titulo), stdin);
     novoLivro.titulo[strcspn(novoLivro.titulo, "\n")] = '\0';
 
+    tratarString(novoLivro.titulo);
+
     fprintf(file, "Titulo: %s\n", novoLivro.titulo);
     fclose(file);
 
