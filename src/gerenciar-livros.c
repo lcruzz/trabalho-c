@@ -82,8 +82,12 @@ int cadastrarLivro() {
 
     tratarString(novoLivro.titulo);
 
-    fprintf(file, "Titulo: %s\n", novoLivro.titulo);
+    fprintf(file, "Titulo: %s \n", novoLivro.titulo);
     fclose(file);
 
+    return 0;
+}
+
+int removerLivro() {
     return 0;
 }
