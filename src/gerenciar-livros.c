@@ -63,6 +63,7 @@ int gerenciarLivros() {
 
 int cadastrarLivro() {
     Livro novoLivro;
+    novoLivro.id = rand() % 10000; // Gera um ID aleatório para o livro (pode ser melhorado para garantir unicidade)
 
     FILE *file = fopen("data/livros.txt", "a");
     if (file == NULL) {
@@ -80,9 +81,28 @@ int cadastrarLivro() {
     fgets(novoLivro.titulo, sizeof(novoLivro.titulo), stdin);
     novoLivro.titulo[strcspn(novoLivro.titulo, "\n")] = '\0';
 
-    tratarString(novoLivro.titulo);
+    printf("Digite o autor do livro: ");
+    fgets(novoLivro.autor, sizeof(novoLivro.autor), stdin);
+    novoLivro.autor[strcspn(novoLivro.autor, "\n")] = '\0';
 
-    fprintf(file, "Titulo: %s \n", novoLivro.titulo);
+    printf("Digite o ano de publicação do livro: ");
+    while (!(scanf(" %d", &novoLivro.anoPublicacao))) {
+        clearBuffer();
+        printf("Entrada inválida. Por favor, insira um número para o ano de publicação.\n");
+        printf("Digite o ano de publicação do livro: ");
+    }
+
+    printf("Digite a quantidade disponível do livro: ");
+    while (!(scanf(" %d", &novoLivro.quantidadeDisponivel))) {
+        clearBuffer();
+        printf("Entrada inválida. Por favor, insira um número para a quantidade disponível.\n");
+        printf("Digite a quantidade disponível do livro: ");
+    }
+
+    tratarString(novoLivro.titulo);
+    tratarString(novoLivro.autor);
+
+    fprintf(file, "%d,%s,%s,%d,%d\n", novoLivro.id, novoLivro.titulo, novoLivro.autor, novoLivro.anoPublicacao, novoLivro.quantidadeDisponivel);
     fclose(file);
 
     return 0;

@@ -63,3 +63,8 @@ void tratarString(char *str) {
     retirarEspacoDoMeio(str);
     converterParaMinusculo(str);
 }
+
+// Função para ler uma linha de um arquivo e armazenar os dados em uma estrutura Livro
+int lerLivroDeArquivo(FILE *file, Livro *livro) {
+    
+}
