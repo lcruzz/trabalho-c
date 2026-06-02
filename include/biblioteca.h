@@ -3,18 +3,23 @@
 
 #pragma once
 
-#include "gerenciar_livros.h"
+#include "gerenciar-livros.h"
+#include "gerenciar-usuarios.h"
 
+// Funções para gerenciar livros
 int gerenciarLivros();
 
 int cadastrarLivro();
 
+// Funções para gerenciar usuários
+int gerenciarUsuarios();
+
+
+// Funções utilitárias
 void clear();
 
 void clearBuffer();
 
 void tratarString(char *str);
-
-void retirarEspacoDasBordas(char *str);
 
 #endif

@@ -32,6 +32,8 @@ int main() {
                 gerenciarLivros();
                 break;
             case 2:
+                clear();
+                gerenciarUsuarios();
                 break;
             case 3:
                 break;
