@@ -19,7 +19,7 @@ int gerenciarLivros() {
         printf("[6] Atualizar Informações de um Livro \n");
         printf("[0] Voltar ao Menu Principal \n\n");
     
-        if (!(scanf(" %d", &response))) {
+        if (!(scanf(" %d", &response)) || response > 6 || response < 0) {
             clearBuffer();
             printf("Entrada inválida. Por favor, insira um número.\n");
             printf("Pressione Enter para continuar...");

@@ -2,21 +2,20 @@
 #include <stdlib.h>
 #include "../include/biblioteca.h"
 
-int main() {
+int emprestimosDevolucoes() {
     int response = 0;
-    
+
     while (1) {
-        printf("==========================================\n");
-        printf("  Sistema de Gerenciamento de Biblioteca  \n");
-        printf("==========================================\n\n");
-    
-        printf("[1] Gerenciar Livros \n");
-        printf("[2] Gerenciar Usuários \n");
-        printf("[3] Gerenciar Empréstimos e Devoluções \n");
-        printf("[4] Relatórios \n");
-        printf("[0] Sair \n\n");
-    
-        if (!(scanf(" %d", &response)) || response > 4 || response < 0) {
+        printf("============================\n");
+        printf("  Empréstimos e Devoluções  \n");
+        printf("============================\n\n");
+        
+        printf("[1] Realizar Empréstimo \n");
+        printf("[2] Registrar Devolução \n");
+        printf("[3] Listar Empréstimos em Atraso \n");
+        printf("[0] Voltar ao Menu Principal \n\n");
+
+        if (!(scanf(" %d", &response)) || response > 3 || response < 0) {
             clearBuffer();
             printf("Entrada inválida. Por favor, insira um número válido.\n");
             printf("Pressione Enter para continuar...");
@@ -27,21 +26,16 @@ int main() {
 
         switch (response) {
             case 1:
-                clear();
-                gerenciarLivros();
+                printf("Realizando empréstimo...");
                 break;
             case 2:
-                clear();
-                gerenciarUsuarios();
+                printf("Registrando devolução...");
                 break;
             case 3:
-                clear();
-                emprestimosDevolucoes();
-                break;
-            case 4:
+                printf("Listando empréstimos em atraso...");
                 break;
             case 0:
-                printf("Saindo do sistema. Até logo!\n");
+                clear();
                 return 0;
             default:
                 printf("Opção inválida. Por favor, escolha uma opção válida.\n");

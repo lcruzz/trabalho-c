@@ -17,7 +17,7 @@ int gerenciarUsuarios() {
         printf("[5] Remover Usuário \n");
         printf("[0] Voltar ao Menu Principal \n\n");
 
-        if (!(scanf(" %d", &response))) {
+        if (!(scanf(" %d", &response)) || response > 5 || response < 0) {
             clearBuffer();
             printf("Entrada inválida. Por favor, insira um número.\n");
             printf("Pressione Enter para continuar...");
@@ -55,4 +55,6 @@ int gerenciarUsuarios() {
 
         clear();
     }
+
+    return 0;
 }
