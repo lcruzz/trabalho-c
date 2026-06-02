@@ -14,6 +14,8 @@ int cadastrarLivro();
 // Funções para gerenciar usuários
 int gerenciarUsuarios();
 
+int cadastrarUsuarios();
+
 // Funções para gerenciar empréstimos e devoluções
 int emprestimosDevolucoes();
 

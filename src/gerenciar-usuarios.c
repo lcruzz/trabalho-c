@@ -28,7 +28,8 @@ int gerenciarUsuarios() {
 
         switch (response) {
             case 1:
-                printf("Cadastrando usuário...");
+                clear();
+                cadastrarUsuarios();
                 break;
             case 2:
                 printf("Listando todos os usuários...");
@@ -57,5 +58,40 @@ int gerenciarUsuarios() {
     }
 
     return 0;
-    // teste
+}
+
+int cadastrarUsuarios(){
+    printf("====================================\n");
+    printf("         Cadastrar Usuário          \n");
+    printf("====================================\n\n");
+
+    Usuarios novoUsuario;
+
+    FILE *arq;
+    arq = fopen("data/usuarios.txt", "a+");
+
+    if(arq == NULL){
+        printf("Erro ao abrir o arquivo de usuarios: data/usuarios.txt");
+        printf("Pressione Enter para continuar...");
+        clearBuffer();
+        getchar();
+        return -1;
+    }
+
+    clearBuffer();
+
+    int ultimaMatricula = pegaUltimaMatricula();
+    novoUsuario.matricula = ultimaMatricula + 1;
+
+    printf("Informe o nome do aluno: ");
+    fgets(novoUsuario.nome, sizeof(novoUsuario.nome), stdin);
+
+    novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0';
+
+    tratarString(novoUsuario.nome);
+
+    fprintf(arq, "%s\n", novoUsuario.nome);
+    fclose(arq);
+
+    return 0;
 }

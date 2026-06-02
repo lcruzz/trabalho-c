@@ -63,3 +63,23 @@ void tratarString(char *str) {
     retirarEspacoDoMeio(str);
     converterParaMinusculo(str);
 }
+
+// Função para pegar a matricula do ultimo aluno
+void pegaUltimaMatricula(){
+    FILE *arq;
+    char linha[200];
+    int ultimaMatricula = 0;
+    
+    arq = fopen("data/usuarios.txt", "r");
+    
+    if (arq == NULL) {
+        return 0;
+    }
+    while (fgets(linha, sizeof(linha), arq) != NULL) {
+        int camposLidos = sscanf(linha, "%d", &ultimaMatricula);
+    }
+    
+    fclose(arq);
+    
+    return ultimaMatricula;
+}
