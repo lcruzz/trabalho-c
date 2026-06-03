@@ -67,7 +67,7 @@ void tratarString(char *str) {
 // Função para pegar a matricula do ultimo aluno
 int pegaUltimaMatricula(){
     FILE *arq;
-    char linha[200];
+    char linha[256];
     int ultimaMatricula = 1000;
     
     arq = fopen("data/usuarios.txt", "r");
@@ -79,7 +79,7 @@ int pegaUltimaMatricula(){
     while (fgets(linha, sizeof(linha), arq) != NULL) {
         if(sscanf(linha, "Matricula: %d", &ultimaMatricula) == 1){
 
-        };
+        }
     }
     
     fclose(arq);
