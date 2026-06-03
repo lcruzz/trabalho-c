@@ -1,2 +1,3 @@
 Matricula: 1001 | Nome: tiago | Curso: cc | 
 Matricula: 1002 | Nome: lin | Curso: cc | 
+Matricula: 1003 | Nome: maria ligia | Curso: educacao fisica | 

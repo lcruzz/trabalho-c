@@ -22,6 +22,10 @@ int buscarUsuario(int tipoBusca);
 
 int menuBuscarUsuario();
 
+void pesquisarMatricula(int buscaMatricula, int *encontrado, char *linhaEncontrada);
+
+void pesquisarNome(char *buscaNome, int *encontrado, char *linhaEncontrada);
+
 // Funções para gerenciar empréstimos e devoluções
 int emprestimosDevolucoes();
 

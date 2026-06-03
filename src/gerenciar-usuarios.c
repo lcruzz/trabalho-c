@@ -137,6 +137,8 @@ int menuBuscarUsuario(){
             continue;
         }
 
+        clearBuffer();
+
         switch (response) {
             case 1:
                 clear();
@@ -167,72 +169,38 @@ int buscarUsuario(int tipoBusca){
     printf("           Buscar Usuário           \n");
     printf("====================================\n\n");
 
-    FILE *arq;
-    arq = fopen("data/usuarios.txt", "r");
-
-    if(arq == NULL){
-        printf("Erro ao abrir o arquivo de usuarios: data/usuarios.txt");
-        printf("Pressione Enter para continuar...");
-        clearBuffer();
-        getchar();
-        return -1;
-    }
-
-    char linha[256];
+    char buscaNome[TAMANHO_NOME];
     int encontrado = 0;
     char linhaEncontrada[256];
-    
-    if(tipoBusca == 1){
-        int buscaMatricula;
+
+    if (tipoBusca == 1) {
         int matricula;
 
-        printf("Informe a matricula do aluno: ");
-        scanf("%d", &buscaMatricula);
+        printf("Informe a matricula: ");
+        scanf("%d", &matricula);
         clearBuffer();
-
-        while (fgets(linha, sizeof(linha), arq) != NULL) {
-
-            if(sscanf(linha, "Matricula: %d", &matricula) == 1){
-                if(matricula == buscaMatricula){
-                    strcpy(linhaEncontrada, linha);
-                    encontrado = 1;
-                    break;
-                }
-            }
-        }
-    } else if(tipoBusca == 2){
-        char buscaNome[TAMANHO_NOME];
-        char nome[TAMANHO_NOME];
         
+        pesquisarMatricula(matricula, &encontrado, linhaEncontrada);
+
+    } else if (tipoBusca == 2) {
         printf("Informe o nome do aluno: ");
+
         fgets(buscaNome, sizeof(buscaNome), stdin);
         buscaNome[strcspn(buscaNome, "\n")] = '\0';
         
-        tratarString(buscaNome);
-        
-        while (fgets(linha, sizeof(linha), arq) != NULL) {
-            // Extrair o nome da linha
-            if(sscanf(linha, "Matricula: %*d | Nome: %99[^|]", nome) == 1){
-                // Tratar o nome extraído diretamente
-                tratarString(nome);
-                
-                // Comparar os nomes tratados
-                if(strcmp(nome, buscaNome) == 0){
-                    encontrado = 1;
-                    strcpy(linhaEncontrada, linha);
-                    break;
-                }
-            }
-        }
+        pesquisarNome(buscaNome, &encontrado, linhaEncontrada);
     }
 
-    fclose(arq);
-
-    if(!encontrado){
+    // Verifica se o usuario foi encontrado
+    if(encontrado == 0){
         printf("Usuario não encontrado.\n");
-    } else{
+
+    } else if(encontrado == 1){
         printf("\nAluno encontrado!");
         printf("\n%s", linhaEncontrada);
+
+    } else if(encontrado == -1){
+        printf("Erro ao abrir o arquivo de usuarios: data/usuarios.txt");
     }
 
     printf("\nPressione Enter para voltar ao menu...\n");

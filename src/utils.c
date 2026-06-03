@@ -63,26 +63,3 @@ void tratarString(char *str) {
     retirarEspacoDoMeio(str);
     converterParaMinusculo(str);
 }
-
-// Função para pegar a matricula do ultimo aluno
-int pegaUltimaMatricula(){
-    FILE *arq;
-    char linha[256];
-    int ultimaMatricula = 1000;
-    
-    arq = fopen("data/usuarios.txt", "r");
-    
-    if (arq == NULL) {
-        return 0;
-    }
-
-    while (fgets(linha, sizeof(linha), arq) != NULL) {
-        if(sscanf(linha, "Matricula: %d", &ultimaMatricula) == 1){
-
-        }
-    }
-    
-    fclose(arq);
-    
-    return ultimaMatricula;
-}
