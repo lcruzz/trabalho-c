@@ -16,6 +16,9 @@ int gerenciarUsuarios();
 
 int cadastrarUsuarios();
 
+int pegaUltimaMatricula();
+
+
 // Funções para gerenciar empréstimos e devoluções
 int emprestimosDevolucoes();
 

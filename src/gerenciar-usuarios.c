@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <../include/biblioteca.h>
 
 int gerenciarUsuarios() {
@@ -68,30 +69,49 @@ int cadastrarUsuarios(){
     Usuarios novoUsuario;
 
     FILE *arq;
-    arq = fopen("data/usuarios.txt", "a+");
+    arq = fopen("data/usuarios.txt", "r");
 
     if(arq == NULL){
-        printf("Erro ao abrir o arquivo de usuarios: data/usuarios.txt");
-        printf("Pressione Enter para continuar...");
-        clearBuffer();
-        getchar();
-        return -1;
+        arq = fopen("data/usuarios.txt", "w");
+
+        if(arq == NULL){
+            printf("Erro ao abrir o arquivo de usuarios: data/usuarios.txt");
+            printf("Pressione Enter para continuar...");
+            clearBuffer();
+            getchar();
+            return -1;
+        }
     }
 
     clearBuffer();
 
+    fclose(arq);
+    
     int ultimaMatricula = pegaUltimaMatricula();
     novoUsuario.matricula = ultimaMatricula + 1;
 
+    arq = fopen("data/usuarios.txt", "a");
+    
     printf("Informe o nome do aluno: ");
     fgets(novoUsuario.nome, sizeof(novoUsuario.nome), stdin);
 
+    printf("Informe o curso do aluno: ");
+    fgets(novoUsuario.curso, sizeof(novoUsuario.curso), stdin);
+    
     novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0';
-
+    novoUsuario.curso[strcspn(novoUsuario.curso, "\n")] = '\0';
+    
     tratarString(novoUsuario.nome);
-
-    fprintf(arq, "%s\n", novoUsuario.nome);
+    tratarString(novoUsuario.curso);
+    
+    fprintf(arq, "Matricula: %d | ", novoUsuario.matricula);
+    fprintf(arq, "Nome: %s | ", novoUsuario.nome);
+    fprintf(arq, "Curso: %s | ", novoUsuario.curso);
+    fprintf(arq, "\n");
     fclose(arq);
 
+    printf("\nO aluno foi cadastrado com sucesso!\nPressione Enter para voltar ao menu...");
+    getchar();
+    
     return 0;
 }
