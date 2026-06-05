@@ -19,7 +19,7 @@ int pegaUltimaMatricula(){
     }
 
     while (fgets(linha, sizeof(linha), arq) != NULL) {
-        if(sscanf(linha, "Matricula: %d", &ultimaMatricula) == 1){
+        if(sscanf(linha, "%d", &ultimaMatricula) == 1){
 
         }
     }
@@ -43,7 +43,7 @@ void pesquisarMatricula(int buscaMatricula, int *encontrado, char *linhaEncontra
     *encontrado = 0;  // Inicializa como não encontrado
 
     while (fgets(linha, sizeof(linha), arq) != NULL) {
-        if(sscanf(linha, "Matricula: %d", &matricula) == 1) {
+        if(sscanf(linha, "%d", &matricula) == 1) {
             if(matricula == buscaMatricula) {
                 strcpy(linhaEncontrada, linha);
                 *encontrado = 1;
@@ -74,7 +74,7 @@ void pesquisarNome(char *buscaNome, int *encontrado, char *linhaEncontrada){
     *encontrado = 0;
 
     while (fgets(linha, sizeof(linha), arq) != NULL) {
-        if(sscanf(linha, "Matricula: %*d | Nome: %149[^|]", nome) == 1){
+        if(sscanf(linha, "%*d, %149[^,]", nome) == 1){
             // Criar cópia do nome para tratamento
             char nomeCopia[TAMANHO_NOME];
             strcpy(nomeCopia, nome);

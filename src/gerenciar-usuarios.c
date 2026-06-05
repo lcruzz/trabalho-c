@@ -105,9 +105,9 @@ int cadastrarUsuarios(){
     tratarString(novoUsuario.nome);
     tratarString(novoUsuario.curso);
     
-    fprintf(arq, "Matricula: %d | ", novoUsuario.matricula);
-    fprintf(arq, "Nome: %s | ", novoUsuario.nome);
-    fprintf(arq, "Curso: %s | ", novoUsuario.curso);
+    fprintf(arq, "%d, ", novoUsuario.matricula);
+    fprintf(arq, "%s, ", novoUsuario.nome);
+    fprintf(arq, "%s, ", novoUsuario.curso);
     fprintf(arq, "\n");
     fclose(arq);
 
