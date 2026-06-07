@@ -3,7 +3,7 @@
 #include <string.h>
 #include "../include/biblioteca.h"
 
-int gerenciarLivros() {
+int gerenciarLivros(int *quantidadeDeLivros, Livro livros[]) {
     int response = 0;
 
     while(1) {
@@ -31,7 +31,7 @@ int gerenciarLivros() {
         switch (response) {
             case 1:
                 clear();
-                cadastrarLivro();
+                cadastrarLivro(quantidadeDeLivros, livros);
                 break;
             case 2:
                 break;
@@ -61,14 +61,13 @@ int gerenciarLivros() {
     return 0;
 }
 
-int cadastrarLivro() {
+int cadastrarLivro(int *quantidadeDeLivros, Livro livros[]) {
     Livro novoLivro;
-    novoLivro.id = rand() % 10000; // Gera um ID aleatório para o livro (pode ser melhorado para garantir unicidade)
+    novoLivro.id =  gerarCodigo(quantidadeDeLivros, livros);
 
-    FILE *file = fopen("data/livros.bin", "a");
+    FILE *file = fopen("data/livros.txt", "a");
     if (file == NULL) {
-        printf("Erro ao abrir o arquivo de livros: ../data/livros.txt\n");
-        printf("(verifique se o executável está sendo executado a partir de src/)\n");
+        printf("Erro ao abrir o arquivo de livros\n");
         printf("Pressione Enter para continuar...");
         clearBuffer();
         getchar();

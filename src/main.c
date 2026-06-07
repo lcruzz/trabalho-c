@@ -30,7 +30,7 @@ int main() {
         switch (response) {
             case 1:
                 clear();
-                gerenciarLivros();
+                gerenciarLivros(quantidadeDeLivros, livros);
                 break;
             case 2:
                 clear();

@@ -12,6 +12,7 @@ typedef struct {
     char autor[TAMANHO_AUTOR];
     int anoPublicacao;
     int quantidadeDisponivel;
+    int quantidadeDeEmprestimo;
 } Livro;
 
 #endif

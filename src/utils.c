@@ -92,7 +92,7 @@ int lerQuantidadeDeLivros(const char *nomeArquivo) {
 }
 
 // Função para ler uma linha de um arquivo e armazenar os dados em uma struct Livro
-int lerArquivoDeLivros(const char *nomeArquivo, Livro livros[]) {
+int lerArquivoDeLivros(char *nomeArquivo, Livro livros[]) {
     int contador = 0;
     char linha[512];
     FILE *arquivo = fopen(nomeArquivo, "r");
@@ -124,10 +124,43 @@ int lerArquivoDeLivros(const char *nomeArquivo, Livro livros[]) {
         token = strtok(NULL, ",");
         if (!token) continue;
         livros[contador].quantidadeDisponivel = atoi(token);
+
+        token = strtok(NULL, ",");
+        if (!token) continue;
+        livros[contador].quantidadeDeEmprestimo = atoi(token);
         
         contador++;
     }
 
     fclose(arquivo);
     return contador;
+}
+
+
+// -------------------------------------------------------------------------------------
+
+
+// Função que gera um código único entre 1 e 9999
+int gerarCodigo(int quantidadeDeLivros, Livro livros[]) {
+    int contador = 0, codigo = 0;
+
+    while (1) {
+        codigo = rand() % 10000;
+
+        for(int i = 0; i < quantidadeDeLivros; i++) {
+            if (codigo == livros[i].id) {
+                contador++;
+            } else {
+                continue;
+            }
+        }
+
+        if (contador >= 1) {
+            continue;
+        } else {
+            break;
+        }
+    }
+
+    return codigo;
 }

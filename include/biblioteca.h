@@ -29,4 +29,6 @@ int lerQuantidadeDeLivros(const char *nomeArquivo);
 
 int lerArquivoDeLivros(const char *nomeArquivo, Livro livros[]);
 
+int gerarCodigo(int quantidadeDeLivro, Livro livros[]);
+
 #endif
