@@ -4,7 +4,9 @@
 
 int main() {
     int response = 0;
-    
+    Livro *livros = malloc(lerQuantidadeDeLivros("data/livros.txt") * sizeof(Livro));
+    int quantidadeDeLivros = lerArquivoDeLivros("data/livros.txt", livros);
+
     while (1) {
         printf("==========================================\n");
         printf("  Sistema de Gerenciamento de Biblioteca  \n");

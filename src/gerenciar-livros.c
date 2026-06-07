@@ -65,7 +65,7 @@ int cadastrarLivro() {
     Livro novoLivro;
     novoLivro.id = rand() % 10000; // Gera um ID aleatório para o livro (pode ser melhorado para garantir unicidade)
 
-    FILE *file = fopen("data/livros.txt", "a");
+    FILE *file = fopen("data/livros.bin", "a");
     if (file == NULL) {
         printf("Erro ao abrir o arquivo de livros: ../data/livros.txt\n");
         printf("(verifique se o executável está sendo executado a partir de src/)\n");

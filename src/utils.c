@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "../include/biblioteca.h"
 
 // Função para limpar a tela
 void clear() {
@@ -16,6 +17,10 @@ void clear() {
 void clearBuffer(){
     while (getchar() != '\n');
 }
+
+
+// -----------------------------------------------------------------------------
+
 
 // Função para retirar espaços das bordas de uma string
 void retirarEspacoDasBordas(char *str) {
@@ -33,6 +38,7 @@ void retirarEspacoDasBordas(char *str) {
     str[j] = '\0';
 }
 
+// Função para retirar espaços duplicados entre palavras
 void retirarEspacoDoMeio(char *str) {
     int i = 0, j = 0;
     int dentro_espaco = 0;
@@ -52,7 +58,7 @@ void retirarEspacoDoMeio(char *str) {
 
 // Função para converter uma string para minúsculas
 void converterParaMinusculo(char *str) {
-    for (int i = 0; i < strlen(str) - 1; i++) {
+    for (int i = 0; i < strlen(str); i++) {
         str[i] = tolower(str[i]);
     }
 }
@@ -64,7 +70,64 @@ void tratarString(char *str) {
     converterParaMinusculo(str);
 }
 
-// Função para ler uma linha de um arquivo e armazenar os dados em uma estrutura Livro
-int lerLivroDeArquivo(FILE *file, Livro *livro) {
-    
+
+// -----------------------------------------------------------------------------------
+
+
+// Função que pega a quantidade de livros presente no arquivo
+int lerQuantidadeDeLivros(const char *nomeArquivo) {
+    int quantidadeDeLivros = 0;
+    FILE *arquivo = fopen(nomeArquivo, "r");
+
+    if (arquivo == NULL) {
+        printf("Não foi possivel abrir o arquivo ou o arquivo não existe.\n");
+        return 0;
+    }
+
+    quantidadeDeLivros = fgetc(arquivo);
+
+    fclose(arquivo);
+
+    return quantidadeDeLivros;
+}
+
+// Função para ler uma linha de um arquivo e armazenar os dados em uma struct Livro
+int lerArquivoDeLivros(const char *nomeArquivo, Livro livros[]) {
+    int contador = 0;
+    char linha[512];
+    FILE *arquivo = fopen(nomeArquivo, "r");
+
+    if (arquivo == NULL) {
+        printf("Não foi possível abrir o arquivo ou o arquivo não existe.\n");
+        return 0;
+    }
+
+    while (fgets(linha, sizeof(linha), arquivo)) {
+        linha[strcspn(linha, "\n")] = '\0';
+
+        char *token = strtok(linha, ",");
+        if (!token) continue;
+        livros[contador].id = atoi(token);
+        
+        token = strtok(NULL, ",");
+        if (!token) continue;
+        strcpy(livros[contador].titulo, token);
+        
+        token = strtok(NULL, ",");
+        if (!token) continue;
+        strcpy(livros[contador].autor, token);
+        
+        token = strtok(NULL, ",");
+        if (!token) continue;
+        livros[contador].anoPublicacao = atoi(token);
+
+        token = strtok(NULL, ",");
+        if (!token) continue;
+        livros[contador].quantidadeDisponivel = atoi(token);
+        
+        contador++;
+    }
+
+    fclose(arquivo);
+    return contador;
 }

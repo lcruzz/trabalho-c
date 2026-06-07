@@ -6,6 +6,7 @@
 #include "gerenciar-livros.h"
 #include "gerenciar-usuarios.h"
 
+
 // Funções para gerenciar livros
 int gerenciarLivros();
 
@@ -23,5 +24,9 @@ void clear();
 void clearBuffer();
 
 void tratarString(char *str);
+
+int lerQuantidadeDeLivros(const char *nomeArquivo);
+
+int lerArquivoDeLivros(const char *nomeArquivo, Livro livros[]);
 
 #endif
