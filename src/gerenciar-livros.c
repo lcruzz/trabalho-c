@@ -34,6 +34,8 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
                 cadastrarLivro(quantidadeDeLivros, livros);
                 break;
             case 2:
+                clear();
+                removerLivro(quantidadeDeLivros, livros);
                 break;
             case 3:
                 break;
@@ -63,7 +65,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
 
 int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     (*quantidadeDeLivros)++;
-    int elemento = *quantidadeDeLivros - 1;
+    int indice = *quantidadeDeLivros - 1;
 
     // Realoca a memória no ponteiro *livro com a quantidade necessária para alocar mais um livro
     Livro *livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
@@ -75,46 +77,115 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
 
     *livros = livro;
 
-    printf("===========================\n");
-    printf("      Cadastrar Livro      \n");
-    printf("===========================\n\n");
+    printf("===============================\n");
+    printf("        Cadastrar Livro        \n");
+    printf("===============================\n\n");
 
     clearBuffer();
     
-    (*livros)[elemento].id =  gerarCodigo(*quantidadeDeLivros, *livros);
+    (*livros)[indice].id =  gerarCodigo(*quantidadeDeLivros, *livros);
     
     printf("Digite o título do livro: ");
-    fgets((*livros)[elemento].titulo, sizeof((*livros)[elemento].titulo), stdin);
-    (*livros)[elemento].titulo[strcspn((*livros)[elemento].titulo, "\n")] = '\0';
+    fgets((*livros)[indice].titulo, sizeof((*livros)[indice].titulo), stdin);
+    (*livros)[indice].titulo[strcspn((*livros)[indice].titulo, "\n")] = '\0';
 
     printf("Digite o autor do livro: ");
-    fgets((*livros)[elemento].autor, sizeof((*livros)[elemento].autor), stdin);
-    (*livros)[elemento].autor[strcspn((*livros)[elemento].autor, "\n")] = '\0';
+    fgets((*livros)[indice].autor, sizeof((*livros)[indice].autor), stdin);
+    (*livros)[indice].autor[strcspn((*livros)[indice].autor, "\n")] = '\0';
 
     printf("Digite o ano de publicação do livro: ");
-    while (!(scanf(" %d", &(*livros)[elemento].anoPublicacao))) {
+    while (!(scanf(" %d", &(*livros)[indice].anoPublicacao))) {
         clearBuffer();
         printf("Entrada inválida. Por favor, insira um número para o ano de publicação.\n");
         printf("Digite o ano de publicação do livro: ");
     }
 
     printf("Digite a quantidade disponível do livro: ");
-    while (!(scanf(" %d", &(*livros)[elemento].quantidadeDisponivel))) {
+    while (!(scanf(" %d", &(*livros)[indice].quantidadeDisponivel))) {
         clearBuffer();
         printf("Entrada inválida. Por favor, insira um número para a quantidade disponível.\n");
         printf("Digite a quantidade disponível do livro: ");
     }
 
-    (*livros)[elemento].quantidadeDeEmprestimo = 0;
+    (*livros)[indice].quantidadeDeEmprestimo = 0;
 
-    tratarString((*livros)[elemento].titulo);
-    tratarString((*livros)[elemento].autor);
+    tratarString((*livros)[indice].titulo);
+    tratarString((*livros)[indice].autor);
+
+    printf("\nLivro cadastrado com sucesso!!!");
+    printf("\nPressione Enter para continuar...");
+    clearBuffer();
+    getchar();
+    clear();
 
     return 0;
 }
 
-int removerLivro() {
+int removerLivro(int *quantidadeDeLivros, Livro **livros) {
+    int codigo = 0, indice = -1;
 
-
-    return 0;
+    while (1) {
+        printf("=============================\n");
+        printf("        Remover Livro        \n");
+        printf("=============================\n\n");
+    
+        printf("Informe o código do livro: ");
+        if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > 9999) {
+            printf("\nEntrada inválida. Por favor, insira um código válido.");
+            printf("\nPressione Enter para continuar...");
+            clearBuffer();
+            getchar();
+            clear();
+            continue;
+        };
+    
+        for (int i = 0; i < *quantidadeDeLivros; i++) {
+            if (codigo == (*livros)[i].id) {
+                indice = i;
+            }
+        }
+    
+        if (indice > -1) {
+            if ((*livros)[indice].quantidadeDeEmprestimo > 0) {
+                printf("\nO livro não pode ser removido do sistema.");
+                printf("\nPressione Enter para continuar...");
+                clearBuffer();
+                getchar();
+                clear();
+    
+                return 0;
+            } else {
+                for (int i = indice; i < *quantidadeDeLivros - 1; i++) {
+                    (*livros)[i] = (*livros)[i + 1];
+                }
+            }
+        } else {
+            printf("\nO código do livro é invalido. Por favor, insira um código válido.");
+            printf("\nPressione Enter para continuar...");
+            clearBuffer();
+            getchar();
+            clear();
+    
+            continue;
+        }
+    
+        (*quantidadeDeLivros)--;
+    
+        Livro *livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
+    
+        if (livro == NULL) {
+            printf("Ocorreu um erro na alocação do ponteiro\n");
+            return -1;
+        }
+    
+        *livros = livro;
+    
+        printf("\nLivro removido com sucesso!!!");
+        printf("\nPressione Enter para continuar...");
+        clearBuffer();
+        getchar();
+        clear();
+    
+        return 0;
+    }
 }

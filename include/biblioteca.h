@@ -12,7 +12,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros);
 
 int cadastrarLivro(int *quantidadeDeLivros, Livro **livros);
 
-int removerLivro();
+int removerLivro(int *quantidadeDeLivros, Livro **livros);
 
 // Funções para gerenciar usuários
 int gerenciarUsuarios();

@@ -11,8 +11,8 @@ int main() {
     lerArquivoDeLivros("data/livros.bin", quantidadeDeLivros, livros);
 
     if (quantidadeDeLivros > 0) {
-        for(int i = 0; i < quantidadeDeLivros; i++) {
-            printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d | Quantidade de Empréstimos: %d\n", livros[i].id, livros[i].titulo, livros[i].autor, livros[i].anoPublicacao, livros[i].quantidadeDisponivel, livros[i].quantidadeDeEmprestimo);
+        for (int i = 0; i < quantidadeDeLivros; i++) {
+            printf("código: %d | título: %s | autor: %s | ano de lançamento: %d | quantidade: %d\n", livros[i].id, livros[i].titulo, livros[i].autor, livros[i].anoPublicacao, livros[i].quantidadeDisponivel);
         }
     }
 
