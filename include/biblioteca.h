@@ -8,9 +8,11 @@
 
 
 // Funções para gerenciar livros
-int gerenciarLivros();
+int gerenciarLivros(int *quantidadeDeLivros, Livro **livros);
 
-int cadastrarLivro();
+int cadastrarLivro(int *quantidadeDeLivros, Livro **livros);
+
+int removerLivro();
 
 // Funções para gerenciar usuários
 int gerenciarUsuarios();
@@ -25,9 +27,11 @@ void clearBuffer();
 
 void tratarString(char *str);
 
-int lerQuantidadeDeLivros(const char *nomeArquivo);
+int lerQuantidadeDeLivros(char *nomeArquivo);
 
-int lerArquivoDeLivros(const char *nomeArquivo, Livro livros[]);
+int lerArquivoDeLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]);
+
+void salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]);
 
 int gerarCodigo(int quantidadeDeLivro, Livro livros[]);
 

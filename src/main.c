@@ -2,10 +2,19 @@
 #include <stdlib.h>
 #include "../include/biblioteca.h"
 
+
 int main() {
     int response = 0;
-    Livro *livros = malloc(lerQuantidadeDeLivros("data/livros.txt") * sizeof(Livro));
-    int quantidadeDeLivros = lerArquivoDeLivros("data/livros.txt", livros);
+    int quantidadeDeLivros = lerQuantidadeDeLivros("data/livros.bin");
+    Livro *livros = (Livro *) malloc(lerQuantidadeDeLivros("data/livros.bin") * sizeof(Livro));
+
+    lerArquivoDeLivros("data/livros.bin", quantidadeDeLivros, livros);
+
+    if (quantidadeDeLivros > 0) {
+        for(int i = 0; i < quantidadeDeLivros; i++) {
+            printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d | Quantidade de Empréstimos: %d\n", livros[i].id, livros[i].titulo, livros[i].autor, livros[i].anoPublicacao, livros[i].quantidadeDisponivel, livros[i].quantidadeDeEmprestimo);
+        }
+    }
 
     while (1) {
         printf("==========================================\n");
@@ -30,7 +39,7 @@ int main() {
         switch (response) {
             case 1:
                 clear();
-                gerenciarLivros(quantidadeDeLivros, livros);
+                gerenciarLivros(&quantidadeDeLivros, &livros);
                 break;
             case 2:
                 clear();
@@ -43,6 +52,7 @@ int main() {
             case 4:
                 break;
             case 0:
+                salvarLivros("data/livros.bin", quantidadeDeLivros, livros);
                 printf("Saindo do sistema. Até logo!\n");
                 return 0;
             default:

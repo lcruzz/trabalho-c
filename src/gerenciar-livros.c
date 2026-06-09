@@ -3,7 +3,7 @@
 #include <string.h>
 #include "../include/biblioteca.h"
 
-int gerenciarLivros(int *quantidadeDeLivros, Livro livros[]) {
+int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
     int response = 0;
 
     while(1) {
@@ -61,52 +61,60 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro livros[]) {
     return 0;
 }
 
-int cadastrarLivro(int *quantidadeDeLivros, Livro livros[]) {
-    Livro novoLivro;
-    novoLivro.id =  gerarCodigo(quantidadeDeLivros, livros);
+int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
+    (*quantidadeDeLivros)++;
+    int elemento = *quantidadeDeLivros - 1;
 
-    FILE *file = fopen("data/livros.txt", "a");
-    if (file == NULL) {
-        printf("Erro ao abrir o arquivo de livros\n");
-        printf("Pressione Enter para continuar...");
-        clearBuffer();
-        getchar();
+    // Realoca a memória no ponteiro *livro com a quantidade necessária para alocar mais um livro
+    Livro *livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
+
+    if (livro == NULL) {
+        printf("Ocorreu um erro na alocação do ponteiro\n");
         return -1;
     }
 
-    clearBuffer();
+    *livros = livro;
 
+    printf("===========================\n");
+    printf("      Cadastrar Livro      \n");
+    printf("===========================\n\n");
+
+    clearBuffer();
+    
+    (*livros)[elemento].id =  gerarCodigo(*quantidadeDeLivros, *livros);
+    
     printf("Digite o título do livro: ");
-    fgets(novoLivro.titulo, sizeof(novoLivro.titulo), stdin);
-    novoLivro.titulo[strcspn(novoLivro.titulo, "\n")] = '\0';
+    fgets((*livros)[elemento].titulo, sizeof((*livros)[elemento].titulo), stdin);
+    (*livros)[elemento].titulo[strcspn((*livros)[elemento].titulo, "\n")] = '\0';
 
     printf("Digite o autor do livro: ");
-    fgets(novoLivro.autor, sizeof(novoLivro.autor), stdin);
-    novoLivro.autor[strcspn(novoLivro.autor, "\n")] = '\0';
+    fgets((*livros)[elemento].autor, sizeof((*livros)[elemento].autor), stdin);
+    (*livros)[elemento].autor[strcspn((*livros)[elemento].autor, "\n")] = '\0';
 
     printf("Digite o ano de publicação do livro: ");
-    while (!(scanf(" %d", &novoLivro.anoPublicacao))) {
+    while (!(scanf(" %d", &(*livros)[elemento].anoPublicacao))) {
         clearBuffer();
         printf("Entrada inválida. Por favor, insira um número para o ano de publicação.\n");
         printf("Digite o ano de publicação do livro: ");
     }
 
     printf("Digite a quantidade disponível do livro: ");
-    while (!(scanf(" %d", &novoLivro.quantidadeDisponivel))) {
+    while (!(scanf(" %d", &(*livros)[elemento].quantidadeDisponivel))) {
         clearBuffer();
         printf("Entrada inválida. Por favor, insira um número para a quantidade disponível.\n");
         printf("Digite a quantidade disponível do livro: ");
     }
 
-    tratarString(novoLivro.titulo);
-    tratarString(novoLivro.autor);
+    (*livros)[elemento].quantidadeDeEmprestimo = 0;
 
-    fprintf(file, "%d,%s,%s,%d,%d\n", novoLivro.id, novoLivro.titulo, novoLivro.autor, novoLivro.anoPublicacao, novoLivro.quantidadeDisponivel);
-    fclose(file);
+    tratarString((*livros)[elemento].titulo);
+    tratarString((*livros)[elemento].autor);
 
     return 0;
 }
 
 int removerLivro() {
+
+
     return 0;
 }

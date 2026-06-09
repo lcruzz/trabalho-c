@@ -75,16 +75,15 @@ void tratarString(char *str) {
 
 
 // Função que pega a quantidade de livros presente no arquivo
-int lerQuantidadeDeLivros(const char *nomeArquivo) {
+int lerQuantidadeDeLivros(char *nomeArquivo) {
     int quantidadeDeLivros = 0;
-    FILE *arquivo = fopen(nomeArquivo, "r");
+    FILE *arquivo = fopen(nomeArquivo, "rb");
 
     if (arquivo == NULL) {
-        printf("Não foi possivel abrir o arquivo ou o arquivo não existe.\n");
         return 0;
     }
 
-    quantidadeDeLivros = fgetc(arquivo);
+    fread(&quantidadeDeLivros, sizeof(int), 1, arquivo);
 
     fclose(arquivo);
 
@@ -92,48 +91,33 @@ int lerQuantidadeDeLivros(const char *nomeArquivo) {
 }
 
 // Função para ler uma linha de um arquivo e armazenar os dados em uma struct Livro
-int lerArquivoDeLivros(char *nomeArquivo, Livro livros[]) {
-    int contador = 0;
-    char linha[512];
-    FILE *arquivo = fopen(nomeArquivo, "r");
+int lerArquivoDeLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]) {
+    FILE *arquivo = fopen(nomeArquivo, "rb");
 
     if (arquivo == NULL) {
-        printf("Não foi possível abrir o arquivo ou o arquivo não existe.\n");
         return 0;
     }
 
-    while (fgets(linha, sizeof(linha), arquivo)) {
-        linha[strcspn(linha, "\n")] = '\0';
+    // Ignora a primeira posição do arquivo
+    fseek(arquivo, sizeof(int), SEEK_SET);
 
-        char *token = strtok(linha, ",");
-        if (!token) continue;
-        livros[contador].id = atoi(token);
-        
-        token = strtok(NULL, ",");
-        if (!token) continue;
-        strcpy(livros[contador].titulo, token);
-        
-        token = strtok(NULL, ",");
-        if (!token) continue;
-        strcpy(livros[contador].autor, token);
-        
-        token = strtok(NULL, ",");
-        if (!token) continue;
-        livros[contador].anoPublicacao = atoi(token);
-
-        token = strtok(NULL, ",");
-        if (!token) continue;
-        livros[contador].quantidadeDisponivel = atoi(token);
-
-        token = strtok(NULL, ",");
-        if (!token) continue;
-        livros[contador].quantidadeDeEmprestimo = atoi(token);
-        
-        contador++;
-    }
+    fread(livros, sizeof(Livro), quantidadeDeLivros, arquivo);
 
     fclose(arquivo);
-    return contador;
+    return 0;
+}
+
+// Função para salvar livros no arquivo "livros.txt"
+void salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]) {
+    FILE *arquivo = fopen(nomeArquivo, "wb");
+
+    fwrite(&quantidadeDeLivros, sizeof(int), 1, arquivo);
+
+    fwrite(livros, sizeof(Livro), quantidadeDeLivros, arquivo);
+
+    free(livros);
+
+    fclose(arquivo);
 }
 
 
@@ -142,25 +126,19 @@ int lerArquivoDeLivros(char *nomeArquivo, Livro livros[]) {
 
 // Função que gera um código único entre 1 e 9999
 int gerarCodigo(int quantidadeDeLivros, Livro livros[]) {
-    int contador = 0, codigo = 0;
+    int verificador, codigo = 0;
 
-    while (1) {
+    do {
+        verificador = 0;
+
         codigo = rand() % 10000;
 
         for(int i = 0; i < quantidadeDeLivros; i++) {
             if (codigo == livros[i].id) {
-                contador++;
-            } else {
-                continue;
+                verificador = 1;
             }
         }
-
-        if (contador >= 1) {
-            continue;
-        } else {
-            break;
-        }
-    }
+    } while (verificador);
 
     return codigo;
 }
