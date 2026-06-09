@@ -10,12 +10,6 @@ int main() {
 
     lerArquivoDeLivros("data/livros.bin", quantidadeDeLivros, livros);
 
-    if (quantidadeDeLivros > 0) {
-        for (int i = 0; i < quantidadeDeLivros; i++) {
-            printf("código: %d | título: %s | autor: %s | ano de lançamento: %d | quantidade: %d\n", livros[i].id, livros[i].titulo, livros[i].autor, livros[i].anoPublicacao, livros[i].quantidadeDisponivel);
-        }
-    }
-
     while (1) {
         printf("==========================================\n");
         printf("  Sistema de Gerenciamento de Biblioteca  \n");

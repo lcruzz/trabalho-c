@@ -15,7 +15,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
         printf("[2] Remover Livro \n");
         printf("[3] Listar Todos os Livros \n");
         printf("[4] Buscar Livro \n");
-        printf("[5] Informar Empréstimos \n");
+        printf("[5] Informar Empréstimo \n");
         printf("[6] Atualizar Informações de um Livro \n");
         printf("[0] Voltar ao Menu Principal \n\n");
     
@@ -38,6 +38,8 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
                 removerLivro(quantidadeDeLivros, livros);
                 break;
             case 3:
+                clear();
+                listarLivros(quantidadeDeLivros, livros);
                 break;
             case 4:
                 break;
@@ -63,6 +65,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
     return 0;
 }
 
+// Função para cadastrar um livro no sistema
 int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     (*quantidadeDeLivros)++;
     int indice = *quantidadeDeLivros - 1;
@@ -121,6 +124,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     return 0;
 }
 
+// Função para remover livro do sistema
 int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     int codigo = 0, indice = -1;
 
@@ -188,4 +192,28 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     
         return 0;
     }
+}
+
+// Função para listar todos os livros do sistema
+int listarLivros(int *quantidadeDeLivros, Livro **livros) {
+    printf("====================================\n");
+    printf("        Livros da Biblioteca        \n");
+    printf("====================================\n\n");
+
+    for(int i = 0; i < *quantidadeDeLivros; i++) {
+        printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n",
+                (*livros)[i].id,
+                (*livros)[i].titulo,
+                (*livros)[i].autor,
+                (*livros)[i].anoPublicacao,
+                (*livros)[i].quantidadeDisponivel);
+    };
+
+    printf("\nTodos os livros foram listados.");
+    printf("\nPressione Enter para continuar...");
+    clearBuffer();
+    getchar();
+    clear();
+
+    return 0;
 }
