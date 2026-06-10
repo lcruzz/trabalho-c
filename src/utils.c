@@ -142,3 +142,12 @@ int gerarCodigo(int quantidadeDeLivros, Livro livros[]) {
 
     return codigo;
 }
+
+// Função que imprime uma mensagem de sucesso ou de erro no terminal
+void mensagem(char mensagem[]) {
+    clearBuffer();
+    printf("\n%s", mensagem);
+    printf("\nPressiones Enter para continuar...");
+    getchar();
+    clear();
+}

@@ -19,14 +19,10 @@ int main() {
         printf("[2] Gerenciar Usuários \n");
         printf("[3] Gerenciar Empréstimos e Devoluções \n");
         printf("[4] Relatórios \n");
-        printf("[0] Sair \n\n");
+        printf("[0] Sair \n");
     
         if (!(scanf(" %d", &response)) || response > 4 || response < 0) {
-            clearBuffer();
-            printf("Entrada inválida. Por favor, insira um número válido.\n");
-            printf("Pressione Enter para continuar...");
-            getchar();
-            clear();
+            mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         }
 
@@ -50,10 +46,7 @@ int main() {
                 printf("Saindo do sistema. Até logo!\n");
                 return 0;
             default:
-                printf("Opção inválida. Por favor, escolha uma opção válida.\n");
-                printf("Pressione Enter para continuar...");
-                getchar();
-                clear();
+                mensagem("Opção inválida. Por favor, insira uma opção válida.");
                 break;
         }
 

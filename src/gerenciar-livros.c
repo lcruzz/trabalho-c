@@ -20,11 +20,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
         printf("[0] Voltar ao Menu Principal \n\n");
     
         if (!(scanf(" %d", &response)) || response > 6 || response < 0) {
-            clearBuffer();
-            printf("Entrada inválida. Por favor, insira um número.\n");
-            printf("Pressione Enter para continuar...");
-            getchar();
-            clear();
+            mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         };
 
@@ -51,10 +47,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
                 clear();
                 return 0;
             default:
-                printf("Opção inválida. Por favor, escolha uma opção válida.\n");
-                printf("Pressione Enter para continuar...");
-                getchar();
-                clear();
+                mensagem("Entrada inválida. Por favor, insira um número válido.");
                 break;
         }
 
@@ -115,11 +108,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     tratarString((*livros)[indice].titulo);
     tratarString((*livros)[indice].autor);
 
-    printf("\nLivro cadastrado com sucesso!!!");
-    printf("\nPressione Enter para continuar...");
-    clearBuffer();
-    getchar();
-    clear();
+    mensagem("Livro cadastrado com sucesso.");
 
     return 0;
 }
@@ -135,11 +124,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     
         printf("Informe o código do livro: ");
         if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > 9999) {
-            printf("\nEntrada inválida. Por favor, insira um código válido.");
-            printf("\nPressione Enter para continuar...");
-            clearBuffer();
-            getchar();
-            clear();
+            mensagem("Entrada inválida. Por favor, insira um código válido.");
             continue;
         };
     
@@ -151,11 +136,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     
         if (indice > -1) {
             if ((*livros)[indice].quantidadeDeEmprestimo > 0) {
-                printf("\nO livro não pode ser removido do sistema.");
-                printf("\nPressione Enter para continuar...");
-                clearBuffer();
-                getchar();
-                clear();
+                mensagem("O livro não pode ser removido do sistema.");
     
                 return 0;
             } else {
@@ -164,12 +145,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
                 }
             }
         } else {
-            printf("\nO código do livro é invalido. Por favor, insira um código válido.");
-            printf("\nPressione Enter para continuar...");
-            clearBuffer();
-            getchar();
-            clear();
-    
+            mensagem("Entrada inválida. Por favor, insira um código válido.");
             continue;
         }
     
@@ -184,11 +160,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     
         *livros = livro;
     
-        printf("\nLivro removido com sucesso!!!");
-        printf("\nPressione Enter para continuar...");
-        clearBuffer();
-        getchar();
-        clear();
+        mensagem("Livro removido com sucesso.");
     
         return 0;
     }
@@ -209,11 +181,7 @@ int listarLivros(int *quantidadeDeLivros, Livro **livros) {
                 (*livros)[i].quantidadeDisponivel);
     };
 
-    printf("\nTodos os livros foram listados.");
-    printf("\nPressione Enter para continuar...");
-    clearBuffer();
-    getchar();
-    clear();
+    mensagem("Todos os livros foram listados.");
 
     return 0;
 }

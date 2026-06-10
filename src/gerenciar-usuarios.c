@@ -18,11 +18,7 @@ int gerenciarUsuarios() {
         printf("[0] Voltar ao Menu Principal \n\n");
 
         if (!(scanf(" %d", &response)) || response > 5 || response < 0) {
-            clearBuffer();
-            printf("Entrada inválida. Por favor, insira um número.\n");
-            printf("Pressione Enter para continuar...");
-            getchar();
-            clear();
+            mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         };
 
@@ -46,10 +42,7 @@ int gerenciarUsuarios() {
                 clear();
                 return 0;
             default:
-                printf("Entrada inválida. Por favor, insira um número.\n");
-                printf("Pressione Enter para continuar...");
-                getchar();
-                clear();
+                mensagem("Entrada inválida. Por favor, insira uma opção válida.");
                 break;
         }
 
