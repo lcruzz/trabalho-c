@@ -146,25 +146,6 @@ int ordenar(int quantidadeDeLivros, Livro livros[]) {
     return 0;
 }
 
-// Função que gera um código único entre 1 e 9999
-int gerarCodigo(int quantidadeDeLivros, Livro livros[]) {
-    int verificador, codigo = 0;
-
-    do {
-        verificador = 0;
-
-        codigo = rand() % 10000;
-
-        for(int i = 0; i < quantidadeDeLivros; i++) {
-            if (codigo == livros[i].id) {
-                verificador = 1;
-            }
-        }
-    } while (verificador);
-
-    return codigo;
-}
-
 // Função que imprime uma mensagem de sucesso ou de erro no terminal
 void mensagem(char mensagem[]) {
     clearBuffer();

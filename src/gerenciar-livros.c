@@ -38,6 +38,8 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
                 listarLivros(quantidadeDeLivros, livros);
                 break;
             case 4:
+                clear();
+                buscarLivro(quantidadeDeLivros, livros);
                 break;
             case 5:
                 break;
@@ -79,7 +81,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
 
     clearBuffer();
     
-    (*livros)[indice].id =  gerarCodigo(*quantidadeDeLivros, *livros);
+    (*livros)[indice].id =  *quantidadeDeLivros - 1;
     
     printf("Digite o título do livro: ");
     fgets((*livros)[indice].titulo, sizeof((*livros)[indice].titulo), stdin);
@@ -188,5 +190,41 @@ int listarLivros(int *quantidadeDeLivros, Livro **livros) {
 
 // Função para buscar livros: busca parcial e busca completa
 int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
-    
+    int codigo, esquerda, direita, meio;
+
+    esquerda = 0;
+    direita = *quantidadeDeLivros - 1;
+
+    printf("============================\n");
+    printf("        Buscar Livro        \n");
+    printf("============================\n\n");
+
+    printf("Informe o código do livro: ");
+
+    if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > 9999) {
+        mensagem("Entrada inválida. Por favor, informe um código válido.");
+    }
+
+    while (esquerda <= direita) {
+        meio = esquerda + (direita - esquerda) / 2;
+
+        if ((*livros)[meio].id == codigo) {
+            printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n",
+                    (*livros)[meio].id,
+                    (*livros)[meio].titulo,
+                    (*livros)[meio].autor,
+                    (*livros)[meio].anoPublicacao,
+                    (*livros)[meio].quantidadeDisponivel);
+
+            mensagem("Livro encontrado com sucesso.");
+            return 0;
+        } else if ((*livros)[meio].id < codigo) {
+            esquerda = meio + 1;
+        } else {
+            direita = meio - 1;
+        }
+    }
+
+    mensagem("O livro não foi encontrado ou não existe no sistema.");
+    return 0;
 }

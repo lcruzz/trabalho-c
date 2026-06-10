@@ -39,8 +39,6 @@ void salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]);
 
 int ordenar(int quantidadeDeLivros, Livro livros[]);
 
-int gerarCodigo(int quantidadeDeLivros, Livro livros[]);
-
 void mensagem(char mensagem[]);
 
 #endif
