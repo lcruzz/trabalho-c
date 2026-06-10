@@ -16,6 +16,8 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros);
 
 int listarLivros(int *quantidadeDeLivros, Livro **livros);
 
+int buscarLivro(int *quantidadeDeLivros, Livro **livros);
+
 // Funções para gerenciar usuários
 int gerenciarUsuarios();
 
@@ -35,7 +37,9 @@ int lerArquivoDeLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]
 
 void salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]);
 
-int gerarCodigo(int quantidadeDeLivro, Livro livros[]);
+int ordenar(int quantidadeDeLivros, Livro livros[]);
+
+int gerarCodigo(int quantidadeDeLivros, Livro livros[]);
 
 void mensagem(char mensagem[]);
 

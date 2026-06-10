@@ -9,6 +9,7 @@ int main() {
     Livro *livros = (Livro *) malloc(lerQuantidadeDeLivros("data/livros.bin") * sizeof(Livro));
 
     lerArquivoDeLivros("data/livros.bin", quantidadeDeLivros, livros);
+    ordenar(quantidadeDeLivros, livros);
 
     while (1) {
         printf("==========================================\n");

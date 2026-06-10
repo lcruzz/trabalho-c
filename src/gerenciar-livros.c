@@ -185,3 +185,8 @@ int listarLivros(int *quantidadeDeLivros, Livro **livros) {
 
     return 0;
 }
+
+// Função para buscar livros: busca parcial e busca completa
+int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
+    
+}

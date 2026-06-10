@@ -123,6 +123,28 @@ void salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]) {
 
 // -------------------------------------------------------------------------------------
 
+// Função de ordenação de array
+int ordenar(int quantidadeDeLivros, Livro livros[]) {
+    Livro *livro = (Livro *) malloc(sizeof(Livro));
+
+    if (livro == NULL) {
+        printf("Ocorreu um erro na alocação do ponteiro.\n");
+        return -1;
+    }
+
+    for (int i = 0; i < quantidadeDeLivros; i++) {
+        for (int j = 0; j < quantidadeDeLivros; j++) {
+            if (livros[i].id < livros[j].id) {
+                *livro = livros[j];
+                livros[j] = livros[i];
+                livros[i] = *livro;
+            }
+        }
+    }
+
+    free(livro);
+    return 0;
+}
 
 // Função que gera um código único entre 1 e 9999
 int gerarCodigo(int quantidadeDeLivros, Livro livros[]) {
