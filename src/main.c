@@ -4,12 +4,12 @@
 
 
 int main() {
-    int response = 0;
+    int resposta = 0;
     int quantidadeDeLivros = lerQuantidadeDeLivros("data/livros.bin");
     Livro *livros = (Livro *) malloc(lerQuantidadeDeLivros("data/livros.bin") * sizeof(Livro));
 
     lerArquivoDeLivros("data/livros.bin", quantidadeDeLivros, livros);
-    ordenar(quantidadeDeLivros, livros);
+    ordenarLivros(quantidadeDeLivros, livros);
 
     while (1) {
         printf("==========================================\n");
@@ -20,14 +20,14 @@ int main() {
         printf("[2] Gerenciar Usuários \n");
         printf("[3] Gerenciar Empréstimos e Devoluções \n");
         printf("[4] Relatórios \n");
-        printf("[0] Sair \n");
+        printf("[0] Sair \n\n");
     
-        if (!(scanf(" %d", &response)) || response > 4 || response < 0) {
+        if (!(scanf(" %d", &resposta)) || resposta < 0 || resposta > 4) {
             mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         }
 
-        switch (response) {
+        switch (resposta) {
             case 1:
                 clear();
                 gerenciarLivros(&quantidadeDeLivros, &livros);

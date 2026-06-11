@@ -4,7 +4,7 @@
 #include "../include/biblioteca.h"
 
 int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
-    int response = 0;
+    int resposta = 0;
 
     while(1) {
         printf("==================================\n");
@@ -19,12 +19,12 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
         printf("[6] Atualizar Informações de um Livro \n");
         printf("[0] Voltar ao Menu Principal \n\n");
     
-        if (!(scanf(" %d", &response)) || response > 6 || response < 0) {
+        if (!(scanf(" %d", &resposta)) || resposta < 0 || resposta > 6) {
             mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         };
 
-        switch (response) {
+        switch (resposta) {
             case 1:
                 clear();
                 cadastrarLivro(quantidadeDeLivros, livros);
@@ -44,6 +44,8 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
             case 5:
                 break;
             case 6:
+                clear();
+                atualizarLivro(quantidadeDeLivros, livros);
                 break;
             case 0:
                 clear();
@@ -63,7 +65,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
 // Função para cadastrar um livro no sistema
 int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     (*quantidadeDeLivros)++;
-    int indice = *quantidadeDeLivros - 1;
+    int codigo = *quantidadeDeLivros - 1;
 
     // Realoca a memória no ponteiro *livro com a quantidade necessária para alocar mais um livro
     Livro *livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
@@ -81,34 +83,34 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
 
     clearBuffer();
     
-    (*livros)[indice].id =  *quantidadeDeLivros - 1;
+    (*livros)[codigo].id =  *quantidadeDeLivros - 1;
     
     printf("Digite o título do livro: ");
-    fgets((*livros)[indice].titulo, sizeof((*livros)[indice].titulo), stdin);
-    (*livros)[indice].titulo[strcspn((*livros)[indice].titulo, "\n")] = '\0';
+    fgets((*livros)[codigo].titulo, sizeof((*livros)[codigo].titulo), stdin);
+    (*livros)[codigo].titulo[strcspn((*livros)[codigo].titulo, "\n")] = '\0';
 
     printf("Digite o autor do livro: ");
-    fgets((*livros)[indice].autor, sizeof((*livros)[indice].autor), stdin);
-    (*livros)[indice].autor[strcspn((*livros)[indice].autor, "\n")] = '\0';
+    fgets((*livros)[codigo].autor, sizeof((*livros)[codigo].autor), stdin);
+    (*livros)[codigo].autor[strcspn((*livros)[codigo].autor, "\n")] = '\0';
 
     printf("Digite o ano de publicação do livro: ");
-    while (!(scanf(" %d", &(*livros)[indice].anoPublicacao))) {
+    while (!(scanf(" %d", &(*livros)[codigo].anoPublicacao))) {
         clearBuffer();
         printf("Entrada inválida. Por favor, insira um número para o ano de publicação.\n");
         printf("Digite o ano de publicação do livro: ");
     }
 
     printf("Digite a quantidade disponível do livro: ");
-    while (!(scanf(" %d", &(*livros)[indice].quantidadeDisponivel))) {
+    while (!(scanf(" %d", &(*livros)[codigo].quantidadeDisponivel))) {
         clearBuffer();
         printf("Entrada inválida. Por favor, insira um número para a quantidade disponível.\n");
         printf("Digite a quantidade disponível do livro: ");
     }
 
-    (*livros)[indice].quantidadeDeEmprestimo = 0;
+    (*livros)[codigo].quantidadeDeEmprestimo = 0;
 
-    tratarString((*livros)[indice].titulo);
-    tratarString((*livros)[indice].autor);
+    tratarString((*livros)[codigo].titulo);
+    tratarString((*livros)[codigo].autor);
 
     mensagem("Livro cadastrado com sucesso.");
 
@@ -125,7 +127,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
         printf("=============================\n\n");
     
         printf("Informe o código do livro: ");
-        if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > 9999) {
+        if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeLivros - 1) {
             mensagem("Entrada inválida. Por favor, insira um código válido.");
             continue;
         };
@@ -201,7 +203,7 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
 
     printf("Informe o código do livro: ");
 
-    if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > 9999) {
+    if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeLivros - 1) {
         mensagem("Entrada inválida. Por favor, informe um código válido.");
     }
 
@@ -226,5 +228,70 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
     }
 
     mensagem("O livro não foi encontrado ou não existe no sistema.");
+    return 0;
+}
+
+// Função para atualizar informações de um livro existente
+int atualizarLivro(int *quantidadeDeLivros, Livro **livros) {
+    int resposta, codigo;
+
+    while (1) {
+        printf("===============================\n");
+        printf("        Atualizar Livro        \n");
+        printf("===============================\n\n");
+    
+        printf("[1] Atualizar Título \n");
+        printf("[2] Atualizar Autor \n");
+        printf("[3] Atualizar Ano de Lançamento \n");
+        printf("[4] Atualizar Quantidade Disponível \n");
+        printf("[0] Voltar para Gerenciar Livros \n\n");
+
+        printf("Informe o campo do livro: ");
+    
+        if (!(scanf("%d", &resposta)) || resposta < 0 || resposta > 4) {
+            mensagem("Entrada inválida. Por favor, informe um número válido.");
+            continue;
+        }
+
+        if (resposta == 0) {
+            break;
+        }
+    
+        printf("Informe o código do livro: ");
+    
+        if (!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeLivros - 1) {
+            mensagem("Entrada inválida. Por favor, informe um código válido");
+            continue;
+        }
+
+        clearBuffer();
+
+        switch (resposta) {
+            case 1:
+                printf("Título: ");
+                fgets((*livros)[codigo].titulo, sizeof((*livros)[codigo].titulo), stdin);
+                clear();
+                continue;
+            case 2:
+                printf("Autor: ");
+                fgets((*livros)[codigo].autor, sizeof((*livros)[codigo].autor), stdin);
+                clear();
+                continue;
+            case 3:
+                printf("Ano de Lançamento: ");
+                if (!(scanf("%d", (*livros)[codigo].anoPublicacao))) mensagem("Entrada inválida. Por favor, informe um código válido");
+                clear();
+                continue;
+            case 4:
+                printf("Quantidade Disponível: ");
+                if (!(scanf("%d", (*livros)[codigo].quantidadeDisponivel))) mensagem("Entrada inválida. Por favor, informe um código válido");
+                clear();
+                continue;
+            default:
+                mensagem("Entrada inválida. Por favor, informe um número válido");
+                continue;
+        }
+    }
+
     return 0;
 }
