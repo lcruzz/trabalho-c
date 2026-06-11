@@ -40,7 +40,7 @@ int main() {
                 break;
             case 2:
                 clear();
-                gerenciarUsuarios(&quantidadeDeLivros, &usuarios);
+                gerenciarUsuarios(&quantidadeDeUsuarios, &usuarios);
                 break;
             case 3:
                 clear();
