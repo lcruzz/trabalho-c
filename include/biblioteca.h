@@ -50,7 +50,6 @@ void clearBuffer();
 
 void tratarString(char *str);
 
-
 void mensagem(char mensagem[]);
 
 #endif
