@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "../include/biblioteca.h"
 
 // Função para limpar a tela
 void clear() {
@@ -16,6 +17,10 @@ void clear() {
 void clearBuffer(){
     while (getchar() != '\n');
 }
+
+
+// -----------------------------------------------------------------------------
+
 
 // Função para retirar espaços das bordas de uma string
 void retirarEspacoDasBordas(char *str) {
@@ -33,6 +38,7 @@ void retirarEspacoDasBordas(char *str) {
     str[j] = '\0';
 }
 
+// Função para retirar espaços duplicados entre palavras
 void retirarEspacoDoMeio(char *str) {
     int i = 0, j = 0;
     int dentro_espaco = 0;
@@ -52,7 +58,7 @@ void retirarEspacoDoMeio(char *str) {
 
 // Função para converter uma string para minúsculas
 void converterParaMinusculo(char *str) {
-    for (int i = 0; i < strlen(str) - 1; i++) {
+    for (int i = 0; i < strlen(str); i++) {
         str[i] = tolower(str[i]);
     }
 }
@@ -62,4 +68,17 @@ void tratarString(char *str) {
     retirarEspacoDasBordas(str);
     retirarEspacoDoMeio(str);
     converterParaMinusculo(str);
+}
+
+
+// -----------------------------------------------------------------------------------
+
+
+// Função que imprime uma mensagem de sucesso ou de erro no terminal
+void mensagem(char mensagem[]) {
+    clearBuffer();
+    printf("\n%s", mensagem);
+    printf("\nPressiones Enter para continuar...");
+    getchar();
+    clear();
 }

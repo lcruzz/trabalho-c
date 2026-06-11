@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <../include/biblioteca.h>
+#include "../include/biblioteca.h"
 
-int gerenciarUsuarios() {
-    int response = 0;
+int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
+    int resposta = 0;
 
     while (1) {
         printf("====================================\n");
@@ -18,41 +18,37 @@ int gerenciarUsuarios() {
         printf("[5] Remover Usuário \n");
         printf("[0] Voltar ao Menu Principal \n\n");
 
-        if (!(scanf(" %d", &response)) || response > 5 || response < 0) {
-            clearBuffer();
-            printf("Entrada inválida. Por favor, insira um número.\n");
-            printf("Pressione Enter para continuar...");
-            getchar();
-            clear();
+        if (!(scanf(" %d", &resposta)) || resposta > 5 || resposta < 0) {
+            mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         };
 
-        switch (response) {
+        switch (resposta) {
             case 1:
                 clear();
-                cadastrarUsuarios();
+                cadastrarUsuarios(quantidadeDeUsuarios, usuarios);
                 break;
             case 2:
-                printf("Listando todos os usuários...");
+                clear();
+                listarUsuarios(quantidadeDeUsuarios, usuarios);
                 break;
             case 3:
                 clear();
-                menuBuscarUsuario();
+                // menuBuscarUsuario();
                 break;
             case 4:
-                printf("Atualizando informações de um usuário...");
+                clear();
+                // atualizarUsuario(quantidadeDeUsuarios, usuarios);
                 break;
             case 5:
-                printf("Removendo um usuário...");
+                clear();
+                // removerUsuario(quantidadeDeUsuarios, usuarios);
                 break;
             case 0:
                 clear();
                 return 0;
             default:
-                printf("Entrada inválida. Por favor, insira um número.\n");
-                printf("Pressione Enter para continuar...");
-                getchar();
-                clear();
+                mensagem("Entrada inválida. Por favor, insira uma opção válida.");
                 break;
         }
 
@@ -62,149 +58,152 @@ int gerenciarUsuarios() {
     return 0;
 }
 
-int cadastrarUsuarios(){
-    printf("====================================\n");
-    printf("         Cadastrar Usuário          \n");
-    printf("====================================\n\n");
-    
-    Usuarios novoUsuario;
-    
-    FILE *arq;
-    arq = fopen("data/usuarios.txt", "r");
-    
-    if(arq == NULL){
-        arq = fopen("data/usuarios.txt", "w");
+int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios){
+    (*quantidadeDeUsuarios)++;
+    int codigo = *quantidadeDeUsuarios - 1;
 
-        if(arq == NULL){
-            printf("Erro ao abrir o arquivo de usuarios: data/usuarios.txt");
-            printf("Pressione Enter para continuar...");
-            clearBuffer();
-            getchar();
-            return -1;
-        }
+    // Realoca a memória no ponteiro *livro com a quantidade necessária para alocar mais um livro
+    Usuarios *usuario = (Usuarios *) realloc(*usuarios, *quantidadeDeUsuarios * sizeof(Usuarios));
+
+    if (usuario == NULL) {
+        printf("Ocorreu um erro na alocação do ponteiro\n");
+        return -1;
     }
+
+    *usuarios = usuario;
+
+    printf("===============================\n");
+    printf("       Cadastrar Usuários      \n");
+    printf("===============================\n\n");
 
     clearBuffer();
-
-    fclose(arq);
     
-    int ultimaMatricula = pegaUltimaMatricula();
-    novoUsuario.matricula = ultimaMatricula + 1;
-
-    arq = fopen("data/usuarios.txt", "a");
+    (*usuarios)[codigo].matricula =  *quantidadeDeUsuarios - 1;
     
-    printf("Informe o nome do aluno: ");
-    fgets(novoUsuario.nome, sizeof(novoUsuario.nome), stdin);
+    printf("Digite o nome do aluno: ");
+    fgets((*usuarios)[codigo].nome, sizeof((*usuarios)[codigo].nome), stdin);
+    (*usuarios)[codigo].nome[strcspn((*usuarios)[codigo].nome, "\n")] = '\0';
 
-    printf("Informe o curso do aluno: ");
-    fgets(novoUsuario.curso, sizeof(novoUsuario.curso), stdin);
-    
-    novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0';
-    novoUsuario.curso[strcspn(novoUsuario.curso, "\n")] = '\0';
-    
-    tratarString(novoUsuario.nome);
-    tratarString(novoUsuario.curso);
-    
-    fprintf(arq, "%d, ", novoUsuario.matricula);
-    fprintf(arq, "%s, ", novoUsuario.nome);
-    fprintf(arq, "%s, ", novoUsuario.curso);
-    fprintf(arq, "\n");
-    fclose(arq);
+    printf("Digite o curso do aluno: ");
+    fgets((*usuarios)[codigo].curso, sizeof((*usuarios)[codigo].curso), stdin);
+    (*usuarios)[codigo].curso[strcspn((*usuarios)[codigo].curso, "\n")] = '\0';
 
-    printf("\nO aluno foi cadastrado com sucesso!\nPressione Enter para voltar ao menu...");
-    getchar();
-    
-    return 0;
-}
+    (*usuarios)[codigo].emprestimosAtivos = 0;
 
-int menuBuscarUsuario(){
-    int response = 0;
+    tratarString((*usuarios)[codigo].nome);
+    tratarString((*usuarios)[codigo].curso);
 
-    while(1){
-        printf("====================================\n");
-        printf("           Buscar Usuário           \n");
-        printf("====================================\n\n");
-        printf("[1] Buscar usuario por matricula \n");
-        printf("[2] Buscar usuario por nome \n");
-        printf("[0] Voltar \n");
-    
-        if (!(scanf(" %d", &response)) || response > 2 || response < 0) {
-            clearBuffer();
-            printf("Entrada inválida. Por favor, insira um número.\n");
-            printf("Pressione Enter para continuar...");
-            getchar();
-            clear();
-            continue;
-        }
-
-        clearBuffer();
-
-        switch (response) {
-            case 1:
-                clear();
-                buscarUsuario(1);
-                break;
-            case 2:
-                clear();
-                buscarUsuario(2);
-                break;
-            case 0:
-                clear();
-                return 0;
-            default:
-                printf("Entrada inválida. Por favor, insira um número.\n");
-                printf("Pressione Enter para continuar...");
-                getchar();
-                clear();
-                break;
-        }
-        clear();
-    }
+    mensagem("Aluno cadastrado com sucesso!");
 
     return 0;
 }
 
-int buscarUsuario(int tipoBusca){
+int listarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     printf("====================================\n");
-    printf("           Buscar Usuário           \n");
+    printf("       Usuários da Biblioteca       \n");
     printf("====================================\n\n");
 
-    char buscaNome[TAMANHO_NOME];
-    int encontrado = 0;
-    char linhaEncontrada[256];
+    for(int i = 0; i < *quantidadeDeUsuarios; i++) {
+        printf("Matrícula: %d | Nome: %s | Curso: %s | Emprestimos ativos: %d\n",
+                (*usuarios)[i].matricula,
+                (*usuarios)[i].nome,
+                (*usuarios)[i].curso,
+                (*usuarios)[i].emprestimosAtivos);
+    };
 
-    if (tipoBusca == 1) {
-        int matricula;
-
-        printf("Informe a matricula: ");
-        scanf("%d", &matricula);
-        clearBuffer();
-        
-        pesquisarMatricula(matricula, &encontrado, linhaEncontrada);
-
-    } else if (tipoBusca == 2) {
-        printf("Informe o nome do aluno: ");
-
-        fgets(buscaNome, sizeof(buscaNome), stdin);
-        buscaNome[strcspn(buscaNome, "\n")] = '\0';
-        
-        pesquisarNome(buscaNome, &encontrado, linhaEncontrada);
-    }
-
-    // Verifica se o usuario foi encontrado
-    if(encontrado == 0){
-        printf("Usuario não encontrado.\n");
-
-    } else if(encontrado == 1){
-        printf("\nAluno encontrado!");
-        printf("\n%s", linhaEncontrada);
-
-    } else if(encontrado == -1){
-        printf("Erro ao abrir o arquivo de usuarios: data/usuarios.txt");
-    }
-
-    printf("\nPressione Enter para voltar ao menu...\n");
-    getchar();
+    mensagem("Todos os usuários foram listados.");
 
     return 0;
 }
+
+// int menuBuscarUsuario(){
+//     int response = 0;
+
+//     while(1){
+//         printf("====================================\n");
+//         printf("           Buscar Usuário           \n");
+//         printf("====================================\n\n");
+//         printf("[1] Buscar usuario por matricula \n");
+//         printf("[2] Buscar usuario por nome \n");
+//         printf("[0] Voltar \n");
+    
+//         if (!(scanf(" %d", &response)) || response > 2 || response < 0) {
+//             clearBuffer();
+//             printf("Entrada inválida. Por favor, insira um número.\n");
+//             printf("Pressione Enter para continuar...");
+//             getchar();
+//             clear();
+//             continue;
+//         }
+
+//         clearBuffer();
+
+//         switch (response) {
+//             case 1:
+//                 clear();
+//                 buscarUsuario(1);
+//                 break;
+//             case 2:
+//                 clear();
+//                 buscarUsuario(2);
+//                 break;
+//             case 0:
+//                 clear();
+//                 return 0;
+//             default:
+//                 printf("Entrada inválida. Por favor, insira um número.\n");
+//                 printf("Pressione Enter para continuar...");
+//                 getchar();
+//                 clear();
+//                 break;
+//         }
+//         clear();
+//     }
+
+//     return 0;
+// }
+
+// int buscarUsuario(int tipoBusca){
+//     printf("====================================\n");
+//     printf("           Buscar Usuário           \n");
+//     printf("====================================\n\n");
+
+//     char buscaNome[TAMANHO_NOME];
+//     int encontrado = 0;
+//     char linhaEncontrada[256];
+
+//     if (tipoBusca == 1) {
+//         int matricula;
+
+//         printf("Informe a matricula: ");
+//         scanf("%d", &matricula);
+//         clearBuffer();
+        
+//         pesquisarMatricula(matricula, &encontrado, linhaEncontrada);
+
+//     } else if (tipoBusca == 2) {
+//         printf("Informe o nome do aluno: ");
+
+//         fgets(buscaNome, sizeof(buscaNome), stdin);
+//         buscaNome[strcspn(buscaNome, "\n")] = '\0';
+        
+//         pesquisarNome(buscaNome, &encontrado, linhaEncontrada);
+//     }
+
+//     // Verifica se o usuario foi encontrado
+//     if(encontrado == 0){
+//         printf("Usuario não encontrado.\n");
+
+//     } else if(encontrado == 1){
+//         printf("\nAluno encontrado!");
+//         printf("\n%s", linhaEncontrada);
+
+//     } else if(encontrado == -1){
+//         printf("Erro ao abrir o arquivo de usuarios: data/usuarios.txt");
+//     }
+
+//     printf("\nPressione Enter para voltar ao menu...\n");
+//     getchar();
+
+//     return 0;
+// }

@@ -2,91 +2,79 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <../include/gerenciar-usuarios.h>
 #include <../include/biblioteca.h>
 
+// Função que pega a quantidade de livros presente no arquivo
+int lerQuantidadeDeUsuarios(char *nomeArquivo) {
+    int quantidadeDeUsuarios = 0;
+    FILE *arquivo = fopen(nomeArquivo, "rb");
 
-// Função para pegar a matricula do ultimo aluno
-int pegaUltimaMatricula(){
-    FILE *arq;
-    char linha[256];
-    int ultimaMatricula = 1000;
-    
-    arq = fopen("data/usuarios.txt", "r");
-    
-    if (arq == NULL) {
+    if (arquivo == NULL) {
         return 0;
     }
 
-    while (fgets(linha, sizeof(linha), arq) != NULL) {
-        if(sscanf(linha, "%d", &ultimaMatricula) == 1){
+    fread(&quantidadeDeUsuarios, sizeof(int), 1, arquivo);
 
-        }
-    }
-    
-    fclose(arq);
-    
-    return ultimaMatricula;
+    fclose(arquivo);
+
+    return quantidadeDeUsuarios;
 }
 
-void pesquisarMatricula(int buscaMatricula, int *encontrado, char *linhaEncontrada) {
-    FILE *arq;
-    arq = fopen("data/usuarios.txt", "r");
+// Função para ler uma linha de um arquivo e armazenar os dados em uma struct Livro
+int lerArquivoDeUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuarios[]) {
+    FILE *arquivo = fopen(nomeArquivo, "rb");
 
-    if(arq == NULL) {
-        *encontrado = -1;
-        return;
+    if (arquivo == NULL) {
+        return 0;
     }
 
-    char linha[256];
-    int matricula;
-    *encontrado = 0;  // Inicializa como não encontrado
+    // Ignora a primeira posição do arquivo
+    fseek(arquivo, sizeof(int), SEEK_SET);
 
-    while (fgets(linha, sizeof(linha), arq) != NULL) {
-        if(sscanf(linha, "%d", &matricula) == 1) {
-            if(matricula == buscaMatricula) {
-                strcpy(linhaEncontrada, linha);
-                *encontrado = 1;
-                break;
+    fread(usuarios, sizeof(Livro), quantidadeDeUsuarios, arquivo);
+
+    fclose(arquivo);
+    return 0;
+}
+
+// Função para salvar livros no arquivo "livros.txt"
+int salvarUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuarios[]) {
+    FILE *arquivo = fopen(nomeArquivo, "wb");
+
+    if (arquivo == NULL) {
+        printf("Não foi possível salvar as informações do livro.\n");
+        return -1;
+    }
+
+    fwrite(&quantidadeDeUsuarios, sizeof(int), 1, arquivo);
+
+    fwrite(usuarios, sizeof(Usuarios), quantidadeDeUsuarios, arquivo);
+
+    free(usuarios);
+
+    fclose(arquivo);
+    return 0;
+}
+
+// Função de ordenação de array
+int ordenarUsuarios(int quantidadeDeUsuarios, Usuarios usuarios[]) {
+    Usuarios *usuario = (Usuarios *) malloc(sizeof(Usuarios));
+
+    if (usuario == NULL) {
+        printf("Ocorreu um erro na alocação do ponteiro.\n");
+        return -1;
+    }
+
+    for (int i = 0; i < quantidadeDeUsuarios; i++) {
+        for (int j = 0; j < quantidadeDeUsuarios; j++) {
+            if (usuarios[i].matricula < usuarios[j].matricula) {
+                *usuario = usuarios[j];
+                usuarios[j] = usuarios[i];
+                usuarios[i] = *usuario;
             }
         }
     }
 
-    fclose(arq);
-}
-
-void pesquisarNome(char *buscaNome, int *encontrado, char *linhaEncontrada){
-    FILE *arq;
-    arq = fopen("data/usuarios.txt", "r");
-
-    if(arq == NULL) {
-        *encontrado = -1;
-        return;
-    }
-
-    // Criar uma cópia para não modificar a string original se não quiser
-    char nomeBuscaCopia[TAMANHO_NOME];
-    strcpy(nomeBuscaCopia, buscaNome);
-    tratarString(nomeBuscaCopia);
-    
-    char linha[256];
-    char nome[TAMANHO_NOME];
-    *encontrado = 0;
-
-    while (fgets(linha, sizeof(linha), arq) != NULL) {
-        if(sscanf(linha, "%*d, %149[^,]", nome) == 1){
-            // Criar cópia do nome para tratamento
-            char nomeCopia[TAMANHO_NOME];
-            strcpy(nomeCopia, nome);
-            tratarString(nomeCopia);
-            
-            if(strcmp(nomeCopia, nomeBuscaCopia) == 0){
-                *encontrado = 1;
-                strcpy(linhaEncontrada, linha);
-                break; 
-            }
-        }
-    }
-
-    fclose(arq);
+    free(usuario);
+    return 0;
 }
