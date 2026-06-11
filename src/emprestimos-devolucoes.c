@@ -3,7 +3,7 @@
 #include "../include/biblioteca.h"
 
 int emprestimosDevolucoes() {
-    int response = 0;
+    int resposta = 0;
 
     while (1) {
         printf("============================\n");
@@ -15,7 +15,7 @@ int emprestimosDevolucoes() {
         printf("[3] Listar Empréstimos em Atraso \n");
         printf("[0] Voltar ao Menu Principal \n\n");
 
-        if (!(scanf(" %d", &response)) || response > 3 || response < 0) {
+        if (!(scanf(" %d", &resposta)) || resposta > 3 || resposta < 0) {
             clearBuffer();
             printf("Entrada inválida. Por favor, insira um número válido.\n");
             printf("Pressione Enter para continuar...");
@@ -24,7 +24,7 @@ int emprestimosDevolucoes() {
             continue;
         }
 
-        switch (response) {
+        switch (resposta) {
             case 1:
                 printf("Realizando empréstimo...");
                 break;

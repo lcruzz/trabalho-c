@@ -2,9 +2,15 @@
 #include <stdlib.h>
 #include "../include/biblioteca.h"
 
+
 int main() {
-    int response = 0;
-    
+    int resposta = 0;
+    int quantidadeDeLivros = lerQuantidadeDeLivros("data/livros.bin");
+    Livro *livros = (Livro *) malloc(lerQuantidadeDeLivros("data/livros.bin") * sizeof(Livro));
+
+    lerArquivoDeLivros("data/livros.bin", quantidadeDeLivros, livros);
+    ordenarLivros(quantidadeDeLivros, livros);
+
     while (1) {
         printf("==========================================\n");
         printf("  Sistema de Gerenciamento de Biblioteca  \n");
@@ -16,19 +22,15 @@ int main() {
         printf("[4] Relatórios \n");
         printf("[0] Sair \n\n");
     
-        if (!(scanf(" %d", &response)) || response > 4 || response < 0) {
-            clearBuffer();
-            printf("Entrada inválida. Por favor, insira um número válido.\n");
-            printf("Pressione Enter para continuar...");
-            getchar();
-            clear();
+        if (!(scanf(" %d", &resposta)) || resposta < 0 || resposta > 4) {
+            mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         }
 
-        switch (response) {
+        switch (resposta) {
             case 1:
                 clear();
-                gerenciarLivros();
+                gerenciarLivros(&quantidadeDeLivros, &livros);
                 break;
             case 2:
                 clear();
@@ -41,13 +43,11 @@ int main() {
             case 4:
                 break;
             case 0:
+                salvarLivros("data/livros.bin", quantidadeDeLivros, livros);
                 printf("Saindo do sistema. Até logo!\n");
                 return 0;
             default:
-                printf("Opção inválida. Por favor, escolha uma opção válida.\n");
-                printf("Pressione Enter para continuar...");
-                getchar();
-                clear();
+                mensagem("Opção inválida. Por favor, insira uma opção válida.");
                 break;
         }
 

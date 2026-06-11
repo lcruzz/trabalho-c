@@ -3,7 +3,7 @@
 #include <../include/biblioteca.h>
 
 int gerenciarUsuarios() {
-    int response = 0;
+    int resposta = 0;
 
     while (1) {
         printf("====================================\n");
@@ -17,16 +17,12 @@ int gerenciarUsuarios() {
         printf("[5] Remover Usuário \n");
         printf("[0] Voltar ao Menu Principal \n\n");
 
-        if (!(scanf(" %d", &response)) || response > 5 || response < 0) {
-            clearBuffer();
-            printf("Entrada inválida. Por favor, insira um número.\n");
-            printf("Pressione Enter para continuar...");
-            getchar();
-            clear();
+        if (!(scanf(" %d", &resposta)) || resposta > 5 || resposta < 0) {
+            mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         };
 
-        switch (response) {
+        switch (resposta) {
             case 1:
                 printf("Cadastrando usuário...");
                 break;
@@ -46,10 +42,7 @@ int gerenciarUsuarios() {
                 clear();
                 return 0;
             default:
-                printf("Entrada inválida. Por favor, insira um número.\n");
-                printf("Pressione Enter para continuar...");
-                getchar();
-                clear();
+                mensagem("Entrada inválida. Por favor, insira uma opção válida.");
                 break;
         }
 
