@@ -15,11 +15,10 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
         printf("[2] Remover Livro \n");
         printf("[3] Listar Todos os Livros \n");
         printf("[4] Buscar Livro \n");
-        printf("[5] Informar Empréstimo \n");
-        printf("[6] Atualizar Informações de um Livro \n");
+        printf("[5] Atualizar Informações de um Livro \n");
         printf("[0] Voltar ao Menu Principal \n\n");
     
-        if (!(scanf(" %d", &resposta)) || resposta < 0 || resposta > 6) {
+        if (!(scanf(" %d", &resposta)) || resposta < 0 || resposta > 5) {
             mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         };
@@ -42,8 +41,6 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
                 buscarLivro(quantidadeDeLivros, livros);
                 break;
             case 5:
-                break;
-            case 6:
                 clear();
                 atualizarLivro(quantidadeDeLivros, livros);
                 break;
@@ -279,12 +276,12 @@ int atualizarLivro(int *quantidadeDeLivros, Livro **livros) {
                 continue;
             case 3:
                 printf("Ano de Lançamento: ");
-                if (!(scanf("%d", (*livros)[codigo].anoPublicacao))) mensagem("Entrada inválida. Por favor, informe um código válido");
+                if (!(scanf("%d", &(*livros)[codigo].anoPublicacao))) mensagem("Entrada inválida. Por favor, informe um código válido");
                 clear();
                 continue;
             case 4:
                 printf("Quantidade Disponível: ");
-                if (!(scanf("%d", (*livros)[codigo].quantidadeDisponivel))) mensagem("Entrada inválida. Por favor, informe um código válido");
+                if (!(scanf("%d", &(*livros)[codigo].quantidadeDisponivel))) mensagem("Entrada inválida. Por favor, informe um código válido");
                 clear();
                 continue;
             default:
