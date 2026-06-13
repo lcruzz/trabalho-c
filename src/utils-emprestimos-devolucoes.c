@@ -31,7 +31,7 @@ int lerArquivoDeEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Empr
     // Ignora a primeira posição do arquivo
     fseek(arquivo, sizeof(int), SEEK_SET);
 
-    fread(emprestimos, sizeof(Livro), quantidadeDeEmprestimos, arquivo);
+    fread(emprestimos, sizeof(Emprestimo), quantidadeDeEmprestimos, arquivo);
 
     fclose(arquivo);
     return 0;
@@ -48,7 +48,7 @@ int salvarEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo
 
     fwrite(&quantidadeDeEmprestimos, sizeof(int), 1, arquivo);
 
-    fwrite(emprestimos, sizeof(Livro), quantidadeDeEmprestimos, arquivo);
+    fwrite(emprestimos, sizeof(Emprestimo), quantidadeDeEmprestimos, arquivo);
 
     free(emprestimos);
 
@@ -58,7 +58,7 @@ int salvarEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo
 
 // Função de ordenação de array
 int ordenarEmprestimos(int quantidadeDeEmprestimos, Emprestimo emprestimos[]) {
-    Livro *emprestimo = (Livro *) malloc(sizeof(Livro));
+    Emprestimo *emprestimo = (Emprestimo *) malloc(sizeof(Emprestimo));
 
     if (emprestimo == NULL) {
         printf("Ocorreu um erro na alocação do ponteiro.\n");
@@ -77,4 +77,23 @@ int ordenarEmprestimos(int quantidadeDeEmprestimos, Emprestimo emprestimos[]) {
 
     free(emprestimo);
     return 0;
+}
+
+// Função para a busca binária de emprestimos
+int buscaBinariaEmprestimos(int codigo, int *quantidadeDeEmprestimos, Emprestimo emprestimos[]) {
+    int meio, esquerda = 0, direita = *quantidadeDeEmprestimos - 1;
+
+    while (esquerda <= direita) {
+        meio = esquerda + (direita - esquerda) / 2;
+
+        if (emprestimos[meio].id == codigo) {
+            return meio;
+        } else if (emprestimos[meio].id < codigo) {
+            esquerda = meio + 1;
+        } else {
+            direita = meio - 1;
+        }
+    }
+
+    return -1;
 }

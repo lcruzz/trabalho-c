@@ -129,11 +129,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
             continue;
         };
     
-        for (int i = 0; i < *quantidadeDeLivros; i++) {
-            if (codigo == (*livros)[i].id) {
-                indice = i;
-            }
-        }
+        indice = buscaBinariaLivros(codigo,  *quantidadeDeLivros, *livros);
     
         if (indice > -1) {
             if ((*livros)[indice].quantidadeDeEmprestimo > 0) {
@@ -162,7 +158,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
         *livros = livro;
     
         mensagem("Livro removido com sucesso.");
-    
+
         return 0;
     }
 }
@@ -189,10 +185,7 @@ int listarLivros(int *quantidadeDeLivros, Livro **livros) {
 
 // Função para buscar livros: busca parcial e busca completa
 int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
-    int codigo, esquerda, direita, meio;
-
-    esquerda = 0;
-    direita = *quantidadeDeLivros - 1;
+    int codigo, indice;
 
     printf("============================\n");
     printf("        Buscar Livro        \n");
@@ -204,27 +197,21 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
         mensagem("Entrada inválida. Por favor, informe um código válido.");
     }
 
-    while (esquerda <= direita) {
-        meio = esquerda + (direita - esquerda) / 2;
+    indice = buscaBinariaLivros(codigo, quantidadeDeLivros, *livros);
 
-        if ((*livros)[meio].id == codigo) {
-            printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n",
-                    (*livros)[meio].id,
-                    (*livros)[meio].titulo,
-                    (*livros)[meio].autor,
-                    (*livros)[meio].anoPublicacao,
-                    (*livros)[meio].quantidadeDisponivel);
-
-            mensagem("Livro encontrado com sucesso.");
-            return 0;
-        } else if ((*livros)[meio].id < codigo) {
-            esquerda = meio + 1;
-        } else {
-            direita = meio - 1;
-        }
+    if (indice > -1) {
+        printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n",
+                        (*livros)[indice].id,
+                        (*livros)[indice].titulo,
+                        (*livros)[indice].autor,
+                        (*livros)[indice].anoPublicacao,
+                        (*livros)[indice].quantidadeDisponivel);
+        mensagem("Livro encontrado com sucesso");
+        return 0;
     }
 
     mensagem("O livro não foi encontrado ou não existe no sistema.");
+    
     return 0;
 }
 

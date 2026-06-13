@@ -32,6 +32,8 @@ int salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]);
 
 int ordenarLivros(int quantidadeDeLivros, Livro livros[]);
 
+int buscaBinariaLivros(int codigo, int *quantidadeDeLivros, Livro livros[]);
+
 // --------------------------------------------------------------------------------
 
 // Funções para gerenciar usuários
@@ -60,10 +62,14 @@ int salvarUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuario
 
 int ordenarUsuarios(int quantidadeDeUsuarios, Usuarios usuarios[]);
 
+int buscaBinariaUsuarios(int codigo, int *quantidadeDeUsuarios, Usuarios usuarios[]);
+
 // --------------------------------------------------------------------------------
 
 // Funções para gerenciar empréstimos e devoluções
-int emprestimosDevolucoes();
+int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
+
+int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 // --------------------------------------------------------------------------------
 
@@ -75,6 +81,8 @@ int lerArquivoDeEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Empr
 int salvarEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
 
 int ordenarEmprestimos(int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
+
+int buscaBinariaEmprestimos(int codigo, int *quantidadeDeEmprestimos, Emprestimo emprestimos[]);
 
 // --------------------------------------------------------------------------------
 

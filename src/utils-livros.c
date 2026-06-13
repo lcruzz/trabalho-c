@@ -78,3 +78,22 @@ int ordenarLivros(int quantidadeDeLivros, Livro livros[]) {
     free(livro);
     return 0;
 }
+
+// Função para a busca binária de livros
+int buscaBinariaLivros(int codigo, int *quantidadeDeLivros, Livro livros[]) {
+    int meio, esquerda = 0, direita = *quantidadeDeLivros - 1;
+
+    while (esquerda <= direita) {
+        meio = esquerda + (direita - esquerda) / 2;
+
+        if (livros[meio].id == codigo) {
+            return meio;
+        } else if (livros[meio].id < codigo) {
+            esquerda = meio + 1;
+        } else {
+            direita = meio - 1;
+        }
+    }
+
+    return -1;
+}
