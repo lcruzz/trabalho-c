@@ -3,4 +3,16 @@
 
 #pragma once
 
+#include <time.h>
+
+typedef struct {
+    int id;
+    int matriculaUsuario;
+    int idLivro;
+    time_t dataRetirada;
+    time_t dataPrevista;
+    time_t dataDevolucao;
+    char devolvido;
+} Emprestimo;
+
 #endif

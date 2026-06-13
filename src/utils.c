@@ -18,10 +18,6 @@ void clearBuffer(){
     while (getchar() != '\n');
 }
 
-
-// -----------------------------------------------------------------------------
-
-
 // Função para retirar espaços das bordas de uma string
 void retirarEspacoDasBordas(char *str) {
     int inicio = 0, j = 0;
@@ -69,10 +65,6 @@ void tratarString(char *str) {
     retirarEspacoDoMeio(str);
     converterParaMinusculo(str);
 }
-
-
-// -----------------------------------------------------------------------------------
-
 
 // Função que imprime uma mensagem de sucesso ou de erro no terminal
 void mensagem(char mensagem[]) {

@@ -79,6 +79,25 @@ int ordenarUsuarios(int quantidadeDeUsuarios, Usuarios usuarios[]) {
     return 0;
 }
 
+// Função para a busca binária de usuarios
+int buscaBinariaUsuarios(int codigo, int *quantidadeDeUsuarios, Usuarios usuarios[]) {
+    int meio, esquerda = 0, direita = *quantidadeDeUsuarios - 1;
+
+    while (esquerda <= direita) {
+        meio = esquerda + (direita - esquerda) / 2;
+
+        if (usuarios[meio].matricula == codigo) {
+            return meio;
+        } else if (usuarios[meio].matricula < codigo) {
+            esquerda = meio + 1;
+        } else {
+            direita = meio - 1;
+        }
+    }
+
+    return -1;
+}      
+
 // função de buscar usuario pela matricula
 void buscarMatricula(int quantidadeDeUsuarios, Usuarios *usuarios, int codigo) {
     int esquerda = 0, 

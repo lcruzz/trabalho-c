@@ -5,6 +5,7 @@
 
 #include "gerenciar-livros.h"
 #include "gerenciar-usuarios.h"
+#include "emprestimos-devolucoes.h"
 
 
 // Funções para gerenciar livros
@@ -31,16 +32,7 @@ int salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]);
 
 int ordenarLivros(int quantidadeDeLivros, Livro livros[]);
 
-// --------------------------------------------------------------------------------
-
-// Funções utilitárias para gerenciar livros
-int lerQuantidadeDeUsuarios(char *nomeArquivo);
-
-int lerArquivoDeUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuarios[]);
-
-int salvarUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuarios[]);
-
-int ordenarUsuarios(int quantidadeDeUsuarios, Usuarios usuarios[]);
+int buscaBinariaLivros(int codigo, int *quantidadeDeLivros, Livro livros[]);
 
 void buscarMatricula(int quantidadeDeUsuarios, Usuarios *usuarios, int codigo);
 
@@ -61,8 +53,38 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
+// --------------------------------------------------------------------------------
+
+// Funções utilitárias para gerenciar usuários
+int lerQuantidadeDeUsuarios(char *nomeArquivo);
+
+int lerArquivoDeUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuarios[]);
+
+int salvarUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuarios[]);
+
+int ordenarUsuarios(int quantidadeDeUsuarios, Usuarios usuarios[]);
+
+int buscaBinariaUsuarios(int codigo, int *quantidadeDeUsuarios, Usuarios usuarios[]);
+
+// --------------------------------------------------------------------------------
+
 // Funções para gerenciar empréstimos e devoluções
-int emprestimosDevolucoes();
+int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
+
+int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
+
+// --------------------------------------------------------------------------------
+
+// Funções utilitárias para emprestimos e devoluções
+int lerQuantidadeDeEmprestimos(char *nomeArquivo);
+
+int lerArquivoDeEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
+
+int salvarEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
+
+int ordenarEmprestimos(int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
+
+int buscaBinariaEmprestimos(int codigo, int *quantidadeDeEmprestimos, Emprestimo emprestimos[]);
 
 // --------------------------------------------------------------------------------
 

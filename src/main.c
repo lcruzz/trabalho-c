@@ -7,15 +7,26 @@ int main() {
     int resposta = 0;
     int quantidadeDeLivros = lerQuantidadeDeLivros("data/livros.bin");
     int quantidadeDeUsuarios = lerQuantidadeDeUsuarios("data/usuarios.bin");
+    int quantidadeDeEmprestimos = lerQuantidadeDeEmprestimos("data/emprestimos.bin");
 
-    Livro *livros = (Livro *) malloc(lerQuantidadeDeLivros("data/livros.bin") * sizeof(Livro));
-    Usuarios *usuarios = (Usuarios *) malloc(lerQuantidadeDeUsuarios("data/usuarios.bin") * sizeof(Usuarios));
+    Livro *livros = (Livro *) malloc(quantidadeDeLivros * sizeof(Livro));
+    Usuarios *usuarios = (Usuarios *) malloc(quantidadeDeUsuarios * sizeof(Usuarios));
+    Emprestimo *emprestimos = (Emprestimo *) malloc(quantidadeDeEmprestimos * sizeof(Emprestimo));
 
     lerArquivoDeLivros("data/livros.bin", quantidadeDeLivros, livros);
     ordenarLivros(quantidadeDeLivros, livros);
 
     lerArquivoDeUsuarios("data/usuarios.bin", quantidadeDeUsuarios, usuarios);
     ordenarUsuarios(quantidadeDeUsuarios, usuarios);
+
+    lerArquivoDeEmprestimos("data/emprestimos.bin", quantidadeDeEmprestimos, emprestimos);
+    ordenarEmprestimos(quantidadeDeEmprestimos, emprestimos);
+
+    if (quantidadeDeEmprestimos > 0) {
+        for (int i = 0; i < quantidadeDeEmprestimos; i++)    {
+            printf("Código: %d | Data de Retirada: %d | Data Prevista: %d\n", emprestimos[i].id, emprestimos[i].dataRetirada, emprestimos[i].dataPrevista);
+        }
+    }
 
     while (1) {
         printf("==========================================\n");
@@ -44,13 +55,14 @@ int main() {
                 break;
             case 3:
                 clear();
-                emprestimosDevolucoes();
+                emprestimosDevolucoes(&quantidadeDeEmprestimos, &emprestimos, &quantidadeDeLivros, &livros, &quantidadeDeUsuarios, &usuarios);
                 break;
             case 4:
                 break;
             case 0:
                 salvarLivros("data/livros.bin", quantidadeDeLivros, livros);
                 salvarUsuarios("data/usuarios.bin", quantidadeDeUsuarios, usuarios);
+                salvarEmprestimos("data/emprestimos.bin", quantidadeDeEmprestimos, emprestimos);
                 printf("Saindo do sistema. Até logo!\n");
                 return 0;
             default:
