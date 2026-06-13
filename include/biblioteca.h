@@ -34,6 +34,10 @@ int ordenarLivros(int quantidadeDeLivros, Livro livros[]);
 
 int buscaBinariaLivros(int codigo, int *quantidadeDeLivros, Livro livros[]);
 
+void buscarMatricula(int quantidadeDeUsuarios, Usuarios *usuarios, int codigo);
+
+void buscarNomeDoUsuario(int quantidadeDeUsuarios, Usuarios *usuarios, char *nome);
+
 // --------------------------------------------------------------------------------
 
 // Funções para gerenciar usuários
@@ -41,15 +45,13 @@ int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
-// int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios);
+int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 int listarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
-// int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios);
+int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
-// int buscarUsuario(int tipoBusca);
-
-// int menuBuscarUsuario();
+int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 // --------------------------------------------------------------------------------
 
