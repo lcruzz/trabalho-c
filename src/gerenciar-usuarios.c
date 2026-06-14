@@ -23,8 +23,6 @@ int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
             continue;
         };
 
-        clearBuffer();
-
         switch (resposta) {
             case 1:
                 clear();
@@ -60,11 +58,10 @@ int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     return 0;
 }
 
-int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios){
+int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     (*quantidadeDeUsuarios)++;
     int codigo = *quantidadeDeUsuarios - 1;
 
-    // Realoca a memória no ponteiro *usuario com a quantidade necessária para alocar mais um usuario
     Usuarios *usuario = (Usuarios *) realloc(*usuarios, *quantidadeDeUsuarios * sizeof(Usuarios));
 
     if (usuario == NULL) {
@@ -79,9 +76,9 @@ int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios){
     printf("===============================\n\n");
 
     clearBuffer();
-    
-    (*usuarios)[codigo].matricula =  *quantidadeDeUsuarios - 1;
-    
+
+    (*usuarios)[codigo].matricula = *quantidadeDeUsuarios - 1;
+
     printf("Digite o nome do aluno: ");
     fgets((*usuarios)[codigo].nome, sizeof((*usuarios)[codigo].nome), stdin);
     (*usuarios)[codigo].nome[strcspn((*usuarios)[codigo].nome, "\n")] = '\0';
@@ -105,7 +102,9 @@ int listarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     printf("       Usuários da Biblioteca       \n");
     printf("====================================\n\n");
 
-    for(int i = 0; i < *quantidadeDeUsuarios; i++) {
+    clearBuffer();
+
+    for (int i = 0; i < *quantidadeDeUsuarios; i++) {
         printf("Matrícula: %d | Nome: %s | Curso: %s | Emprestimos ativos: %d\n",
                 (*usuarios)[i].matricula,
                 (*usuarios)[i].nome,
@@ -123,15 +122,15 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
     while (1) {
         printf("===============================\n");
-        printf("       Atualizar Usario        \n");
+        printf("       Atualizar Usuário       \n");
         printf("===============================\n\n");
-    
+
         printf("[1] Atualizar Nome \n");
         printf("[2] Atualizar Curso \n");
         printf("[0] Voltar para Gerenciar Usuarios \n\n");
 
         printf("Informe o campo do usuario: ");
-    
+
         if (!(scanf("%d", &resposta)) || resposta < 0 || resposta > 4) {
             mensagem("Entrada inválida. Por favor, informe um número válido.");
             continue;
@@ -140,36 +139,40 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
         if (resposta == 0) {
             break;
         }
-    
-        printf("Informe o a matrícula do usuario: ");
-    
+
+        printf("Informe a matrícula do usuario: ");
+
         if (!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeUsuarios - 1) {
             mensagem("Entrada inválida. Por favor, informe um código válido");
             continue;
         }
 
         clearBuffer();
-        
+
         switch (resposta) {
             case 1:
                 printf("Informe o nome: ");
                 fgets((*usuarios)[codigo].nome, sizeof((*usuarios)[codigo].nome), stdin);
                 (*usuarios)[codigo].nome[strcspn((*usuarios)[codigo].nome, "\n")] = '\0';
+
                 clear();
                 continue;
             case 2:
                 printf("Informe o curso: ");
                 fgets((*usuarios)[codigo].curso, sizeof((*usuarios)[codigo].curso), stdin);
                 (*usuarios)[codigo].curso[strcspn((*usuarios)[codigo].curso, "\n")] = '\0';
+
                 clear();
                 continue;
+            case 0:
+                clear();
+                return 0;
             default:
                 mensagem("Entrada inválida. Por favor, informe um número válido");
                 continue;
         }
-
     }
-    
+
     return 0;
 }
 
@@ -178,24 +181,20 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
     while (1) {
         printf("=============================\n");
-        printf("        Remover Usuario        \n");
+        printf("       Remover Usuário       \n");
         printf("=============================\n\n");
     
-        printf("Informe a matrícula do aluno: ");
+        printf("Informe a matricula do usuario: ");
         if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeUsuarios - 1) {
             mensagem("Entrada inválida. Por favor, insira um código válido.");
             continue;
         };
     
-        for (int i = 0; i < *quantidadeDeUsuarios; i++) {
-            if (codigo == (*usuarios)[i].matricula) {
-                indice = i;
-            }
-        }
+        indice = buscarMatricula(codigo, quantidadeDeUsuarios, *usuarios);
     
         if (indice > -1) {
             if ((*usuarios)[indice].emprestimosAtivos > 0) {
-                mensagem("O usuário não pode ser removido do sistema, pois possui empréstimos ativos.");
+                mensagem("O usuário não pode ser removido do sistema pois possui emprestimos ativos.");
     
                 return 0;
             } else {
@@ -219,8 +218,8 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     
         *usuarios = usuario;
     
-        mensagem("Usuario removido com sucesso.");
-    
+        mensagem("Usuário removido com sucesso.");
+
         return 0;
     }
 }
@@ -228,14 +227,14 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int resposta;
 
-    while(1){
+    while (1) {
         printf("====================================\n");
         printf("           Buscar Usuário           \n");
         printf("====================================\n\n");
         printf("[1] Buscar usuário por matricula \n");
         printf("[2] Buscar usuário por nome \n");
-        printf("[0] Voltar \n");
-    
+        printf("[0] Voltar \n\n");
+
         if (!(scanf(" %d", &resposta)) || resposta > 2 || resposta < 0) {
             clearBuffer();
             printf("Entrada inválida. Por favor, insira um número.\n");
@@ -247,26 +246,48 @@ int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
         clearBuffer();
 
-        if (resposta == 0) {
-            break;
-
-        } else if (resposta == 1) {
-            int codigo;
-            printf("\nInforme a matrícula do usuário: ");
-            scanf("%d", &codigo);
-            clearBuffer();
-            
-            buscarMatricula(*quantidadeDeUsuarios, *usuarios, codigo);
-            
-        } else if (resposta == 2) {
-            char nome[100];
-            printf("\nInforme o nome do usuário: ");
-            fgets(nome, sizeof(nome), stdin);
-            nome[strcspn(nome, "\n")] = '\0';
-
-            buscarNomeDoUsuario(*quantidadeDeUsuarios, *usuarios, nome);
+        switch (resposta){
+            case 1:
+                int codigo;
+        
+                printf("\nInforme a matrícula do usuário: ");
+                scanf("%d", &codigo);
+                clearBuffer();
+        
+                int indice = buscarMatricula(codigo, quantidadeDeUsuarios, *usuarios);
+        
+                if (indice != -1) {
+                    printf("Matrícula: %d | Nome: %s | Curso: %s | Emprestimos ativos: %d\n",
+                        (*usuarios)[indice].matricula, (*usuarios)[indice].nome,
+                        (*usuarios)[indice].curso, (*usuarios)[indice].emprestimosAtivos);
+                    mensagem("Usuário encontrado com sucesso!");
+                } else {
+                    mensagem("O usuário não foi encontrado ou não existe no sistema.");
+                }
+                break;
+            case 2:
+                char nome[TAMANHO_NOME];
+        
+                printf("\nInforme o nome do usuário: ");
+                fgets(nome, sizeof(nome), stdin);
+                nome[strcspn(nome, "\n")] = '\0';
+        
+                int encontrados = buscarNomeDoUsuario(*quantidadeDeUsuarios, *usuarios, nome);
+        
+                if (encontrados > 0) {
+                    mensagem("Usuário(s) encontrado(s) com sucesso!");
+                } else {
+                    mensagem("O usuário não foi encontrado ou não existe no sistema.");
+                }
+                break;
+            case 0:
+                clear();
+                return 0;
+            default:
+                mensagem("Entrada inválida. Por favor, informe um número válido");
+                continue;
         }
-
-        return 0;
     }
+
+    return 0;
 }

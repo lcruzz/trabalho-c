@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "../include/biblioteca.h"
 
-
 int main() {
     int resposta = 0;
     int quantidadeDeLivros = lerQuantidadeDeLivros("data/livros.bin");
@@ -22,11 +21,11 @@ int main() {
     lerArquivoDeEmprestimos("data/emprestimos.bin", quantidadeDeEmprestimos, emprestimos);
     ordenarEmprestimos(quantidadeDeEmprestimos, emprestimos);
 
-    if (quantidadeDeEmprestimos > 0) {
-        for (int i = 0; i < quantidadeDeEmprestimos; i++)    {
-            printf("Código: %d | Data de Retirada: %d | Data Prevista: %d\n", emprestimos[i].id, emprestimos[i].dataRetirada, emprestimos[i].dataPrevista);
-        }
-    }
+    // if (quantidadeDeEmprestimos > 0) {
+    //     for (int i = 0; i < quantidadeDeEmprestimos; i++)    {
+    //         printf("Código: %d | Data de Retirada: %d | Data Prevista: %d\n", emprestimos[i].id, emprestimos[i].dataRetirada, emprestimos[i].dataPrevista);
+    //     }
+    // }
 
     while (1) {
         printf("==========================================\n");

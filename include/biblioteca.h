@@ -34,9 +34,7 @@ int ordenarLivros(int quantidadeDeLivros, Livro livros[]);
 
 int buscaBinariaLivros(int codigo, int *quantidadeDeLivros, Livro livros[]);
 
-void buscarMatricula(int quantidadeDeUsuarios, Usuarios *usuarios, int codigo);
-
-void buscarNomeDoUsuario(int quantidadeDeUsuarios, Usuarios *usuarios, char *nome);
+int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome);
 
 // --------------------------------------------------------------------------------
 
@@ -64,7 +62,9 @@ int salvarUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuario
 
 int ordenarUsuarios(int quantidadeDeUsuarios, Usuarios usuarios[]);
 
-int buscaBinariaUsuarios(int codigo, int *quantidadeDeUsuarios, Usuarios usuarios[]);
+int buscarMatricula(int codigo, int *quantidadeDeUsuarios, Usuarios usuarios[]);
+
+int buscarNomeDoUsuario(int quantidadeDeUsuarios, Usuarios *usuarios, char *nome);
 
 // --------------------------------------------------------------------------------
 
@@ -85,6 +85,8 @@ int salvarEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo
 int ordenarEmprestimos(int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
 
 int buscaBinariaEmprestimos(int codigo, int *quantidadeDeEmprestimos, Emprestimo emprestimos[]);
+
+int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 // --------------------------------------------------------------------------------
 

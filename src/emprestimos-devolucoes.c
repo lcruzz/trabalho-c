@@ -11,7 +11,7 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
         printf("============================\n");
         printf("  Empréstimos e Devoluções  \n");
         printf("============================\n\n");
-        
+
         printf("[1] Realizar Empréstimo \n");
         printf("[2] Registrar Devolução \n");
         printf("[3] Listar Empréstimos em Atraso \n");
@@ -19,7 +19,7 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
         printf("[5] Informar Empréstimos de um Livro \n");
         printf("[0] Voltar ao Menu Principal \n\n");
 
-        if (!(scanf(" %d", &resposta)) || resposta > 3 || resposta < 0) {
+        if (!(scanf(" %d", &resposta)) || resposta > 5 || resposta < 0) {
             clearBuffer();
             printf("Entrada inválida. Por favor, insira um número válido.\n");
             printf("Pressione Enter para continuar...");
@@ -61,7 +61,6 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
     return 0;
 }
 
-// Função para registrar o empréstimo de um livro
 int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     (*quantidadeDeEmprestimos)++;
     int codigoLivro, matriculaUsuario, indiceLivro, indiceUsuario;
@@ -83,43 +82,40 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         printf("===================================\n");
         printf("        Realizar Emprestimo        \n");
         printf("===================================\n\n");
-    
+
         printf("Informe a matrícula do aluno: ");
-    
+
         if (!(scanf("%d", &matriculaUsuario))) {
             mensagem("Entrada inválida. Por favor, informe um código válido.");
         }
 
-        indiceUsuario = buscaBinariaUsuarios(matriculaUsuario, quantidadeDeUsuarios, *usuarios);
-    
-        if (indiceUsuario == -1) {mensagem("Usuário não encontrado."); continue; };
-        
+        indiceUsuario = buscarMatricula(matriculaUsuario, quantidadeDeUsuarios, *usuarios);
+
+        if (indiceUsuario == -1) { mensagem("Usuário não encontrado."); continue; };
+
         clearBuffer();
-        
+
         printf("Informar o código do livro: ");
-    
+
         if (!(scanf("%d", &codigoLivro))) {
             mensagem("Entrada inválida. Por favor, informe um código válido.");
         }
 
         indiceLivro = buscaBinariaLivros(codigoLivro, quantidadeDeLivros, *livros);
-    
+
         if (indiceLivro == -1) { mensagem("Livro não encontrado."); continue; };
-    
-        // Atribuindo valores aos elementos da struct empréstimo
+
         (*emprestimos)[codigoEmprestimo].id = codigoEmprestimo;
         (*emprestimos)[codigoEmprestimo].matriculaUsuario = matriculaUsuario;
         (*emprestimos)[codigoEmprestimo].idLivro = codigoLivro;
         (*emprestimos)[codigoEmprestimo].dataRetirada = mktime(data);
 
-        // Adicionando 14 dias a data de retirada
         (*data).tm_mday += 14;
 
         (*emprestimos)[codigoEmprestimo].dataPrevista = mktime(data);
         (*emprestimos)[codigoEmprestimo].dataRetirada = 0;
         (*emprestimos)[codigoEmprestimo].devolvido = 'n';
 
-        // Atualizando valores do livro e do usuário
         (*livros)[indiceLivro].quantidadeDisponivel--;
         (*livros)[indiceLivro].quantidadeDeEmprestimo++;
         (*usuarios)[indiceUsuario].emprestimosAtivos++;
@@ -128,7 +124,6 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     }
 }
 
-// Função para registrar devolução de um livro
 int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int codigoEmprestimo, indiceEmprestimo, indiceLivro, indiceUsuario;
     time_t horario = time(NULL);
@@ -141,17 +136,20 @@ int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
 
         printf("Informe o código do empréstimo: ");
 
-        if (!(scanf("%d", &codigoEmprestimo)) || codigoEmprestimo < 0) {mensagem("Entrada inválida. Por favor, informe um código válido."); continue; };
+        if (!(scanf("%d", &codigoEmprestimo)) || codigoEmprestimo < 0) {
+            mensagem("Entrada inválida. Por favor, informe um código válido.");
+            continue;
+        }
 
-        indiceEmprestimo = buscaBinariaEmprestimos(codigoEmprestimo, *quantidadeDeEmprestimos, *emprestimos);
+        indiceEmprestimo = buscaBinariaEmprestimos(codigoEmprestimo, quantidadeDeEmprestimos, *emprestimos);
 
         if (indiceEmprestimo > -1) {
             if ((*emprestimos)[indiceEmprestimo].devolvido == 's') {
                 mensagem("Livro já foi devolvido.");
                 continue;
             } else {
-                indiceUsuario = buscaBinariaUsuarios((*emprestimos)[indiceEmprestimo].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
-                indiceLivro = buscaBinariaLivros((*emprestimos)[indiceEmprestimo].matriculaUsuario, *quantidadeDeUsuarios, *livros);
+                indiceUsuario = buscarMatricula((*emprestimos)[indiceEmprestimo].matriculaUsuario, quantidadeDeUsuarios, *usuarios);
+                indiceLivro = buscaBinariaLivros((*emprestimos)[indiceEmprestimo].idLivro, quantidadeDeLivros, *livros);
 
                 (*emprestimos)[indiceEmprestimo].dataDevolucao = mktime(data);
                 (*emprestimos)[indiceEmprestimo].devolvido = 's';
@@ -170,9 +168,6 @@ int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     }
 }
 
-// Função para listar empréstimos em atraso
-
-// Função para listar todos os empréstimos
 int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int indiceLivro, indiceUsuario;
 
@@ -181,10 +176,10 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
     printf("===========================\n\n");
 
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
-        indiceLivro = buscaBinariaLivros((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
-        indiceUsuario = buscaBinariaUsuarios((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
+        indiceLivro  = buscaBinariaLivros((*emprestimos)[i].idLivro, quantidadeDeLivros, *livros);
+        indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, quantidadeDeUsuarios, *usuarios);
 
-        printf("Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d | Data Prevista: %d | Data de Devolução: %d\n",
+        printf("Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %ld | Data Prevista: %ld | Data de Devolução: %ld\n",
                 (*emprestimos)[i].id,
                 (*livros)[indiceLivro].titulo,
                 (*usuarios)[indiceUsuario].nome,

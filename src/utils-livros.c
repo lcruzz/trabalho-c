@@ -97,3 +97,18 @@ int buscaBinariaLivros(int codigo, int *quantidadeDeLivros, Livro livros[]) {
 
     return -1;
 }
+
+int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome) {
+    int encontrou = 0;
+
+    for (int i = 0; i < quantidadeDeLivros; i++) {
+        if (strstr(livros[i].titulo, nome) != NULL) {
+            printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n",
+                    livros[i].id, livros[i].titulo, livros[i].autor,
+                    livros[i].anoPublicacao, livros[i].quantidadeDisponivel);
+            encontrou++;
+        }
+    }
+
+    return encontrou;
+}
