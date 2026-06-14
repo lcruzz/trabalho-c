@@ -74,8 +74,8 @@ int ordenarUsuarios(int quantidadeDeUsuarios, Usuarios usuarios[]) {
     return 0;
 }
 
-int buscarMatricula(int codigo, int *quantidadeDeUsuarios, Usuarios usuarios[]) {
-    int meio, esquerda = 0, direita = *quantidadeDeUsuarios - 1;
+int buscarMatricula(int codigo, int quantidadeDeUsuarios, Usuarios usuarios[]) {
+    int meio, esquerda = 0, direita = quantidadeDeUsuarios - 1;
 
     while (esquerda <= direita) {
         meio = esquerda + (direita - esquerda) / 2;

@@ -19,6 +19,7 @@ int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
         printf("[0] Voltar ao Menu Principal \n\n");
 
         if (!(scanf(" %d", &resposta)) || resposta > 5 || resposta < 0) {
+            clearBuffer();
             mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         };
@@ -48,6 +49,7 @@ int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
                 clear();
                 return 0;
             default:
+                clearBuffer();
                 mensagem("Entrada inválida. Por favor, insira uma opção válida.");
                 break;
         }
@@ -112,8 +114,6 @@ int listarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
                 (*usuarios)[i].emprestimosAtivos);
     };
 
-    clearBuffer();
-
     mensagem("Todos os usuários foram listados.");
 
     return 0;
@@ -134,6 +134,7 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
         printf("Informe o campo do usuario: ");
 
         if (!(scanf("%d", &resposta)) || resposta < 0 || resposta > 4) {
+            clearBuffer();
             mensagem("Entrada inválida. Por favor, informe um número válido.");
             continue;
         }
@@ -145,6 +146,7 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
         printf("Informe a matrícula do usuario: ");
 
         if (!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeUsuarios - 1) {
+            clearBuffer();
             mensagem("Entrada inválida. Por favor, informe um código válido");
             continue;
         }
@@ -188,11 +190,14 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     
         printf("Informe a matricula do usuario: ");
         if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeUsuarios - 1) {
+            clearBuffer();
             mensagem("Entrada inválida. Por favor, insira um código válido.");
             continue;
         };
     
-        indice = buscarMatricula(codigo, quantidadeDeUsuarios, *usuarios);
+        indice = buscarMatricula(codigo, *quantidadeDeUsuarios, *usuarios);
+
+        clearBuffer();
     
         if (indice > -1) {
             if ((*usuarios)[indice].emprestimosAtivos > 0) {
@@ -239,10 +244,7 @@ int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
         if (!(scanf(" %d", &resposta)) || resposta > 2 || resposta < 0) {
             clearBuffer();
-            printf("Entrada inválida. Por favor, insira um número.\n");
-            printf("Pressione Enter para continuar...");
-            getchar();
-            clear();
+            mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
         }
 
@@ -256,7 +258,7 @@ int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
                 scanf("%d", &codigo);
                 clearBuffer();
         
-                int indice = buscarMatricula(codigo, quantidadeDeUsuarios, *usuarios);
+                int indice = buscarMatricula(codigo, *quantidadeDeUsuarios, *usuarios);
         
                 if (indice != -1) {
                     printf("Matrícula: %d | Nome: %s | Curso: %s | Emprestimos ativos: %d\n",

@@ -80,7 +80,7 @@ int ordenarLivros(int quantidadeDeLivros, Livro livros[]) {
 }
 
 // Função para a busca binária de livros
-int buscaBinariaLivros(int codigo, int quantidadeDeLivros, Livro livros[]) {
+int buscarCodigoLivro(int codigo, int quantidadeDeLivros, Livro livros[]) {
     int meio, esquerda = 0, direita = quantidadeDeLivros - 1;
 
     while (esquerda <= direita) {
