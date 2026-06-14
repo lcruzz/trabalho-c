@@ -43,6 +43,8 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
                 listarTodosEmprestimos(quantidadeDeEmprestimos, emprestimos, quantidadeDeLivros, livros, quantidadeDeUsuarios, usuarios);
                 break;
             case 5:
+                clear();
+                listarEmprestimosDeUmLivro(quantidadeDeEmprestimos, emprestimos, quantidadeDeLivros, livros, quantidadeDeUsuarios, usuarios);
                 break;
             case 0:
                 clear();
@@ -190,9 +192,9 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
     int indiceLivro, indiceUsuario;
     struct tm dataRetirada, dataPrevista, dataDevolucao, dataAtual = *localtime(&horario);
 
-    printf("===========================\n");
-    printf("        Empréstimos        \n");
-    printf("===========================\n\n");
+    printf("=====================================\n");
+    printf("        Empréstimos em Atraso        \n");
+    printf("=====================================\n\n");
 
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
         dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
@@ -251,3 +253,51 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
     return 0;
 }
 
+int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
+    int indiceLivro, indiceUsuario, codigo;
+    struct tm dataRetirada, dataPrevista, dataDevolucao;
+
+    while (1) {
+        printf("===========================\n");
+        printf("        Empréstimos        \n");
+        printf("===========================\n\n");
+    
+        printf("Informe o código do livro: ");
+    
+        if (!(scanf("%d", &codigo)) || codigo < 0) {
+            clearBuffer();
+            mensagem("Entrada inválida. Por favor, insirá um código válido.");
+            continue;
+        }
+    
+        indiceLivro = buscarCodigoLivro(codigo, *quantidadeDeLivros, *livros);
+    
+        clearBuffer();
+    
+        if (indiceLivro > -1) {
+            for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
+                dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
+                dataPrevista = *localtime(&(*emprestimos)[i].dataPrevista);
+                dataDevolucao = *localtime(&(*emprestimos)[i].dataDevolucao);
+        
+                if ((*emprestimos)[i].idLivro == indiceLivro) {
+                    indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
+            
+                    printf("Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n",
+                            (*emprestimos)[i].id,
+                            (*livros)[indiceLivro].titulo,
+                            (*usuarios)[indiceUsuario].nome,
+                            dataRetirada.tm_mday,dataRetirada.tm_mon + 1,
+                            dataPrevista.tm_mday, dataPrevista.tm_mon + 1,
+                            dataRetirada.tm_mday, dataDevolucao.tm_mon + 1);
+                }
+            }
+        } else {
+            mensagem("Livro não existe ou não possui nenhum empréstimo.");
+            continue;
+        }
+    
+        mensagem("Todos os empréstimos do livro foram listados.");
+        return 0;
+    }
+}
