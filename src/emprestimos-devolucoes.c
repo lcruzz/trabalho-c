@@ -38,9 +38,12 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
                 registrarDevolucao(quantidadeDeEmprestimos, emprestimos, quantidadeDeLivros, livros, quantidadeDeUsuarios, usuarios);
                 break;
             case 3:
-                printf("Listando empréstimos em atraso...");
+                clear();
+                listarEmprestimosEmAtraso(quantidadeDeEmprestimos, emprestimos, quantidadeDeLivros, livros, quantidadeDeUsuarios, usuarios);
                 break;
             case 4:
+                clear();
+                listarTodosEmprestimos(quantidadeDeEmprestimos, emprestimos, quantidadeDeLivros, livros, quantidadeDeUsuarios, usuarios);
                 break;
             case 5:
                 break;
@@ -66,8 +69,9 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     int codigoLivro, matriculaUsuario, indiceLivro, indiceUsuario;
     int codigoEmprestimo = *quantidadeDeEmprestimos - 1;
 
-    time_t horario = time(NULL);
-    struct tm *data = localtime(&horario);
+    time_t dataRetirada, horario = time(NULL);
+    struct tm dataLocal = *localtime(&horario);
+    struct tm *data = &dataLocal;
 
     Emprestimo *emprestimo = (Emprestimo *) realloc(*emprestimos, *quantidadeDeEmprestimos * sizeof(Emprestimo));
 
@@ -101,24 +105,28 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
             mensagem("Entrada inválida. Por favor, informe um código válido.");
         }
 
-        indiceLivro = buscaBinariaLivros(codigoLivro, quantidadeDeLivros, *livros);
-
+        indiceLivro = buscaBinariaLivros(codigoLivro, *quantidadeDeLivros, *livros);
+    
         if (indiceLivro == -1) { mensagem("Livro não encontrado."); continue; };
 
+        dataRetirada = mktime(data);
+        (*emprestimos)[codigoEmprestimo].dataRetirada = dataRetirada;
+        
+        (*data).tm_mday += 14;
+        (*emprestimos)[codigoEmprestimo].dataPrevista = mktime(data);
         (*emprestimos)[codigoEmprestimo].id = codigoEmprestimo;
         (*emprestimos)[codigoEmprestimo].matriculaUsuario = matriculaUsuario;
         (*emprestimos)[codigoEmprestimo].idLivro = codigoLivro;
-        (*emprestimos)[codigoEmprestimo].dataRetirada = mktime(data);
-
-        (*data).tm_mday += 14;
-
-        (*emprestimos)[codigoEmprestimo].dataPrevista = mktime(data);
-        (*emprestimos)[codigoEmprestimo].dataRetirada = 0;
+        (*emprestimos)[codigoEmprestimo].dataDevolucao = 0;
         (*emprestimos)[codigoEmprestimo].devolvido = 'n';
 
         (*livros)[indiceLivro].quantidadeDisponivel--;
         (*livros)[indiceLivro].quantidadeDeEmprestimo++;
         (*usuarios)[indiceUsuario].emprestimosAtivos++;
+
+        clearBuffer();
+
+        mensagem("Emprestimo realizado com sucesso.");
 
         return 0;
     }
@@ -168,6 +176,33 @@ int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     }
 }
 
+// Função para listar empréstimos em atraso
+int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
+    int indiceLivro, indiceUsuario;
+
+    printf("===========================\n");
+    printf("        Empréstimos        \n");
+    printf("===========================\n\n");
+
+    for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
+        indiceLivro = buscaBinariaLivros((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
+        indiceUsuario = buscaBinariaUsuarios((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
+
+        printf("Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d | Data Prevista: %d | Data de Devolução: %d\n",
+                (*emprestimos)[i].id,
+                (*livros)[indiceLivro].titulo,
+                (*usuarios)[indiceUsuario].nome,
+                (*emprestimos)[i].dataRetirada,
+                (*emprestimos)[i].dataPrevista,
+                (*emprestimos)[i].dataDevolucao);
+    }
+
+    mensagem("Todos os empréstimos foram listados.");
+
+    return 0;
+}
+
+// Função para listar todos os empréstimos
 int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int indiceLivro, indiceUsuario;
 

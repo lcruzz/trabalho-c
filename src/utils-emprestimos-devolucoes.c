@@ -80,8 +80,8 @@ int ordenarEmprestimos(int quantidadeDeEmprestimos, Emprestimo emprestimos[]) {
 }
 
 // Função para a busca binária de emprestimos
-int buscaBinariaEmprestimos(int codigo, int *quantidadeDeEmprestimos, Emprestimo emprestimos[]) {
-    int meio, esquerda = 0, direita = *quantidadeDeEmprestimos - 1;
+int buscaBinariaEmprestimos(int codigo, int quantidadeDeEmprestimos, Emprestimo emprestimos[]) {
+    int meio, esquerda = 0, direita = quantidadeDeEmprestimos - 1;
 
     while (esquerda <= direita) {
         meio = esquerda + (direita - esquerda) / 2;

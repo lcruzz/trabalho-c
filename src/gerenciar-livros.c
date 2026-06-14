@@ -127,14 +127,16 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     
         printf("Informe o código do livro: ");
         if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeLivros - 1) {
+            clearBuffer();
             mensagem("Entrada inválida. Por favor, insira um código válido.");
             continue;
         };
     
-        indice = buscaBinariaLivros(codigo, quantidadeDeLivros, *livros);
+        indice = buscaBinariaLivros(codigo, *quantidadeDeLivros, *livros);
     
         if (indice > -1) {
             if ((*livros)[indice].quantidadeDeEmprestimo > 0) {
+                clearBuffer();
                 mensagem("O livro não pode ser removido do sistema.");
     
                 return 0;
@@ -144,6 +146,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
                 }
             }
         } else {
+            clearBuffer();
             mensagem("Entrada inválida. Por favor, insira um código válido.");
             continue;
         }
@@ -158,6 +161,8 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
         }
     
         *livros = livro;
+
+        clearBuffer();
     
         mensagem("Livro removido com sucesso.");
 
@@ -174,13 +179,16 @@ int listarLivros(int *quantidadeDeLivros, Livro **livros) {
     clearBuffer();
 
     for(int i = 0; i < *quantidadeDeLivros; i++) {
-        printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n",
+        printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d | Quantidade de Empréstimos: %d\n",
                 (*livros)[i].id,
                 (*livros)[i].titulo,
                 (*livros)[i].autor,
                 (*livros)[i].anoPublicacao,
-                (*livros)[i].quantidadeDisponivel);
+                (*livros)[i].quantidadeDisponivel,
+                (*livros)[i].quantidadeDeEmprestimo);
     };
+
+    clearBuffer();
 
     mensagem("Todos os livros foram listados.");
 
@@ -259,7 +267,7 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
 
 // Função para atualizar informações de um livro existente
 int atualizarLivro(int *quantidadeDeLivros, Livro **livros) {
-    int resposta, codigo;
+    int resposta, codigo, indice;
 
     while (1) {
         printf("===============================\n");
@@ -289,31 +297,31 @@ int atualizarLivro(int *quantidadeDeLivros, Livro **livros) {
             continue;
         }
 
+        indice = buscaBinariaLivros(codigo, *quantidadeDeLivros, *livros);
+
         clearBuffer();
 
         switch (resposta) {
             case 1:
                 printf("Título: ");
-                
-                fgets((*livros)[codigo].titulo, sizeof((*livros)[codigo].titulo), stdin);
+                fgets((*livros)[indice].titulo, sizeof((*livros)[indice].titulo), stdin);
+                (*livros)[indice].titulo[strcspn((*livros)[indice].titulo, "\n")] = '\0';
                 clear();
                 continue;
             case 2:
                 printf("Autor: ");
-
-                fgets((*livros)[codigo].autor, sizeof((*livros)[codigo].autor), stdin);
+                fgets((*livros)[indice].autor, sizeof((*livros)[indice].autor), stdin);
+                (*livros)[indice].autor[strcspn((*livros)[indice].autor, "\n")] = '\0';
                 clear();
                 continue;
             case 3:
                 printf("Ano de Lançamento: ");
-
-                if (!(scanf("%d", &(*livros)[codigo].anoPublicacao))) mensagem("Entrada inválida. Por favor, informe um código válido");
+                if (!(scanf("%d", &(*livros)[indice].anoPublicacao))) mensagem("Entrada inválida. Por favor, informe um código válido");
                 clear();
                 continue;
             case 4:
                 printf("Quantidade Disponível: ");
-
-                if (!(scanf("%d", &(*livros)[codigo].quantidadeDisponivel))) mensagem("Entrada inválida. Por favor, informe um código válido");
+                if (!(scanf("%d", &(*livros)[indice].quantidadeDisponivel))) mensagem("Entrada inválida. Por favor, informe um código válido");
                 clear();
                 continue;
             default:

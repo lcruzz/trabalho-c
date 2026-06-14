@@ -112,6 +112,8 @@ int listarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
                 (*usuarios)[i].emprestimosAtivos);
     };
 
+    clearBuffer();
+
     mensagem("Todos os usuários foram listados.");
 
     return 0;

@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 #include "../include/biblioteca.h"
 
 int main() {
@@ -20,12 +22,6 @@ int main() {
 
     lerArquivoDeEmprestimos("data/emprestimos.bin", quantidadeDeEmprestimos, emprestimos);
     ordenarEmprestimos(quantidadeDeEmprestimos, emprestimos);
-
-    // if (quantidadeDeEmprestimos > 0) {
-    //     for (int i = 0; i < quantidadeDeEmprestimos; i++)    {
-    //         printf("Código: %d | Data de Retirada: %d | Data Prevista: %d\n", emprestimos[i].id, emprestimos[i].dataRetirada, emprestimos[i].dataPrevista);
-    //     }
-    // }
 
     while (1) {
         printf("==========================================\n");

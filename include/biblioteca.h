@@ -32,7 +32,7 @@ int salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]);
 
 int ordenarLivros(int quantidadeDeLivros, Livro livros[]);
 
-int buscaBinariaLivros(int codigo, int *quantidadeDeLivros, Livro livros[]);
+int buscaBinariaLivros(int codigo, int quantidadeDeLivros, Livro livros[]);
 
 int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome);
 
@@ -73,6 +73,12 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
 
 int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
 
+int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
+
+int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
+
+int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
+
 // --------------------------------------------------------------------------------
 
 // Funções utilitárias para emprestimos e devoluções
@@ -84,9 +90,7 @@ int salvarEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo
 
 int ordenarEmprestimos(int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
 
-int buscaBinariaEmprestimos(int codigo, int *quantidadeDeEmprestimos, Emprestimo emprestimos[]);
-
-int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
+int buscaBinariaEmprestimos(int codigo, int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
 
 // --------------------------------------------------------------------------------
 
