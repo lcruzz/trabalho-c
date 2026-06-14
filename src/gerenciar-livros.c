@@ -55,7 +55,6 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
         }
 
         clear();
-
     }
     
     return 0;
@@ -66,7 +65,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     (*quantidadeDeLivros)++;
     int codigo = *quantidadeDeLivros - 1;
 
-    // Realoca a memória no ponteiro *livro com a quantidade necessária para alocar mais um livro
+    // Realoca a memória no ponteiro *livro com a memória necessária para alocar mais um livro
     Livro *livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
 
     if (livro == NULL) {
