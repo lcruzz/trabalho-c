@@ -8,8 +8,10 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
     int resposta = 0;
 
     while (1) {
-        imprimirArquivo("data/menu-emprestimos.txt");
+        imprimirArquivo("data/menus/menu-emprestimos.txt");
 
+        printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
+        
         if (!(scanf(" %d", &resposta)) || resposta > 5 || resposta < 0) {
             clearBuffer();
             mensagem("Entrada inválida. Por favor, insira um número válido.");
@@ -94,7 +96,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
             continue;
         }
 
-        printf("Informar o código do livro: ");
+        printf("\nInformar o código do livro: ");
 
         if (!(scanf("%d", &codigoLivro))) {
             clearBuffer();
@@ -196,7 +198,7 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
             indiceLivro = buscarCodigoLivro((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
             indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
     
-            printf("Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n",
+            printf(NEGRITO BRANCO "Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n" RESET,
                     (*emprestimos)[i].id,
                     (*livros)[indiceLivro].titulo,
                     (*usuarios)[indiceUsuario].nome,
@@ -229,7 +231,7 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
         indiceLivro  = buscarCodigoLivro((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
         indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
 
-        printf("Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n",
+        printf(NEGRITO BRANCO "Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n" RESET,
                 (*emprestimos)[i].id,
                 (*livros)[indiceLivro].titulo,
                 (*usuarios)[indiceUsuario].nome,
@@ -274,7 +276,7 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
                 if ((*emprestimos)[i].idLivro == indiceLivro) {
                     indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
             
-                    printf("Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n",
+                    printf(NEGRITO BRANCO "Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n" RESET,
                             (*emprestimos)[i].id,
                             (*livros)[indiceLivro].titulo,
                             (*usuarios)[indiceUsuario].nome,

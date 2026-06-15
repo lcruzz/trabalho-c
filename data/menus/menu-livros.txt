@@ -1,0 +1,17 @@
+┌─────────────────────────────────────┐
+       _    _  _ _  ___  ___  ___ 
+      | |  | || | || . \| . |/ __>
+      | |_ | || ' ||   /| | |\__ \
+      |___||_||__/ |_\_\`___'<___/
+
+└─────────────────────────────────────┘
+
+[1] Cadastrar Livro
+[2] Listar Todos os Livros
+[3] Buscar Livro
+[4] Atualizar Informações de um Livro
+[5] Remover Livro
+[0] Voltar ao Menu Principal
+
+______________________________________
+

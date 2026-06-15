@@ -7,11 +7,12 @@
 #include "gerenciar-usuarios.h"
 #include "emprestimos-devolucoes.h"
 
-#define RESET   "\033[0m"
+#define RESET    "\033[0m"
 #define VERMELHO "\033[31m"
-#define VERDE    "\033[32m"
+#define VERDE    "\033[38;2;57;255;20m"
 #define AMARELO  "\033[33m"
 #define AZUL     "\033[34m"
+#define BRANCO   "\033[97m"
 #define NEGRITO  "\033[1m"
 
 // Funções para gerenciar livros

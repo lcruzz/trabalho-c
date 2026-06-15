@@ -98,7 +98,7 @@ int buscarNomeDoUsuario(int quantidadeDeUsuarios, Usuarios *usuarios, char *nome
 
     for (int i = 0; i < quantidadeDeUsuarios; i++) {
         if (strstr(usuarios[i].nome, nome) != NULL) {
-            printf("Matrícula: %d | Nome: %s | Curso: %s | Emprestimos ativos: %d\n",
+            printf(NEGRITO BRANCO "\nMatrícula: %d | Nome: %s | Curso: %s | Emprestimos ativos: %d\n" RESET,
                 usuarios[i].matricula, usuarios[i].nome,
                 usuarios[i].curso, usuarios[i].emprestimosAtivos);
             encontrou++;

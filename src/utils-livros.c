@@ -103,7 +103,7 @@ int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome) {
 
     for (int i = 0; i < quantidadeDeLivros; i++) {
         if (strstr(livros[i].titulo, nome) != NULL) {
-            printf("Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n",
+            printf(NEGRITO BRANCO "\nCódigo: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n" RESET,
                     livros[i].id, livros[i].titulo, livros[i].autor,
                     livros[i].anoPublicacao, livros[i].quantidadeDisponivel);
             encontrou++;

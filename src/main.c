@@ -24,8 +24,10 @@ int main() {
     ordenarEmprestimos(quantidadeDeEmprestimos, emprestimos);
 
     while (1) {
-        imprimirArquivo("data/menu-biblioteca.txt");
+        imprimirArquivo("data/menus/menu-biblioteca.txt");
     
+        printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
+
         if (!(scanf(" %d", &resposta)) || resposta < 0 || resposta > 4) {
             mensagem("Entrada inválida. Por favor, insira um número válido.");
             continue;
@@ -50,7 +52,7 @@ int main() {
                 salvarLivros("data/livros.bin", quantidadeDeLivros, livros);
                 salvarUsuarios("data/usuarios.bin", quantidadeDeUsuarios, usuarios);
                 salvarEmprestimos("data/emprestimos.bin", quantidadeDeEmprestimos, emprestimos);
-                printf("Saindo do sistema. Até logo!\n");
+                printf(AMARELO "\nSaindo do sistema. Até logo!\n" RESET);
                 return 0;
             default:
                 mensagem("Opção inválida. Por favor, insira uma opção válida.");
