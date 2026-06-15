@@ -16,6 +16,7 @@
 #define NEGRITO  "\033[1m"
 
 // Funções para gerenciar livros
+
 int gerenciarLivros(int *quantidadeDeLivros, Livro **livros);
 
 int cadastrarLivro(int *quantidadeDeLivros, Livro **livros);
@@ -31,6 +32,7 @@ int atualizarLivro(int *quantidadeDeLivros, Livro **livros);
 // --------------------------------------------------------------------------------
 
 // Funções utilitárias para gerenciar livros
+
 int lerQuantidadeDeLivros(char *nomeArquivo);
 
 int lerArquivoDeLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]);
@@ -46,6 +48,7 @@ int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome);
 // --------------------------------------------------------------------------------
 
 // Funções para gerenciar usuários
+
 int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios);
@@ -61,6 +64,7 @@ int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios);
 // --------------------------------------------------------------------------------
 
 // Funções utilitárias para gerenciar usuários
+
 int lerQuantidadeDeUsuarios(char *nomeArquivo);
 
 int lerArquivoDeUsuarios(char *nomeArquivo, int quantidadeDeUsuarios, Usuarios usuarios[]);
@@ -76,6 +80,7 @@ int buscarNomeDoUsuario(int quantidadeDeUsuarios, Usuarios *usuarios, char *nome
 // --------------------------------------------------------------------------------
 
 // Funções para gerenciar empréstimos e devoluções
+
 int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
@@ -91,6 +96,7 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
 // --------------------------------------------------------------------------------
 
 // Funções utilitárias para emprestimos e devoluções
+
 int lerQuantidadeDeEmprestimos(char *nomeArquivo);
 
 int lerArquivoDeEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
@@ -100,6 +106,20 @@ int salvarEmprestimos(char *nomeArquivo, int quantidadeDeEmprestimos, Emprestimo
 int ordenarEmprestimos(int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
 
 int buscarCodigoEmprestimo(int codigo, int quantidadeDeEmprestimos, Emprestimo emprestimos[]);
+
+// --------------------------------------------------------------------------------
+
+// Funções para gerar relatórios
+
+int relatorios();
+
+// int livrosMaisEmprestados();
+
+// int usuarioEmprestimosAtrasados();
+
+// int livrosDisponiveis();
+
+// int usuarioHistoricoDeEmprestimos();
 
 // --------------------------------------------------------------------------------
 

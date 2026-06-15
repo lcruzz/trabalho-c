@@ -47,6 +47,8 @@ int main() {
                 emprestimosDevolucoes(&quantidadeDeEmprestimos, &emprestimos, &quantidadeDeLivros, &livros, &quantidadeDeUsuarios, &usuarios);
                 break;
             case 4:
+                clear();
+                relatorios();
                 break;
             case 0:
                 salvarLivros("data/livros.bin", quantidadeDeLivros, livros);
