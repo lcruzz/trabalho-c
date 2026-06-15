@@ -7,16 +7,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
     int resposta = 0;
 
     while(1) {
-        printf("==================================\n");
-        printf("  Gerenciar Livros da Biblioteca  \n");
-        printf("==================================\n\n");
-    
-        printf("[1] Cadastrar Livro \n");
-        printf("[2] Listar Todos os Livros \n");
-        printf("[3] Buscar Livro \n");
-        printf("[4] Atualizar Informações de um Livro \n");
-        printf("[5] Remover Livro \n");
-        printf("[0] Voltar ao Menu Principal \n\n");
+        imprimirArquivo("data/menu-livros.txt");
     
         if (!(scanf(" %d", &resposta)) || resposta < 0 || resposta > 5) {
             clearBuffer();

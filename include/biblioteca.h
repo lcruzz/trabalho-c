@@ -7,6 +7,12 @@
 #include "gerenciar-usuarios.h"
 #include "emprestimos-devolucoes.h"
 
+#define RESET   "\033[0m"
+#define VERMELHO "\033[31m"
+#define VERDE    "\033[32m"
+#define AMARELO  "\033[33m"
+#define AZUL     "\033[34m"
+#define NEGRITO  "\033[1m"
 
 // Funções para gerenciar livros
 int gerenciarLivros(int *quantidadeDeLivros, Livro **livros);
@@ -104,5 +110,7 @@ void clearBuffer();
 void tratarString(char *str);
 
 void mensagem(char mensagem[]);
+
+void imprimirArquivo(char *nomeArquivo);
 
 #endif

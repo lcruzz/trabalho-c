@@ -7,16 +7,7 @@ int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int resposta = 0;
 
     while (1) {
-        printf("====================================\n");
-        printf("  Gerenciar Usuários da Biblioteca  \n");
-        printf("====================================\n\n");
-
-        printf("[1] Cadastrar Usuário \n");
-        printf("[2] Listar Todos os Usuários \n");
-        printf("[3] Buscar Usuário \n");
-        printf("[4] Atualizar Informações de um Usuário \n");
-        printf("[5] Remover Usuário \n");
-        printf("[0] Voltar ao Menu Principal \n\n");
+        imprimirArquivo("data/menu-usuarios.txt");
 
         if (!(scanf(" %d", &resposta)) || resposta > 5 || resposta < 0) {
             clearBuffer();

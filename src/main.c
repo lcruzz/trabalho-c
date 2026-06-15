@@ -24,15 +24,7 @@ int main() {
     ordenarEmprestimos(quantidadeDeEmprestimos, emprestimos);
 
     while (1) {
-        printf("==========================================\n");
-        printf("  Sistema de Gerenciamento de Biblioteca  \n");
-        printf("==========================================\n\n");
-    
-        printf("[1] Gerenciar Livros \n");
-        printf("[2] Gerenciar Usuários \n");
-        printf("[3] Gerenciar Empréstimos e Devoluções \n");
-        printf("[4] Relatórios \n");
-        printf("[0] Sair \n\n");
+        imprimirArquivo("data/menu-biblioteca.txt");
     
         if (!(scanf(" %d", &resposta)) || resposta < 0 || resposta > 4) {
             mensagem("Entrada inválida. Por favor, insira um número válido.");

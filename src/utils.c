@@ -69,7 +69,22 @@ void tratarString(char *str) {
 // Função que imprime uma mensagem de sucesso ou de erro no terminal
 void mensagem(char mensagem[]) {
     printf("\n%s", mensagem);
-    printf("\nPressiones Enter para continuar...");
+    printf(AMARELO "\nPressiones Enter para continuar..." RESET);
     getchar();
     clear();
+}
+
+void imprimirArquivo(char *nomeArquivo) {
+    char linha[512];
+    FILE *arquivo = fopen(nomeArquivo, "r");
+
+    if (arquivo == NULL) {
+        printf("Erro ao tentar abrir arquivo.\n");
+    }
+
+    while(fgets(linha, sizeof(linha), arquivo) != NULL) {
+        printf("%s", linha);
+    }
+
+    fclose(arquivo);
 }

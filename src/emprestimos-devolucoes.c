@@ -8,16 +8,7 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
     int resposta = 0;
 
     while (1) {
-        printf("============================\n");
-        printf("  Empréstimos e Devoluções  \n");
-        printf("============================\n\n");
-
-        printf("[1] Realizar Empréstimo \n");
-        printf("[2] Registrar Devolução \n");
-        printf("[3] Listar Empréstimos em Atraso \n");
-        printf("[4] Listar Todos os Empréstimos \n");
-        printf("[5] Informar Empréstimos de um Livro \n");
-        printf("[0] Voltar ao Menu Principal \n\n");
+        imprimirArquivo("data/menu-emprestimos.txt");
 
         if (!(scanf(" %d", &resposta)) || resposta > 5 || resposta < 0) {
             clearBuffer();
