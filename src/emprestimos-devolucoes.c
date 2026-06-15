@@ -77,7 +77,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
 
     while (1) {
         imprimirArquivo("data/menus/emprestimos.txt");
-        printf("\n                    Realizar Emprestimo\n");
+        printf("                    Realizar Emprestimo\n");
         printf("_____________________________________________________________\n\n");
 
         printf("Informe a matrícula do aluno: ");
@@ -138,9 +138,9 @@ int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     struct tm *data = localtime(&horario);
 
     while (1) {
-        printf("===================================\n");
-        printf("        Registrar Devolução        \n");
-        printf("===================================\n\n");
+        imprimirArquivo("data/menus/emprestimos.txt");
+        printf("                    Registrar Devolução\n");
+        printf("_____________________________________________________________\n\n");
 
         printf("Informe o código do empréstimo: ");
 
@@ -185,9 +185,9 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
     int indiceLivro, indiceUsuario;
     struct tm dataRetirada, dataPrevista, dataDevolucao, dataAtual = *localtime(&horario);
 
-    printf("=====================================\n");
-    printf("        Empréstimos em Atraso        \n");
-    printf("=====================================\n\n");
+    imprimirArquivo("data/menus/emprestimos.txt");
+    printf("                   Empréstimos em Atraso\n");
+    printf("_____________________________________________________________\n\n");
 
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
         dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
@@ -198,7 +198,12 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
             indiceLivro = buscarCodigoLivro((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
             indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
     
-            printf(NEGRITO BRANCO "Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n" RESET,
+            printf(VERDE "Código: " RESET "%d"
+                   NEGRITO BRANCO "\nTítulo do Livro: " RESET "%s"
+                   NEGRITO BRANCO "\nNome do Usuário: " RESET "%s"
+                   NEGRITO BRANCO "\nData de Empréstimo: " RESET "%d/%d"
+                   NEGRITO BRANCO "\nData Prevista: " RESET "%d/%d"
+                   NEGRITO BRANCO "\nData de Devolução: " RESET "%d/%d\n\n",
                     (*emprestimos)[i].id,
                     (*livros)[indiceLivro].titulo,
                     (*usuarios)[indiceUsuario].nome,
@@ -219,10 +224,8 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
     int indiceLivro, indiceUsuario;
     struct tm dataRetirada, dataPrevista, dataDevolucao;
 
-    printf("===========================\n");
-    printf("        Empréstimos        \n");
-    printf("===========================\n\n");
-
+    imprimirArquivo("data/menus/emprestimos.txt");
+    
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
         dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
         dataPrevista = *localtime(&(*emprestimos)[i].dataPrevista);
@@ -231,13 +234,18 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
         indiceLivro  = buscarCodigoLivro((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
         indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
 
-        printf(NEGRITO BRANCO "Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n" RESET,
-                (*emprestimos)[i].id,
-                (*livros)[indiceLivro].titulo,
-                (*usuarios)[indiceUsuario].nome,
-                dataRetirada.tm_mday,dataRetirada.tm_mon + 1,
-                dataPrevista.tm_mday, dataPrevista.tm_mon + 1,
-                dataRetirada.tm_mday, dataDevolucao.tm_mon + 1);
+        printf(VERDE "Código: " RESET "%d"
+                NEGRITO BRANCO "\nTítulo do Livro: " RESET "%s"
+                NEGRITO BRANCO "\nNome do Usuário: " RESET "%s"
+                NEGRITO BRANCO "\nData de Empréstimo: " RESET "%d/%d"
+                NEGRITO BRANCO "\nData Prevista: " RESET "%d/%d"
+                NEGRITO BRANCO "\nData de Devolução: " RESET "%d/%d\n\n",
+                    (*emprestimos)[i].id,
+                    (*livros)[indiceLivro].titulo,
+                    (*usuarios)[indiceUsuario].nome,
+                    dataRetirada.tm_mday,dataRetirada.tm_mon + 1,
+                    dataPrevista.tm_mday, dataPrevista.tm_mon + 1,
+                    dataRetirada.tm_mday, dataDevolucao.tm_mon + 1);
     }
 
     clearBuffer();
@@ -251,9 +259,7 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
     struct tm dataRetirada, dataPrevista, dataDevolucao;
 
     while (1) {
-        printf("===========================\n");
-        printf("        Empréstimos        \n");
-        printf("===========================\n\n");
+        imprimirArquivo("data/menus/emprestimos.txt");
     
         printf("Informe o código do livro: ");
     
@@ -276,7 +282,12 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
                 if ((*emprestimos)[i].idLivro == indiceLivro) {
                     indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
             
-                    printf(NEGRITO BRANCO "Código: %d | Título do Livro: %s | Nome do Usuário: %s | Data de Empréstimo: %d/%d | Data Prevista: %d/%d | Data de Devolução: %d/%d\n" RESET,
+                    printf(VERDE "Código: " RESET "%d"
+                           NEGRITO BRANCO "\nTítulo do Livro: " RESET "%s"
+                           NEGRITO BRANCO "\nNome do Usuário: " RESET "%s"
+                           NEGRITO BRANCO "\nData de Empréstimo: " RESET "%d/%d"
+                           NEGRITO BRANCO "\nData Prevista: " RESET "%d/%d"
+                           NEGRITO BRANCO "\nData de Devolução: " RESET "%d/%d\n\n",
                             (*emprestimos)[i].id,
                             (*livros)[indiceLivro].titulo,
                             (*usuarios)[indiceUsuario].nome,

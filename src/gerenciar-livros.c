@@ -68,9 +68,9 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
 
     *livros = livro;
 
-    printf("===============================\n");
-    printf("        Cadastrar Livro        \n");
-    printf("===============================\n\n");
+    imprimirArquivo("data/menus/livros.txt");
+    printf("            Cadastrar Livro\n");
+    printf("_______________________________________\n\n");
 
     clearBuffer();
     
@@ -112,20 +112,24 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
 
 // Função para listar todos os livros do sistema
 int listarLivros(int *quantidadeDeLivros, Livro **livros) {
-    printf("====================================\n");
-    printf("        Livros da Biblioteca        \n");
-    printf("====================================\n\n");
+    imprimirArquivo("data/menus/livros.txt");
+    printf("          Livros da Biblioteca\n");
+    printf("_______________________________________\n\n");
 
     clearBuffer();
 
     for(int i = 0; i < *quantidadeDeLivros; i++) {
-        printf(NEGRITO BRANCO "Código: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d | Quantidade de Empréstimos: %d\n" RESET,
-                (*livros)[i].id,
-                (*livros)[i].titulo,
-                (*livros)[i].autor,
-                (*livros)[i].anoPublicacao,
-                (*livros)[i].quantidadeDisponivel,
-                (*livros)[i].quantidadeDeEmprestimo);
+            printf(VERDE "\nCódigo: " RESET "%d\n"
+                   NEGRITO BRANCO "Título: " RESET "%s\n"
+                   NEGRITO BRANCO "Autor: " RESET "%s\n"
+                   NEGRITO BRANCO "Ano de Lançamento: " RESET "%d\n"
+                   NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n\n",
+                    (*livros)[i].id,
+                    (*livros)[i].titulo,
+                    (*livros)[i].autor,
+                    (*livros)[i].anoPublicacao,
+                    (*livros)[i].quantidadeDisponivel,
+                    (*livros)[i].quantidadeDeEmprestimo);
     };
 
     mensagem("Todos os livros foram listados.");
@@ -138,13 +142,14 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
     int resposta;
 
     while (1) {
-        printf("====================================\n");
-        printf("            Buscar Livro            \n");
-        printf("====================================\n\n");
-        printf("[1] Buscar livro por código \n");
-        printf("[2] Buscar livro por nome \n");
-        printf("[0] Voltar \n");
-        printf("____________________________________ \n\n");
+        imprimirArquivo("data/menus/livros.txt");
+        printf("            Buscar Livro\n");
+        printf("_______________________________________\n\n");
+
+        printf(" [1] Buscar livro por código \n");
+        printf(" [2] Buscar livro por nome \n");
+        printf(" [0] Voltar \n");
+        printf("_______________________________________\n\n");
 
         printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
         
@@ -170,9 +175,13 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
                 int indice = buscarCodigoLivro(codigo, *quantidadeDeLivros, *livros);
         
                 if (indice != -1) {
-                    printf(NEGRITO BRANCO"\nCódigo: %d | Título: %s | Autor: %s | Ano de Lançamento: %d | Quantidade Disponível: %d\n" RESET,
-                    (*livros)[indice].id, (*livros)[indice].titulo, (*livros)[indice].autor,
-                    (*livros)[indice].anoPublicacao, (*livros)[indice].quantidadeDisponivel);
+                    printf(VERDE "\nCódigo: " RESET "%d\n"
+                           NEGRITO BRANCO "Título: " RESET "%s\n"
+                           NEGRITO BRANCO "Autor: " RESET "%s\n"
+                           NEGRITO BRANCO "Ano de Lançamento: " RESET "%d\n"
+                           NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n\n",
+                            (*livros)[indice].id, (*livros)[indice].titulo, (*livros)[indice].autor,
+                            (*livros)[indice].anoPublicacao, (*livros)[indice].quantidadeDisponivel);
 
                     mensagem("Livro encontrado com sucesso!");
                 } else {
@@ -211,15 +220,15 @@ int atualizarLivro(int *quantidadeDeLivros, Livro **livros) {
     int resposta, codigo, indice;
 
     while (1) {
-        printf("==========================================\n");
-        printf("             Atualizar Livro              \n");
-        printf("==========================================\n\n");
+        imprimirArquivo("data/menus/livros.txt");
+        printf("            Atualizar Livro\n");
+        printf("_______________________________________\n\n");
     
-        printf("[1] Atualizar Título \n");
-        printf("[2] Atualizar Autor \n");
-        printf("[3] Atualizar Ano de Lançamento \n");
-        printf("[4] Atualizar Quantidade Disponível \n");
-        printf("[0] Voltar \n");
+        printf(" [1] Atualizar Título \n");
+        printf(" [2] Atualizar Autor \n");
+        printf(" [3] Atualizar Ano de Lançamento \n");
+        printf(" [4] Atualizar Quantidade Disponível \n");
+        printf(" [0] Voltar \n");
         printf("__________________________________________\n\n");
 
         printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
@@ -283,9 +292,9 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     int codigo = 0, indice = -1;
 
     while (1) {
-        printf("=============================\n");
-        printf("        Remover Livro        \n");
-        printf("=============================\n\n");
+        imprimirArquivo("data/menus/livros.txt");
+        printf("            Remover Livro\n");
+        printf("_______________________________________\n\n");
     
         printf("Informe o código do livro: ");
         if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeLivros - 1) {

@@ -67,9 +67,9 @@ int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
     *usuarios = usuario;
 
-    printf("===============================\n");
-    printf("       Cadastrar Usuários      \n");
-    printf("===============================\n\n");
+    imprimirArquivo("data/menus/usuarios.txt");
+    printf("            Cadastrar Usuários\n");
+    printf("_________________________________________\n\n");
 
     clearBuffer();
 
@@ -95,14 +95,17 @@ int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
 // Função para listar todos os usuários cadastrados no sistema
 int listarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
-    printf("====================================\n");
-    printf("       Usuários da Biblioteca       \n");
-    printf("====================================\n\n");
+    imprimirArquivo("data/menus/usuarios.txt");
+    printf("          Usuários da Biblioteca\n");
+    printf("_________________________________________\n\n");
 
     clearBuffer();
 
     for (int i = 0; i < *quantidadeDeUsuarios; i++) {
-        printf(NEGRITO BRANCO "Matrícula: %d | Nome: %s | Curso: %s | Emprestimos ativos: %d\n" RESET,
+        printf(VERDE "\nMatrícula: " RESET "%d\n"
+            NEGRITO BRANCO "Nome: " RESET "%s\n"
+            NEGRITO BRANCO "Curso: " RESET "%s\n"
+            NEGRITO BRANCO "Empréstimos ativos: " RESET "%d\n\n",
                 (*usuarios)[i].matricula,
                 (*usuarios)[i].nome,
                 (*usuarios)[i].curso,
@@ -119,13 +122,14 @@ int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int resposta;
 
     while (1) {
-        printf("====================================\n");
-        printf("           Buscar Usuário           \n");
-        printf("====================================\n\n");
-        printf("[1] Buscar usuário por matricula \n");
-        printf("[2] Buscar usuário por nome \n");
-        printf("[0] Voltar \n");
-        printf("____________________________________\n\n");
+        imprimirArquivo("data/menus/usuarios.txt");
+        printf("              Buscar Usuário\n");
+        printf("_________________________________________\n\n");
+
+        printf("  [1] Buscar usuário por matricula \n");
+        printf("  [2] Buscar usuário por nome \n");
+        printf("  [0] Voltar \n");
+        printf("_________________________________________\n\n");
 
         printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
 
@@ -148,9 +152,12 @@ int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
                 int indice = buscarMatricula(codigo, *quantidadeDeUsuarios, *usuarios);
         
                 if (indice != -1) {
-                    printf(NEGRITO BRANCO "Matrícula: %d | Nome: %s | Curso: %s | Emprestimos ativos: %d\n" RESET,
-                        (*usuarios)[indice].matricula, (*usuarios)[indice].nome,
-                        (*usuarios)[indice].curso, (*usuarios)[indice].emprestimosAtivos);
+                    printf(VERDE "\nMatrícula: " RESET "%d\n"
+                           NEGRITO BRANCO "Nome: " RESET "%s\n"
+                           NEGRITO BRANCO "Curso: " RESET "%s\n"
+                           NEGRITO BRANCO "Empréstimos ativos: " RESET "%d\n\n",
+                            (*usuarios)[indice].matricula, (*usuarios)[indice].nome,
+                            (*usuarios)[indice].curso, (*usuarios)[indice].emprestimosAtivos);
                     mensagem("Usuário encontrado com sucesso!");
                 } else {
                     mensagem("O usuário não foi encontrado ou não existe no sistema.");
@@ -188,14 +195,14 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int resposta, codigo;
 
     while (1) {
-        printf("===============================\n");
-        printf("       Atualizar Usuário       \n");
-        printf("===============================\n\n");
+        imprimirArquivo("data/menus/usuarios.txt");
+        printf("            Atualizar Usuário\n");
+        printf("_________________________________________\n\n");
 
-        printf("[1] Atualizar Nome \n");
-        printf("[2] Atualizar Curso \n");
-        printf("[0] Voltar \n");
-        printf("_______________________________\n\n");
+        printf("  [1] Atualizar Nome \n");
+        printf("  [2] Atualizar Curso \n");
+        printf("  [0] Voltar \n");
+        printf("_________________________________________\n\n");
 
         printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
 
@@ -251,9 +258,9 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int codigo = 0, indice = -1;
 
     while (1) {
-        printf("=============================\n");
-        printf("       Remover Usuário       \n");
-        printf("=============================\n\n");
+        imprimirArquivo("data/menus/usuarios.txt");
+        printf("             Remover Usuário\n");
+        printf("_________________________________________\n\n");
     
         printf("Informe a matricula do usuario: ");
         if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeUsuarios - 1) {

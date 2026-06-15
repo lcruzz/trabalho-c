@@ -8,11 +8,11 @@
                                                                  
 └───────────────────────────────────────────────────────────────────┘
 
-                  [1] Gerenciar Livros
-                  [2] Gerenciar Usuários
-                  [3] Gerenciar Empréstimos e Devoluções
-                  [4] Relatórios
-                  [0] Sair
+  [1] Gerenciar Livros
+  [2] Gerenciar Usuários
+  [3] Gerenciar Empréstimos e Devoluções
+  [4] Relatórios
+  [0] Sair
 
 _____________________________________________________________________
 

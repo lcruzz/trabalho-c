@@ -69,7 +69,7 @@ void tratarString(char *str) {
 // Função que imprime uma mensagem de sucesso ou de erro no terminal
 void mensagem(char mensagem[]) {
     printf("\n%s", mensagem);
-    printf(AMARELO "\nPressiones Enter para continuar..." RESET);
+    printf(AMARELO "\nPressione Enter para continuar..." RESET);
     getchar();
     clear();
 }
