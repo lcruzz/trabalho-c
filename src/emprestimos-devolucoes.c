@@ -76,9 +76,9 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     *emprestimos = emprestimo;
 
     while (1) {
-        printf("===================================\n");
-        printf("        Realizar Emprestimo        \n");
-        printf("===================================\n\n");
+        imprimirArquivo("data/menus/emprestimos.txt");
+        printf("\n                    Realizar Emprestimo\n");
+        printf("_____________________________________________________________\n\n");
 
         printf("Informe a matrícula do aluno: ");
 
