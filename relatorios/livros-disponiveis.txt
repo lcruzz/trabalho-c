@@ -1,6 +1,6 @@
 RELATÓRIO - LIVROS DISPONÍVEIS PARA EMPRÉSTIMO
 --------------------------------------------------
-Gerado em: 16/06/2026 01:31:06
+Gerado em: 16/06/2026 10:04:35
 
 1.
 TÍTULO: os demônios
@@ -20,20 +20,27 @@ UNIDADES DISPONÍVEIS: 25
 TÍTULO: o menino e a garça
 AUTOR: joão batista
 CÓDIGO DO LIVRO: 2
-UNIDADES DISPONÍVEIS: 26
+UNIDADES DISPONÍVEIS: 24
 -------------------------------------------------
 
 4.
 TÍTULO: conectadas
 AUTOR: clara alves
 CÓDIGO DO LIVRO: 3
-UNIDADES DISPONÍVEIS: 10
+UNIDADES DISPONÍVEIS: 8
 -------------------------------------------------
 
 5.
 TÍTULO: dom casmurro
 AUTOR: machado de assis
 CÓDIGO DO LIVRO: 4
-UNIDADES DISPONÍVEIS: 10
+UNIDADES DISPONÍVEIS: 9
+-------------------------------------------------
+
+6.
+TÍTULO: os irmão karamazov
+AUTOR: tiago italo
+CÓDIGO DO LIVRO: 5
+UNIDADES DISPONÍVEIS: 25
 -------------------------------------------------
 

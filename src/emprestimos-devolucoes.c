@@ -197,7 +197,7 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
             dataDevolucao.tm_mon = -1;
         }
 
-        if ((dataPrevista.tm_mon <= dataAtual.tm_mon) && (dataPrevista.tm_mday < dataAtual.tm_mday)) {
+        if (difftime((*emprestimos)[i].dataPrevista, horario) < 0 && (*emprestimos)[i].dataDevolucao == 0) {
             indiceLivro = buscarCodigoLivro((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
             indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
     
@@ -210,7 +210,7 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
                     (*emprestimos)[i].id,
                     (*livros)[indiceLivro].titulo,
                     (*usuarios)[indiceUsuario].nome,
-                    dataRetirada.tm_mday,dataRetirada.tm_mon + 1,
+                    dataRetirada.tm_mday, dataRetirada.tm_mon + 1,
                     dataPrevista.tm_mday, dataPrevista.tm_mon + 1,
                     dataDevolucao.tm_mday, dataDevolucao.tm_mon + 1);
         }

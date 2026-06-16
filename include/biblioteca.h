@@ -111,15 +111,15 @@ int buscarCodigoEmprestimo(int codigo, int quantidadeDeEmprestimos, Emprestimo e
 
 // Funções para gerar relatórios
 
-int relatorios(int *quantidadeDeLivros, Livro **livros);
+int relatorios(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros);
 
-// int usuarioEmprestimosAtrasados();
+int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 int livrosDisponiveis(int *quantidadeDeLivros, Livro **livros);
 
-// int usuarioHistoricoDeEmprestimos();
+// int usuarioHistoricoDeEmprestimos(int *quantidadeDeLivros, Livro **livros);
 
 // --------------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 RELATÓRIO - LIVROS MAIS EMPRESTADOS
 -------------------------------------
-Gerado em: 16/06/2026 01:19:29
+Gerado em: 16/06/2026 10:04:16
 
 1.
 TÍTULO: os demônios
@@ -20,20 +20,27 @@ TOTAL DE EMPRÉSTIMOS: 3
 TÍTULO: o menino e a garça
 AUTOR': joão batista
 CÓDIGO DO LIVRO: 2
-TOTAL DE EMPRÉSTIMOS: 0
+TOTAL DE EMPRÉSTIMOS: 2
 -------------------------------------------------
 
 4.
 TÍTULO: conectadas
 AUTOR': clara alves
 CÓDIGO DO LIVRO: 3
-TOTAL DE EMPRÉSTIMOS: 0
+TOTAL DE EMPRÉSTIMOS: 2
 -------------------------------------------------
 
 5.
 TÍTULO: dom casmurro
 AUTOR': machado de assis
 CÓDIGO DO LIVRO: 4
+TOTAL DE EMPRÉSTIMOS: 1
+-------------------------------------------------
+
+6.
+TÍTULO: os irmão karamazov
+AUTOR': tiago italo
+CÓDIGO DO LIVRO: 5
 TOTAL DE EMPRÉSTIMOS: 0
 -------------------------------------------------
 
