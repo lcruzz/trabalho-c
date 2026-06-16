@@ -60,10 +60,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     int codigoEmprestimo = *quantidadeDeEmprestimos - 1;
 
     time_t horario = time(NULL);
-    struct tm dataDevolucao = {0}, *data = localtime(&horario);
-
-    dataDevolucao.tm_mday = 0;
-    dataDevolucao.tm_mon = -1;
+    struct tm *data = localtime(&horario);
 
     // Realoca a memória do ponteiro *emprestimo com a memória necessária para alocar mais um livro
     Emprestimo *emprestimo = (Emprestimo *) realloc(*emprestimos, *quantidadeDeEmprestimos * sizeof(Emprestimo));
@@ -96,7 +93,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
             continue;
         }
 
-        printf("\nInformar o código do livro: ");
+        printf("Informar o código do livro: ");
 
         if (!(scanf("%d", &codigoLivro))) {
             clearBuffer();
@@ -118,7 +115,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         (*emprestimos)[codigoEmprestimo].id = codigoEmprestimo;
         (*emprestimos)[codigoEmprestimo].matriculaUsuario = matriculaUsuario;
         (*emprestimos)[codigoEmprestimo].idLivro = codigoLivro;
-        (*emprestimos)[codigoEmprestimo].dataDevolucao = mktime(&dataDevolucao);
+        (*emprestimos)[codigoEmprestimo].dataDevolucao = 0;
         (*emprestimos)[codigoEmprestimo].devolvido = 'n';
 
         (*livros)[indiceLivro].quantidadeDisponivel--;
@@ -192,7 +189,13 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
         dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
         dataPrevista = *localtime(&(*emprestimos)[i].dataPrevista);
-        dataDevolucao = *localtime(&(*emprestimos)[i].dataDevolucao);
+
+        if ((*emprestimos)[i].dataDevolucao != 0) {
+            dataDevolucao = *localtime(&(*emprestimos)[i].dataDevolucao);
+        } else {
+            dataDevolucao.tm_mday = 0;
+            dataDevolucao.tm_mon = -1;
+        }
 
         if ((dataPrevista.tm_mon <= dataAtual.tm_mon) && (dataPrevista.tm_mday < dataAtual.tm_mday)) {
             indiceLivro = buscarCodigoLivro((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
@@ -209,7 +212,7 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
                     (*usuarios)[indiceUsuario].nome,
                     dataRetirada.tm_mday,dataRetirada.tm_mon + 1,
                     dataPrevista.tm_mday, dataPrevista.tm_mon + 1,
-                    dataRetirada.tm_mday, dataDevolucao.tm_mon + 1);
+                    dataDevolucao.tm_mday, dataDevolucao.tm_mon + 1);
         }
     }
 
@@ -229,7 +232,14 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
         dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
         dataPrevista = *localtime(&(*emprestimos)[i].dataPrevista);
-        dataDevolucao = *localtime(&(*emprestimos)[i].dataDevolucao);
+
+        if ((*emprestimos)[i].dataDevolucao != 0) {
+            dataDevolucao = *localtime(&(*emprestimos)[i].dataDevolucao);
+        } else {
+            dataDevolucao.tm_mday = 0;
+            dataDevolucao.tm_mon = -1;
+        }
+
 
         indiceLivro  = buscarCodigoLivro((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
         indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
@@ -245,7 +255,7 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
                     (*usuarios)[indiceUsuario].nome,
                     dataRetirada.tm_mday,dataRetirada.tm_mon + 1,
                     dataPrevista.tm_mday, dataPrevista.tm_mon + 1,
-                    dataRetirada.tm_mday, dataDevolucao.tm_mon + 1);
+                    dataDevolucao.tm_mday, dataDevolucao.tm_mon + 1);
     }
 
     clearBuffer();
