@@ -73,7 +73,7 @@ int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
     clearBuffer();
 
-    (*usuarios)[codigo].matricula = *quantidadeDeUsuarios - 1;
+    (*usuarios)[codigo].matricula = *quantidadeDeUsuarios + 999;
 
     printf("Digite o nome do aluno: ");
     fgets((*usuarios)[codigo].nome, sizeof((*usuarios)[codigo].nome), stdin);

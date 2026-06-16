@@ -56,7 +56,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
 // Função para cadastrar um livro no sistema
 int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     (*quantidadeDeLivros)++;
-    int codigo = *quantidadeDeLivros - 1;
+    int codigo = *quantidadeDeLivros -1;
 
     // Realoca a memória no ponteiro *livro com a memória necessária para alocar mais um livro
     Livro *livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
@@ -74,7 +74,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
 
     clearBuffer();
     
-    (*livros)[codigo].id =  *quantidadeDeLivros - 1;
+    (*livros)[codigo].id =  *quantidadeDeLivros;
     
     printf("Digite o título do livro: ");
     fgets((*livros)[codigo].titulo, sizeof((*livros)[codigo].titulo), stdin);

@@ -1,34 +1,74 @@
-# Trabalho Final - Sistema de Gerenciamento (PA)
+# Trabalho Final - Sistema de Gerenciamento (PA) 📚 
+Sistema de Gerenciamento de Biblioteca desenvolvido em C para cadastro, busca, listagem e persistência das informações sobre usuários, livros e empréstimos, além de oferecer relatórios.
+
+## Índice
+- [Visão Geral](#visão-geral)
+- [Instalação e Execução](#instalação-e-execução)
+- [Funcionalidades](#funcionalidades)
+- [Como Usar](#como-usar)
+- [Estrutura](#estrutura)
+
+## Visão Geral
+- Menu Principal ( Livros, Usuários, Empréstimos e Relatórios)
+- Gerenciamento de Livros
+- Gerenciamento de Usuários
+- Gerenciamento de Empréstimos
+- Criação de Relatórios
+
+
+## Instalação e Execução
+**Requisitos**: GCC ≥ 15.2.0 | Windows 11 / Linux Policorp | Make
+
+```text
+git clone https://github.com/lcruzz/trabalho-c.git
+cd trabalho-c
+make
+./trabalho-c
+```
 
 ## Funcionalidades
-- Cadastrar, remover, buscar e atualizar livros
-- Listar todos os livros do acervo
-- Informar empréstimos para um livro
-- Salvar e carregar acervo em um arquivo binário
+- Livros: cadastrar, remover, listar, atualizar e buscar livros
+- Usuários: cadastrar, remover, listar, atualizar e buscar usuários
+- Empréstimos e Devoluções: retirar, devolver, listar, listar atrasos e listar empréstimos de um livro
+- Relatórios: listar livros disponíveis, mais emprestados e em atraso
+
+## Como usar
+### Cadastrar Livro
+> **Título**: Crime e Castigo<br>
+> **Autor**: Fiódor Dostoiévski<br>
+> **Ano de Lançamento**: 1866<br>
+> **Quantidade Disponível**: 26<br>
 
 ## Estrutura
 
-
 ```text
 SISTEMA-GERENCIAMENTO-BIBLIOTECA/
-│
 ├── data/
-│   └── livros.bin                 # Arquivo binário para armazenamento dos livros
-│
+│   └── menus/
+│       ├── emprestimos.bin
+│       ├── livros.bin
+│       └── usuarios.bin
 ├── include/
-│   ├── biblioteca.h               # Definições gerais do sistema
-│   ├── emprestimos-devolucoes.h   # Protótipos das funções de empréstimo/devolução
-│   ├── gerenciar-livros.h         # Protótipos das funções de gerenciamento de livros
-│   └── gerenciar-usuarios.h       # Protótipos das funções de gerenciamento de usuários
-│
+│   ├── biblioteca.h
+│   ├── emprestimos-devolucoes.h
+│   ├── gerenciar-livros.h
+│   └── gerenciar-usuarios.h
+├── relatorios/
+│   ├── livros-disponiveis.txt
+│   └── livros-mais-emprestados.txt
 ├── src/
-│   ├── emprestimos-devolucoes.c   # Implementação das operações de empréstimo e devolução
-│   ├── gerenciar-livros.c         # Implementação do gerenciamento de livros
-│   ├── gerenciar-usuarios.c       # Implementação do gerenciamento de usuários
-│   ├── main.c                     # Função principal e menu do sistema
-│   ├── utils-livros.c             # Funções auxiliares relacionadas aos livros
-│   └── utils.c                    # Funções utilitárias gerais
-│
-├── .gitignore                     # Arquivos ignorados pelo Git
-└── README.md                      # Documentação do projeto
+│   ├── emprestimos-devolucoes.c
+│   ├── gerar-relatorios.c
+│   ├── gerenciar-livros.c
+│   ├── gerenciar-usuarios.c
+│   ├── main.c
+│   ├── utils-emprestimos-devolucoes.c
+│   ├── utils-livros.c
+│   ├── utils-usuarios.c
+│   └── utils.c
+├── .gitignore
+└── README.md
 ```
+
+## Licença
+UECE © 2026 Tiago e Lin
