@@ -117,7 +117,7 @@ int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros);
 
 // int usuarioEmprestimosAtrasados();
 
-// int livrosDisponiveis();
+int livrosDisponiveis(int *quantidadeDeLivros, Livro **livros);
 
 // int usuarioHistoricoDeEmprestimos();
 

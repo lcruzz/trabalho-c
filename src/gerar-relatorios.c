@@ -29,7 +29,7 @@ int relatorios(int *quantidadeDeLivros, Livro **livros){
                 break;
             case 3:
                 clear();
-                // livrosDisponiveis();
+                livrosDisponiveis(quantidadeDeLivros, livros);
                 break;
             case 4:
                 clear();
@@ -145,5 +145,86 @@ int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros) {
 
     }
     
+    return 0;
+}
+
+int livrosDisponiveis(int *quantidadeDeLivros, Livro **livros) {
+    clearBuffer();
+
+    if (*quantidadeDeLivros == 0) {
+        mensagem("Nenhum livro cadastrado no sistema.");
+        return 0;
+    }
+
+    FILE *arquivo = fopen("relatorios/livros-disponiveis.txt", "w");
+    if (arquivo == NULL) {
+        mensagem("Erro ao criar o arquivo de relatório.");
+        return -1;
+    }
+
+    time_t horario = time(NULL);
+    struct tm *data = localtime(&horario);
+
+    fprintf(arquivo, "RELATÓRIO - LIVROS DISPONÍVEIS PARA EMPRÉSTIMO\n");
+    fprintf(arquivo, "--------------------------------------------------\n");
+    fprintf(arquivo, "Gerado em: %02d/%02d/%04d %02d:%02d:%02d\n\n",
+            data->tm_mday, data->tm_mon + 1, data->tm_year + 1900,
+            data->tm_hour, data->tm_min, data->tm_sec);
+
+    int contador = 0;
+
+    for (int i = 0; i < *quantidadeDeLivros; i++) {
+        if ((*livros)[i].quantidadeDisponivel > 0) {
+            contador++;
+            fprintf(arquivo, "%d.\n"
+                             "TÍTULO: %s\n"
+                             "AUTOR: %s\n"
+                             "CÓDIGO DO LIVRO: %d\n"
+                             "UNIDADES DISPONÍVEIS: %d\n"
+                             "-------------------------------------------------\n\n",
+                    contador,
+                    (*livros)[i].titulo,
+                    (*livros)[i].autor,
+                    (*livros)[i].id,
+                    (*livros)[i].quantidadeDisponivel);
+        }
+    }
+
+    if (contador == 0) {
+        fprintf(arquivo, "Nenhum livro disponível para empréstimo no momento.\n");
+    }
+
+    fclose(arquivo);
+
+    int resposta;
+
+    while (1) {
+        imprimirArquivo("data/menus/relatorios.txt");
+        printf(VERDE "Relatório gerado com sucesso!\n\n" RESET);
+        printf("Deseja exibi-lo na tela?\n");
+        printf("  [1] Sim. \n  [2] Não.");
+        printf("\n_____________________________________________________");
+        printf(NEGRITO BRANCO "\n\nInforme a opção que deseja: " RESET);
+        if (!(scanf(" %d", &resposta)) || resposta > 2 || resposta < 1) {
+            clearBuffer();
+            mensagem("Entrada inválida. Por favor, insira um número válido.");
+            continue;
+        }
+
+        clearBuffer();
+
+        if (resposta == 1) {
+            clear();
+            imprimirArquivo("relatorios/livros-disponiveis.txt");
+            mensagem("Relatório exibido com sucesso!");
+            break;
+        } else {
+            clear();
+            imprimirArquivo("data/menus/relatorios.txt");
+            mensagem("Acesse o arquivo do relatório em: biblioteca/relatorios/livros-disponiveis.txt");
+            break;
+        }
+    }
+
     return 0;
 }
