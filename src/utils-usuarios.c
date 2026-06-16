@@ -96,6 +96,8 @@ int buscarMatricula(int codigo, int quantidadeDeUsuarios, Usuarios usuarios[]) {
 int buscarNomeDoUsuario(int quantidadeDeUsuarios, Usuarios *usuarios, char *nome) {
     int encontrou = 0;
 
+    tratarString(nome);
+    
     for (int i = 0; i < quantidadeDeUsuarios; i++) {
         if (strstr(usuarios[i].nome, nome) != NULL) {
             printf(VERDE "\nMatrícula: " RESET "%d\n"

@@ -101,6 +101,8 @@ int buscarCodigoLivro(int codigo, int quantidadeDeLivros, Livro livros[]) {
 int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome) {
     int encontrou = 0;
 
+    tratarString(nome);
+
     for (int i = 0; i < quantidadeDeLivros; i++) {
         if (strstr(livros[i].titulo, nome) != NULL) {
             printf(VERDE "\nCódigo: " RESET "%d\n"

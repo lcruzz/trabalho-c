@@ -111,9 +111,9 @@ int buscarCodigoEmprestimo(int codigo, int quantidadeDeEmprestimos, Emprestimo e
 
 // Funções para gerar relatórios
 
-int relatorios();
+int relatorios(int *quantidadeDeLivros, Livro **livros);
 
-// int livrosMaisEmprestados();
+int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros);
 
 // int usuarioEmprestimosAtrasados();
 

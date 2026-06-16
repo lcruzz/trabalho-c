@@ -48,7 +48,7 @@ int main() {
                 break;
             case 4:
                 clear();
-                relatorios();
+                relatorios(&quantidadeDeLivros, &livros);
                 break;
             case 0:
                 salvarLivros("data/livros.bin", quantidadeDeLivros, livros);
