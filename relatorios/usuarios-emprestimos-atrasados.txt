@@ -1,0 +1,5 @@
+RELATÓRIO - USUÁRIOS COM EMPRÉSTIMOS ATRASADOS
+--------------------------------------------------
+Gerado em: 17/06/2026 16:15:05
+
+Nenhum usuário com emprestimo em atraso encontrado.

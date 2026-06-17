@@ -1,0 +1,44 @@
+RELATÓRIO - LIVROS MAIS EMPRESTADOS
+-------------------------------------
+Gerado em: 17/06/2026 16:18:16
+
+1.
+TÍTULO: minha mãe não é uma peça
+AUTOR: gugu camargo
+GÊNERO: comédia
+CÓDIGO DO LIVRO: 1
+TOTAL DE EMPRÉSTIMOS: 1
+-------------------------------------------------
+
+2.
+TÍTULO: Turma da mônica Jovem - Edição 2000
+AUTOR: maurício de sousa
+GÊNERO: quadrinhos
+CÓDIGO DO LIVRO: 4
+TOTAL DE EMPRÉSTIMOS: 1
+-------------------------------------------------
+
+3.
+TÍTULO: rei leão
+AUTOR: simba
+GÊNERO: infantojuvenil
+CÓDIGO DO LIVRO: 5
+TOTAL DE EMPRÉSTIMOS: 1
+-------------------------------------------------
+
+4.
+TÍTULO: meu pé de laranja lima
+AUTOR: fulano de tal
+GÊNERO: Romance
+CÓDIGO DO LIVRO: 2
+TOTAL DE EMPRÉSTIMOS: 0
+-------------------------------------------------
+
+5.
+TÍTULO: almanaque da ruth rocha
+AUTOR: ruth rocha
+GÊNERO: infantil
+CÓDIGO DO LIVRO: 3
+TOTAL DE EMPRÉSTIMOS: 0
+-------------------------------------------------
+

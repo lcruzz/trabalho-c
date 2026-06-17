@@ -218,7 +218,7 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
         printf("\nInforme a matrícula do usuario: ");
 
-        if (!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeUsuarios - 1) {
+        if (!(scanf("%d", &codigo)) || codigo < 0) {
             clearBuffer();
             mensagem("Entrada inválida. Por favor, informe um código válido");
             continue;
