@@ -103,12 +103,12 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     tratarString((*livros)[codigo].titulo);
     tratarString((*livros)[codigo].autor);
 
-    if (buscarNomeDoLivro(*quantidadeDeLivros, *livros, (*livros)[codigo].titulo, "verificar") >= 1) {
+    if (buscarNomeDoLivro(*quantidadeDeLivros - 1, *livros, (*livros)[codigo].titulo, "verificar") >= 1) {
         (*quantidadeDeLivros)--;
 
         livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
 
-        if (livro == NULL) {
+        if (livro == NULL && *quantidadeDeLivros > 0) {
             printf("Ocorreu um erro na alocação do ponteiro\n");
             return -1;
         }
@@ -123,7 +123,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     (*livros)[codigo].quantidadeDeEmprestimo = 0;
 
     clearBuffer();
-    mensagem("Livro cadastrado com sucesso.");
+    mensagem("Livro cadastrado com sucesso!");
     return 0;
 }
 
@@ -214,8 +214,8 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
                 printf("\nInforme o nome do livro: ");
                 fgets(nome, sizeof(nome), stdin);
                 nome[strcspn(nome, "\n")] = '\0';
-        
-                int encontrados = buscarNomeDoLivro(*quantidadeDeLivros, *livros, nome);
+
+                int encontrados = buscarNomeDoLivro(*quantidadeDeLivros, *livros, nome, "listar");
         
                 if (encontrados > 0) {
                     mensagem("Livro(s) encontrado(s) com sucesso!");
@@ -346,7 +346,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     
         Livro *livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
     
-        if (livro == NULL) {
+        if (livro == NULL && *quantidadeDeLivros > 0) {
             printf("Ocorreu um erro na alocação do ponteiro\n");
             return -1;
         }

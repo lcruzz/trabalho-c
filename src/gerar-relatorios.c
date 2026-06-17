@@ -50,7 +50,6 @@ int relatorios(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quan
     return 0;
 }
 
-// Função de gerar relatório de livros mais emprestados
 int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros) {
     clearBuffer();
 
@@ -145,13 +144,11 @@ int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros) {
             mensagem("Acesse o arquivo do relatório em: biblioteca/relatorios/livros-mais-emprestados.txt");
             break;
         }
-
     }
     
     return 0;
 }
 
-// Função para gerar relatórios de livros disponíveis para emprestimo
 int livrosDisponiveis(int *quantidadeDeLivros, Livro **livros) {
     clearBuffer();
 
@@ -250,7 +247,7 @@ int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **empr
     }
 
     time_t horario = time(NULL);
-    struct tm dataRetirada, dataPrevista, dataDevolucao;
+    struct tm dataRetirada, dataPrevista;  
     struct tm dataAtual = *localtime(&horario);
     int indiceLivro, indiceUsuario;
 
@@ -273,7 +270,6 @@ int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **empr
                 continue;
             }
 
-            // Converte datas apenas para exibição no relatório
             dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
             dataPrevista = *localtime(&(*emprestimos)[i].dataPrevista);
 
@@ -336,7 +332,6 @@ int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **empr
     return 0;
 }
 
-// Função para gerar relatório de um usuário com emprestimo em atraso
 int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     clearBuffer();
 
@@ -430,20 +425,19 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
                     dataPrevista.tm_mday, dataPrevista.tm_mon + 1, dataPrevista.tm_year + 1900,
                     dataDevolucao.tm_mday, dataDevolucao.tm_mon + 1, dataDevolucao.tm_year + 1900);
         } else {
-            // Verifica se está em atraso
             char *status = (difftime((*emprestimos)[i].dataPrevista, horario) < 0) ? "Em atraso" : "Em andamento";
 
             fprintf(arquivo, "%d.\n"
-                             "CÓDIGO DO EMPRÉSTIMO: %d\n"
                              "TÍTULO DO LIVRO: %s\n"
+                             "CÓDIGO DO EMPRÉSTIMO: %d\n"
                              "DATA DE EMPRÉSTIMO: %02d/%02d/%04d\n"
                              "DATA PREVISTA: %02d/%02d/%04d\n"
                              "DATA DE DEVOLUÇÃO: -\n"
                              "STATUS: %s\n"
                              "-------------------------------------------------\n\n",
                     contador,
-                    (*emprestimos)[i].id,
                     (*livros)[indiceLivro].titulo,
+                    (*emprestimos)[i].id,
                     dataRetirada.tm_mday, dataRetirada.tm_mon + 1, dataRetirada.tm_year + 1900,
                     dataPrevista.tm_mday, dataPrevista.tm_mon + 1, dataPrevista.tm_year + 1900,
                     status);
