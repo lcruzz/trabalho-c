@@ -10,6 +10,7 @@ typedef struct {
     int id;
     char titulo[TAMANHO_TITULO];
     char autor[TAMANHO_AUTOR];
+    char genero[TAMANHO_TITULO];
     int anoPublicacao;
     int quantidadeDisponivel;
     int quantidadeDeEmprestimo;

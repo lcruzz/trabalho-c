@@ -2,7 +2,7 @@
 # Configurações do compilador
 # ============================================
 CC      = gcc
-CFLAGS  = -Wall -Wextra -g -std=c11
+CFLAGS  = -Wall -Wextra -g -std=gnu11
 INCLUDE = -I./include
 
 # ============================================

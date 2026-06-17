@@ -29,7 +29,6 @@ int lerArquivoDeLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]
         return 0;
     }
 
-    // Ignora a primeira posição do arquivo
     fseek(arquivo, sizeof(int), SEEK_SET);
 
     fread(livros, sizeof(Livro), quantidadeDeLivros, arquivo);
@@ -38,7 +37,7 @@ int lerArquivoDeLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]
     return 0;
 }
 
-// Função para salvar livros no arquivo "livros.txt"
+// Função para salvar livros no arquivo
 int salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]) {
     FILE *arquivo = fopen(nomeArquivo, "wb");
 
@@ -50,8 +49,6 @@ int salvarLivros(char *nomeArquivo, int quantidadeDeLivros, Livro livros[]) {
     fwrite(&quantidadeDeLivros, sizeof(int), 1, arquivo);
 
     fwrite(livros, sizeof(Livro), quantidadeDeLivros, arquivo);
-
-    free(livros);
 
     fclose(arquivo);
     return 0;
@@ -117,13 +114,14 @@ int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome, ...) {
                 printf(VERDE "\nCódigo: " RESET "%d\n"
                        NEGRITO BRANCO "Título: " RESET "%s\n"
                        NEGRITO BRANCO "Autor: " RESET "%s\n"
+                       NEGRITO BRANCO "Gênero: " RESET "%s\n"
                        NEGRITO BRANCO "Ano de Lançamento: " RESET "%d\n"
                        NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n"
                        NEGRITO BRANCO "Quantidade de Empréstimos: " RESET "%d\n\n",
                         livros[i].id, livros[i].titulo, livros[i].autor,
-                        livros[i].anoPublicacao, livros[i].quantidadeDisponivel,
-                        livros[i].quantidadeDeEmprestimo);
-                        
+                        livros[i].genero, livros[i].anoPublicacao,
+                        livros[i].quantidadeDisponivel, livros[i].quantidadeDeEmprestimo);
+
                 encontrou++;
             }
         }

@@ -100,13 +100,15 @@ int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros) {
         int idx = indices[i];
         fprintf(arquivo, "%d.\n"
                          "TÍTULO: %s\n"
-                         "AUTOR': %s\n"
+                         "AUTOR: %s\n"
+                         "GÊNERO: %s\n"
                          "CÓDIGO DO LIVRO: %d\n"
                          "TOTAL DE EMPRÉSTIMOS: %d\n"
                          "-------------------------------------------------\n\n",
                             i + 1,
                             (*livros)[idx].titulo,
                             (*livros)[idx].autor,
+                            (*livros)[idx].genero,
                             (*livros)[idx].id,
                             (*livros)[idx].quantidadeDeEmprestimo);
     }
@@ -180,12 +182,14 @@ int livrosDisponiveis(int *quantidadeDeLivros, Livro **livros) {
             fprintf(arquivo, "%d.\n"
                              "TÍTULO: %s\n"
                              "AUTOR: %s\n"
+                             "GÊNERO: %s\n"
                              "CÓDIGO DO LIVRO: %d\n"
                              "UNIDADES DISPONÍVEIS: %d\n"
                              "-------------------------------------------------\n\n",
                     contador,
                     (*livros)[i].titulo,
                     (*livros)[i].autor,
+                    (*livros)[i].genero,
                     (*livros)[i].id,
                     (*livros)[i].quantidadeDisponivel);
         }
@@ -247,7 +251,7 @@ int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **empr
     }
 
     time_t horario = time(NULL);
-    struct tm dataRetirada, dataPrevista;  
+    struct tm dataRetirada, dataPrevista;
     struct tm dataAtual = *localtime(&horario);
     int indiceLivro, indiceUsuario;
 
@@ -279,6 +283,7 @@ int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **empr
                              "NOME DO USUÁRIO: %s\n"
                              "CÓDIGO DO EMPRÉSTIMO: %d\n"
                              "TÍTULO DO LIVRO: %s\n"
+                             "GÊNERO DO LIVRO: %s\n"
                              "DATA DE EMPRÉSTIMO: %02d/%02d/%04d\n"
                              "DATA PREVISTA: %02d/%02d/%04d\n"
                              "-------------------------------------------------\n\n",
@@ -286,6 +291,7 @@ int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **empr
                     (*usuarios)[indiceUsuario].nome,
                     (*emprestimos)[i].id,
                     (*livros)[indiceLivro].titulo,
+                    (*livros)[indiceLivro].genero,
                     dataRetirada.tm_mday, dataRetirada.tm_mon + 1, dataRetirada.tm_year + 1900,
                     dataPrevista.tm_mday, dataPrevista.tm_mon + 1, dataPrevista.tm_year + 1900);
         }
@@ -413,6 +419,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
             fprintf(arquivo, "%d.\n"
                              "CÓDIGO DO EMPRÉSTIMO: %d\n"
                              "TÍTULO DO LIVRO: %s\n"
+                             "GÊNERO DO LIVRO: %s\n"
                              "DATA DE EMPRÉSTIMO: %02d/%02d/%04d\n"
                              "DATA PREVISTA: %02d/%02d/%04d\n"
                              "DATA DE DEVOLUÇÃO: %02d/%02d/%04d\n"
@@ -421,6 +428,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
                     contador,
                     (*emprestimos)[i].id,
                     (*livros)[indiceLivro].titulo,
+                    (*livros)[indiceLivro].genero,
                     dataRetirada.tm_mday, dataRetirada.tm_mon + 1, dataRetirada.tm_year + 1900,
                     dataPrevista.tm_mday, dataPrevista.tm_mon + 1, dataPrevista.tm_year + 1900,
                     dataDevolucao.tm_mday, dataDevolucao.tm_mon + 1, dataDevolucao.tm_year + 1900);
@@ -429,6 +437,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
 
             fprintf(arquivo, "%d.\n"
                              "TÍTULO DO LIVRO: %s\n"
+                             "GÊNERO DO LIVRO: %s\n"
                              "CÓDIGO DO EMPRÉSTIMO: %d\n"
                              "DATA DE EMPRÉSTIMO: %02d/%02d/%04d\n"
                              "DATA PREVISTA: %02d/%02d/%04d\n"
@@ -437,6 +446,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
                              "-------------------------------------------------\n\n",
                     contador,
                     (*livros)[indiceLivro].titulo,
+                    (*livros)[indiceLivro].genero,
                     (*emprestimos)[i].id,
                     dataRetirada.tm_mday, dataRetirada.tm_mon + 1, dataRetirada.tm_year + 1900,
                     dataPrevista.tm_mday, dataPrevista.tm_mon + 1, dataPrevista.tm_year + 1900,

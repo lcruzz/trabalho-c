@@ -1,6 +1,6 @@
 RELATÓRIO - HISTÓRICO DE EMPRÉSTIMOS DO USUÁRIO
 --------------------------------------------------
-Gerado em: 17/06/2026 12:47:10
+Gerado em: 17/06/2026 13:14:08
 
 NOME: tiago italo
 MATRÍCULA: 1000
@@ -8,8 +8,8 @@ CURSO: ciencia da computaçao
 --------------------------------------------------
 
 1.
-CÓDIGO DO EMPRÉSTIMO: 0
 TÍTULO DO LIVRO: dom casmurro
+CÓDIGO DO EMPRÉSTIMO: 0
 DATA DE EMPRÉSTIMO: 17/06/2026
 DATA PREVISTA: 01/07/2026
 DATA DE DEVOLUÇÃO: -
