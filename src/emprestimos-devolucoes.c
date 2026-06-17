@@ -57,15 +57,11 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
 int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     (*quantidadeDeEmprestimos)++;
     int codigoLivro, matriculaUsuario, indiceLivro, indiceUsuario;
-    int codigoEmprestimo = *quantidadeDeEmprestimos - 1;
+    int codigoEmprestimo = *quantidadeDeEmprestimos;
 
     time_t horario = time(NULL);
     struct tm dataRetirada;
     struct tm dataPrevista;
-    
-    // COPIA a estrutura - NÃO modifica o ponteiro original
-    struct tm *temp = localtime(&horario);
-    dataRetirada = *temp;
 
     // Realoca a memória do ponteiro *emprestimo com a memória necessária para alocar mais um livro
     Emprestimo *emprestimo = (Emprestimo *) realloc(*emprestimos, *quantidadeDeEmprestimos * sizeof(Emprestimo));
@@ -92,8 +88,9 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
 
         indiceUsuario = buscarMatricula(matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
 
+        clearBuffer();
+
         if (indiceUsuario == -1) {
-            clearBuffer();
             mensagem("Usuário não encontrado.");
             continue;
         }
@@ -101,24 +98,29 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         printf("Informar o código do livro: ");
 
         if (!(scanf("%d", &codigoLivro))) {
-            clearBuffer();
             mensagem("Entrada inválida. Por favor, informe um código válido.");
             continue;
         }
 
         indiceLivro = buscarCodigoLivro(codigoLivro, *quantidadeDeLivros, *livros);
+
+        clearBuffer();
     
         if (indiceLivro == -1) {
-            clearBuffer();
             mensagem("Livro não encontrado."); 
             continue;
         };
 
+        if ((*livros)[indiceLivro].quantidadeDisponivel == 0) {
+            mensagem("Livro não possui exemplares disponíveis.");
+            continue;
+        }
+
         (*emprestimos)[codigoEmprestimo].dataRetirada = mktime(&dataRetirada);
         
-        // Copia a data e adiciona 14 dias na CÓPIA
         dataPrevista = dataRetirada;
         dataPrevista.tm_mday += 14;
+
         (*emprestimos)[codigoEmprestimo].dataPrevista = mktime(&dataPrevista);
         (*emprestimos)[codigoEmprestimo].id = codigoEmprestimo;
         (*emprestimos)[codigoEmprestimo].matriculaUsuario = matriculaUsuario;
@@ -130,7 +132,6 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         (*livros)[indiceLivro].quantidadeDeEmprestimo++;
         (*usuarios)[indiceUsuario].emprestimosAtivos++;
 
-        clearBuffer();
         mensagem("Emprestimo realizado com sucesso.");
 
         return 0;
@@ -140,11 +141,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
 int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int codigoEmprestimo, indiceEmprestimo, indiceLivro, indiceUsuario;
     time_t horario = time(NULL);
-    struct tm dataDevolucao;
-    
-    // COPIA a estrutura - NÃO modifica o ponteiro original
-    struct tm *temp = localtime(&horario);
-    dataDevolucao = *temp;
+    struct tm dataDevolucao = *localtime(&horario);
 
     while (1) {
         imprimirArquivo("menus/emprestimos.txt");
@@ -193,23 +190,17 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
     time_t horario = time(NULL);
     int indiceLivro, indiceUsuario;
     struct tm dataRetirada, dataPrevista, dataDevolucao;
-    struct tm *temp;
 
     imprimirArquivo("menus/emprestimos.txt");
     printf("                   Empréstimos em Atraso\n");
     printf("_____________________________________________________________\n\n");
 
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
-        // COPIA cada data individualmente
-        temp = localtime(&(*emprestimos)[i].dataRetirada);
-        dataRetirada = *temp;
-        
-        temp = localtime(&(*emprestimos)[i].dataPrevista);
-        dataPrevista = *temp;
+        dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
+        dataPrevista = *localtime(&(*emprestimos)[i].dataPrevista);
 
         if ((*emprestimos)[i].dataDevolucao != 0) {
-            temp = localtime(&(*emprestimos)[i].dataDevolucao);
-            dataDevolucao = *temp;
+            dataDevolucao = *localtime(&(*emprestimos)[i].dataDevolucao);
         } else {
             dataDevolucao.tm_mday = 0;
             dataDevolucao.tm_mon = -1;
@@ -244,21 +235,15 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
 int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int indiceLivro, indiceUsuario;
     struct tm dataRetirada, dataPrevista, dataDevolucao;
-    struct tm *temp;
 
     imprimirArquivo("menus/emprestimos.txt");
     
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
-        // COPIA cada data individualmente
-        temp = localtime(&(*emprestimos)[i].dataRetirada);
-        dataRetirada = *temp;
-        
-        temp = localtime(&(*emprestimos)[i].dataPrevista);
-        dataPrevista = *temp;
+        dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
+        dataPrevista = *localtime(&(*emprestimos)[i].dataPrevista);
 
         if ((*emprestimos)[i].dataDevolucao != 0) {
-            temp = localtime(&(*emprestimos)[i].dataDevolucao);
-            dataDevolucao = *temp;
+            dataDevolucao = *localtime(&(*emprestimos)[i].dataDevolucao);
         } else {
             dataDevolucao.tm_mday = 0;
             dataDevolucao.tm_mon = -1;
@@ -291,7 +276,6 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
 int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int indiceLivro, indiceUsuario, codigo;
     struct tm dataRetirada, dataPrevista, dataDevolucao;
-    struct tm *temp;
 
     while (1) {
         imprimirArquivo("menus/emprestimos.txt");
@@ -310,17 +294,17 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
     
         if (indiceLivro > -1) {
             for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
-                // COPIA cada data individualmente
-                temp = localtime(&(*emprestimos)[i].dataRetirada);
-                dataRetirada = *temp;
-                
-                temp = localtime(&(*emprestimos)[i].dataPrevista);
-                dataPrevista = *temp;
-                
-                temp = localtime(&(*emprestimos)[i].dataDevolucao);
-                dataDevolucao = *temp;
+                dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
+                dataPrevista = *localtime(&(*emprestimos)[i].dataPrevista);
+
+                if ((*emprestimos)[i].dataDevolucao != 0) {
+                    dataDevolucao = *localtime(&(*emprestimos)[i].dataDevolucao);
+                } else {
+                    dataDevolucao.tm_mday = 0;
+                    dataDevolucao.tm_mon = -1;
+                }
         
-                if ((*emprestimos)[i].idLivro == indiceLivro) {
+                if ((*emprestimos)[i].idLivro == codigo) {
                     indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
             
                     printf(VERDE "Código: " RESET "%d"
