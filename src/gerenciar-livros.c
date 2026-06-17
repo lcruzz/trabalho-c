@@ -100,10 +100,27 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
         printf("Digite a quantidade disponível do livro: ");
     }
 
-    (*livros)[codigo].quantidadeDeEmprestimo = 0;
-
     tratarString((*livros)[codigo].titulo);
     tratarString((*livros)[codigo].autor);
+
+    if (buscarNomeDoLivro(*quantidadeDeLivros, *livros, (*livros)[codigo].titulo, "verificar") >= 1) {
+        (*quantidadeDeLivros)--;
+
+        livro = (Livro *) realloc(*livros, *quantidadeDeLivros * sizeof(Livro));
+
+        if (livro == NULL) {
+            printf("Ocorreu um erro na alocação do ponteiro\n");
+            return -1;
+        }
+
+        *livros = livro;
+
+        clearBuffer();
+        mensagem("Livro já existe no acervo.");
+        return 0;
+    }
+
+    (*livros)[codigo].quantidadeDeEmprestimo = 0;
 
     clearBuffer();
     mensagem("Livro cadastrado com sucesso.");
@@ -183,8 +200,8 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
                            NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n"
                            NEGRITO BRANCO "Quantidade de Empréstimos: " RESET "%d\n\n",
                             (*livros)[indice].id, (*livros)[indice].titulo, (*livros)[indice].autor,
-                            (*livros)[indice].anoPublicacao, (*livros)[indice].quantidadeDisponivel),
-                            (*livros)[indice].quantidadeDeEmprestimo;
+                            (*livros)[indice].anoPublicacao, (*livros)[indice].quantidadeDisponivel,
+                            (*livros)[indice].quantidadeDeEmprestimo);
 
                     mensagem("Livro encontrado com sucesso!");
                 } else {

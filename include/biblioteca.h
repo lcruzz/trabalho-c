@@ -43,7 +43,7 @@ int ordenarLivros(int quantidadeDeLivros, Livro livros[]);
 
 int buscarCodigoLivro(int codigo, int quantidadeDeLivros, Livro livros[]);
 
-int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome);
+int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome, ...);
 
 // --------------------------------------------------------------------------------
 

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdarg.h>
 #include "../include/biblioteca.h"
 
 // Função que pega a quantidade de livros presente no arquivo
@@ -98,26 +99,37 @@ int buscarCodigoLivro(int codigo, int quantidadeDeLivros, Livro livros[]) {
     return -1;
 }
 
-int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome) {
+int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome, ...) {
+    va_list opcionais;
     int encontrou = 0;
+
+    va_start(opcionais, nome);
+
+    char *modo = va_arg(opcionais, char *);
 
     tratarString(nome);
 
     for (int i = 0; i < quantidadeDeLivros; i++) {
         if (strstr(livros[i].titulo, nome) != NULL) {
-            printf(VERDE "\nCódigo: " RESET "%d\n"
-                   NEGRITO BRANCO "Título: " RESET "%s\n"
-                   NEGRITO BRANCO "Autor: " RESET "%s\n"
-                   NEGRITO BRANCO "Ano de Lançamento: " RESET "%d\n"
-                   NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n"
-                   NEGRITO BRANCO "Quantidade de Empréstimos: " RESET "%d\n\n",
-                    livros[i].id, livros[i].titulo, livros[i].autor,
-                    livros[i].anoPublicacao, livros[i].quantidadeDisponivel),
-                    livros[i].quantidadeDeEmprestimo;
-                    
-            encontrou++;
+            if (strcmp(modo, "verificar") == 0) {
+                encontrou++;
+            } else {
+                printf(VERDE "\nCódigo: " RESET "%d\n"
+                       NEGRITO BRANCO "Título: " RESET "%s\n"
+                       NEGRITO BRANCO "Autor: " RESET "%s\n"
+                       NEGRITO BRANCO "Ano de Lançamento: " RESET "%d\n"
+                       NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n"
+                       NEGRITO BRANCO "Quantidade de Empréstimos: " RESET "%d\n\n",
+                        livros[i].id, livros[i].titulo, livros[i].autor,
+                        livros[i].anoPublicacao, livros[i].quantidadeDisponivel,
+                        livros[i].quantidadeDeEmprestimo);
+                        
+                encontrou++;
+            }
         }
     }
+
+    va_end(opcionais);
 
     return encontrou;
 }
