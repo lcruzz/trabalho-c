@@ -1,0 +1,18 @@
+RELATÓRIO - HISTÓRICO DE EMPRÉSTIMOS DO USUÁRIO
+--------------------------------------------------
+Gerado em: 16/06/2026 11:53:37
+
+NOME: christian
+MATRÍCULA: 2
+CURSO: cc
+--------------------------------------------------
+
+1.
+CÓDIGO DO EMPRÉSTIMO: 4
+TÍTULO DO LIVRO: o menino e a garça
+DATA DE EMPRÉSTIMO: 16/06/2026
+DATA PREVISTA: 30/06/2026
+DATA DE DEVOLUÇÃO: -
+STATUS: Em andamento
+-------------------------------------------------
+

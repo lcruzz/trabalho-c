@@ -119,7 +119,7 @@ int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **empr
 
 int livrosDisponiveis(int *quantidadeDeLivros, Livro **livros);
 
-// int usuarioHistoricoDeEmprestimos(int *quantidadeDeLivros, Livro **livros);
+int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios);
 
 // --------------------------------------------------------------------------------
 
