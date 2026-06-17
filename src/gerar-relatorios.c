@@ -8,7 +8,7 @@ int relatorios(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quan
     int resposta = 0;
 
     while (1) {
-        imprimirArquivo("data/menus/menu-relatorios.txt");
+        imprimirArquivo("menus/menu-relatorios.txt");
 
         printf(NEGRITO BRANCO "Informe o relatório que deseja gerar: " RESET);
         
@@ -118,7 +118,7 @@ int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros) {
     int resposta;
 
     while(1){
-        imprimirArquivo("data/menus/relatorios.txt");
+        imprimirArquivo("menus/relatorios.txt");
 
         printf(VERDE "Relatório gerado com sucesso!\n\n" RESET);
         printf("Deseja exibi-lo na tela?\n");
@@ -141,7 +141,7 @@ int livrosMaisEmprestados(int *quantidadeDeLivros, Livro **livros) {
             break;
         } else{
             clear();
-            imprimirArquivo("data/menus/relatorios.txt");
+            imprimirArquivo("menus/relatorios.txt");
             mensagem("Acesse o arquivo do relatório em: biblioteca/relatorios/livros-mais-emprestados.txt");
             break;
         }
@@ -203,7 +203,7 @@ int livrosDisponiveis(int *quantidadeDeLivros, Livro **livros) {
     int resposta;
 
     while (1) {
-        imprimirArquivo("data/menus/relatorios.txt");
+        imprimirArquivo("menus/relatorios.txt");
 
         printf(VERDE "Relatório gerado com sucesso!\n\n" RESET);
         printf("Deseja exibi-lo na tela?\n");
@@ -226,7 +226,7 @@ int livrosDisponiveis(int *quantidadeDeLivros, Livro **livros) {
             break;
         } else {
             clear();
-            imprimirArquivo("data/menus/relatorios.txt");
+            imprimirArquivo("menus/relatorios.txt");
             mensagem("Acesse o arquivo do relatório em: biblioteca/relatorios/livros-disponiveis.txt");
             break;
         }
@@ -304,7 +304,7 @@ int usuariosEmprestimosAtrasados(int *quantidadeDeEmprestimos, Emprestimo **empr
     int resposta;
 
     while (1) {
-        imprimirArquivo("data/menus/relatorios.txt");
+        imprimirArquivo("menus/relatorios.txt");
 
         printf(VERDE "Relatório gerado com sucesso!\n\n" RESET);
         printf("Deseja exibi-lo na tela?\n");
@@ -352,7 +352,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
 
     int matricula;
 
-    imprimirArquivo("data/menus/relatorios.txt");
+    imprimirArquivo("menus/relatorios.txt");
     printf(NEGRITO BRANCO "\nInforme a matrícula do usuário: " RESET);
 
     if (!(scanf(" %d", &matricula))) {
@@ -459,7 +459,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
     int resposta;
 
     while (1) {
-        imprimirArquivo("data/menus/relatorios.txt");
+        imprimirArquivo("menus/relatorios.txt");
 
         printf(VERDE "Relatório gerado com sucesso!\n\n" RESET);
         printf("Deseja exibi-lo na tela?\n");
@@ -482,7 +482,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
             break;
         } else {
             clear();
-            imprimirArquivo("data/menus/relatorios.txt");
+            imprimirArquivo("menus/relatorios.txt");
 
             char msgArquivo[180] = "Acesse o arquivo do relatório em: biblioteca/";
             strcat(msgArquivo, nomeArquivo);

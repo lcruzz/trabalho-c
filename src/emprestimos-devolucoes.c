@@ -8,7 +8,7 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
     int resposta = 0;
 
     while (1) {
-        imprimirArquivo("data/menus/menu-emprestimos.txt");
+        imprimirArquivo("menus/menu-emprestimos.txt");
 
         printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
         
@@ -73,7 +73,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     *emprestimos = emprestimo;
 
     while (1) {
-        imprimirArquivo("data/menus/emprestimos.txt");
+        imprimirArquivo("menus/emprestimos.txt");
         printf("                    Realizar Emprestimo\n");
         printf("_____________________________________________________________\n\n");
 
@@ -135,7 +135,7 @@ int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     struct tm *data = localtime(&horario);
 
     while (1) {
-        imprimirArquivo("data/menus/emprestimos.txt");
+        imprimirArquivo("menus/emprestimos.txt");
         printf("                    Registrar Devolução\n");
         printf("_____________________________________________________________\n\n");
 
@@ -182,7 +182,7 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
     int indiceLivro, indiceUsuario;
     struct tm dataRetirada, dataPrevista, dataDevolucao, dataAtual = *localtime(&horario);
 
-    imprimirArquivo("data/menus/emprestimos.txt");
+    imprimirArquivo("menus/emprestimos.txt");
     printf("                   Empréstimos em Atraso\n");
     printf("_____________________________________________________________\n\n");
 
@@ -227,7 +227,7 @@ int listarTodosEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emprestimo
     int indiceLivro, indiceUsuario;
     struct tm dataRetirada, dataPrevista, dataDevolucao;
 
-    imprimirArquivo("data/menus/emprestimos.txt");
+    imprimirArquivo("menus/emprestimos.txt");
     
     for (int i = 0; i < *quantidadeDeEmprestimos; i++) {
         dataRetirada = *localtime(&(*emprestimos)[i].dataRetirada);
@@ -269,7 +269,7 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
     struct tm dataRetirada, dataPrevista, dataDevolucao;
 
     while (1) {
-        imprimirArquivo("data/menus/emprestimos.txt");
+        imprimirArquivo("menus/emprestimos.txt");
     
         printf("Informe o código do livro: ");
     

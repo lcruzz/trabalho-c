@@ -24,7 +24,7 @@ int main() {
     ordenarEmprestimos(quantidadeDeEmprestimos, emprestimos);
 
     while (1) {
-        imprimirArquivo("data/menus/menu-biblioteca.txt");
+        imprimirArquivo("menus/menu-biblioteca.txt");
     
         printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
 

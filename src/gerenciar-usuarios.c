@@ -7,7 +7,7 @@ int gerenciarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int resposta = 0;
 
     while (1) {
-        imprimirArquivo("data/menus/menu-usuarios.txt");
+        imprimirArquivo("menus/menu-usuarios.txt");
 
         printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
 
@@ -67,7 +67,7 @@ int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
     *usuarios = usuario;
 
-    imprimirArquivo("data/menus/usuarios.txt");
+    imprimirArquivo("menus/usuarios.txt");
     printf("            Cadastrar Usuários\n");
     printf("_________________________________________\n\n");
 
@@ -95,7 +95,7 @@ int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
 // Função para listar todos os usuários cadastrados no sistema
 int listarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
-    imprimirArquivo("data/menus/usuarios.txt");
+    imprimirArquivo("menus/usuarios.txt");
     printf("          Usuários da Biblioteca\n");
     printf("_________________________________________\n\n");
 
@@ -122,7 +122,7 @@ int buscarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int resposta;
 
     while (1) {
-        imprimirArquivo("data/menus/usuarios.txt");
+        imprimirArquivo("menus/usuarios.txt");
         printf("              Buscar Usuário\n");
         printf("_________________________________________\n\n");
 
@@ -195,7 +195,7 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int resposta, codigo;
 
     while (1) {
-        imprimirArquivo("data/menus/usuarios.txt");
+        imprimirArquivo("menus/usuarios.txt");
         printf("            Atualizar Usuário\n");
         printf("_________________________________________\n\n");
 
@@ -258,7 +258,7 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
     int codigo = 0, indice = -1;
 
     while (1) {
-        imprimirArquivo("data/menus/usuarios.txt");
+        imprimirArquivo("menus/usuarios.txt");
         printf("             Remover Usuário\n");
         printf("_________________________________________\n\n");
     

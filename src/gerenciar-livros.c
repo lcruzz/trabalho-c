@@ -7,7 +7,7 @@ int gerenciarLivros(int *quantidadeDeLivros, Livro **livros) {
     int resposta = 0;
 
     while(1) {
-        imprimirArquivo("data/menus/menu-livros.txt");
+        imprimirArquivo("menus/menu-livros.txt");
 
         printf(NEGRITO BRANCO "Informe a opção que deseja: " RESET);
 
@@ -68,7 +68,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
 
     *livros = livro;
 
-    imprimirArquivo("data/menus/livros.txt");
+    imprimirArquivo("menus/livros.txt");
     printf("            Cadastrar Livro\n");
     printf("_______________________________________\n\n");
 
@@ -129,7 +129,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
 
 // Função para listar todos os livros do sistema
 int listarLivros(int *quantidadeDeLivros, Livro **livros) {
-    imprimirArquivo("data/menus/livros.txt");
+    imprimirArquivo("menus/livros.txt");
     printf("          Livros da Biblioteca\n");
     printf("_______________________________________\n\n");
 
@@ -160,7 +160,7 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
     int resposta;
 
     while (1) {
-        imprimirArquivo("data/menus/livros.txt");
+        imprimirArquivo("menus/livros.txt");
         printf("            Buscar Livro\n");
         printf("_______________________________________\n\n");
 
@@ -240,7 +240,7 @@ int atualizarLivro(int *quantidadeDeLivros, Livro **livros) {
     int resposta, codigo, indice;
 
     while (1) {
-        imprimirArquivo("data/menus/livros.txt");
+        imprimirArquivo("menus/livros.txt");
         printf("            Atualizar Livro\n");
         printf("_______________________________________\n\n");
     
@@ -312,7 +312,7 @@ int removerLivro(int *quantidadeDeLivros, Livro **livros) {
     int codigo = 0, indice = -1;
 
     while (1) {
-        imprimirArquivo("data/menus/livros.txt");
+        imprimirArquivo("menus/livros.txt");
         printf("            Remover Livro\n");
         printf("_______________________________________\n\n");
     
