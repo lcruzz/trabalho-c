@@ -351,6 +351,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
     }
 
     int matricula;
+
     imprimirArquivo("data/menus/relatorios.txt");
     printf(NEGRITO BRANCO "\nInforme a matrícula do usuário: " RESET);
 
@@ -387,6 +388,7 @@ int usuarioHistoricoDeEmprestimos(int *quantidadeDeEmprestimos, Emprestimo **emp
     fprintf(arquivo, "Gerado em: %02d/%02d/%04d %02d:%02d:%02d\n\n",
             dataAtual.tm_mday, dataAtual.tm_mon + 1, dataAtual.tm_year + 1900,
             dataAtual.tm_hour, dataAtual.tm_min, dataAtual.tm_sec);
+    
     fprintf(arquivo, "NOME: %s\n", (*usuarios)[indiceUsuario].nome);
     fprintf(arquivo, "MATRÍCULA: %d\n", (*usuarios)[indiceUsuario].matricula);
     fprintf(arquivo, "CURSO: %s\n", (*usuarios)[indiceUsuario].curso);
