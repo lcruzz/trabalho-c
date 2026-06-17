@@ -123,7 +123,8 @@ int listarLivros(int *quantidadeDeLivros, Livro **livros) {
                    NEGRITO BRANCO "Título: " RESET "%s\n"
                    NEGRITO BRANCO "Autor: " RESET "%s\n"
                    NEGRITO BRANCO "Ano de Lançamento: " RESET "%d\n"
-                   NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n\n",
+                   NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n"
+                   NEGRITO BRANCO "Quantidade de Empréstimos: " RESET "%d\n\n",
                     (*livros)[i].id,
                     (*livros)[i].titulo,
                     (*livros)[i].autor,
@@ -179,9 +180,11 @@ int buscarLivro(int *quantidadeDeLivros, Livro **livros) {
                            NEGRITO BRANCO "Título: " RESET "%s\n"
                            NEGRITO BRANCO "Autor: " RESET "%s\n"
                            NEGRITO BRANCO "Ano de Lançamento: " RESET "%d\n"
-                           NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n\n",
+                           NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n"
+                           NEGRITO BRANCO "Quantidade de Empréstimos: " RESET "%d\n\n",
                             (*livros)[indice].id, (*livros)[indice].titulo, (*livros)[indice].autor,
-                            (*livros)[indice].anoPublicacao, (*livros)[indice].quantidadeDisponivel);
+                            (*livros)[indice].anoPublicacao, (*livros)[indice].quantidadeDisponivel),
+                            (*livros)[indice].quantidadeDeEmprestimo;
 
                     mensagem("Livro encontrado com sucesso!");
                 } else {

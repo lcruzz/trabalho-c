@@ -109,9 +109,11 @@ int buscarNomeDoLivro(int quantidadeDeLivros, Livro livros[], char *nome) {
                    NEGRITO BRANCO "Título: " RESET "%s\n"
                    NEGRITO BRANCO "Autor: " RESET "%s\n"
                    NEGRITO BRANCO "Ano de Lançamento: " RESET "%d\n"
-                   NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n\n",
+                   NEGRITO BRANCO "Quantidade Disponível: " RESET "%d\n"
+                   NEGRITO BRANCO "Quantidade de Empréstimos: " RESET "%d\n\n",
                     livros[i].id, livros[i].titulo, livros[i].autor,
-                    livros[i].anoPublicacao, livros[i].quantidadeDisponivel);
+                    livros[i].anoPublicacao, livros[i].quantidadeDisponivel),
+                    livros[i].quantidadeDeEmprestimo;
                     
             encontrou++;
         }
