@@ -1,26 +1,16 @@
 RELATÓRIO - HISTÓRICO DE EMPRÉSTIMOS DO USUÁRIO
 --------------------------------------------------
-Gerado em: 18/06/2026 09:06:45
+Gerado em: 18/06/2026 07:53:19
 
 NOME: laura souza
-MATRÍCULA: 1000
+MATRÍCULA: 1001
 CURSO: ciência da computação
 --------------------------------------------------
 
 1.
-TÍTULO DO LIVRO: dom casmurro
+TÍTULO DO LIVRO: memórias póstumas de brás cubas
 GÊNERO DO LIVRO: romance
-CÓDIGO DO EMPRÉSTIMO: 1
-DATA DE EMPRÉSTIMO: 18/06/2026
-DATA PREVISTA: 02/07/2026
-DATA DE DEVOLUÇÃO: -
-STATUS: Em andamento
--------------------------------------------------
-
-2.
-TÍTULO DO LIVRO: conectadas
-GÊNERO DO LIVRO: romance
-CÓDIGO DO EMPRÉSTIMO: 3
+CÓDIGO DO EMPRÉSTIMO: 2
 DATA DE EMPRÉSTIMO: 03/06/2026
 DATA PREVISTA: 17/06/2026
 DATA DE DEVOLUÇÃO: -

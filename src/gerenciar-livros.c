@@ -102,7 +102,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
             clearBuffer();
     
             mensagem("Entrada inválida. Por favor, insira um número para o ano de publicação.");
-            return 0;
+            continue;
         }
     
         printf("Digite a quantidade disponível do livro: ");
@@ -111,7 +111,7 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
             clearBuffer();
             
             mensagem("Entrada inválida. Por favor, insira um número para a quantidade disponível.\n");
-            return 0;
+            continue;
         }
         
         break;
@@ -303,7 +303,7 @@ int atualizarLivro(int *quantidadeDeLivros, Livro **livros) {
         clearBuffer();
 
         if (indice == -1) {
-            mensagem("O usuário não foi encontrado ou não existe no sistema.");
+            mensagem("O livro não foi encontrado ou não existe no sistema.");
             continue;
         }
 

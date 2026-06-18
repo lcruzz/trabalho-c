@@ -1,5 +1,22 @@
 RELATÓRIO - USUÁRIOS COM EMPRÉSTIMOS ATRASADOS
 --------------------------------------------------
-Gerado em: 17/06/2026 16:15:05
+Gerado em: 18/06/2026 09:06:19
 
-Nenhum usuário com emprestimo em atraso encontrado.
+1.
+NOME DO USUÁRIO: laura souza
+CÓDIGO DO EMPRÉSTIMO: 3
+TÍTULO DO LIVRO: conectadas
+GÊNERO DO LIVRO: romance
+DATA DE EMPRÉSTIMO: 03/06/2026
+DATA PREVISTA: 17/06/2026
+-------------------------------------------------
+
+2.
+NOME DO USUÁRIO: tiago italo
+CÓDIGO DO EMPRÉSTIMO: 4
+TÍTULO DO LIVRO: conectadas
+GÊNERO DO LIVRO: romance
+DATA DE EMPRÉSTIMO: 03/06/2026
+DATA PREVISTA: 17/06/2026
+-------------------------------------------------
+

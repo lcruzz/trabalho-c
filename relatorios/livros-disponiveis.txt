@@ -1,44 +1,28 @@
 RELATÓRIO - LIVROS DISPONÍVEIS PARA EMPRÉSTIMO
 --------------------------------------------------
-Gerado em: 17/06/2026 16:22:58
+Gerado em: 18/06/2026 09:06:32
 
 1.
-TÍTULO: minha mãe não é uma peça
-AUTOR: gugu camargo
-GÊNERO: comédia
-CÓDIGO DO LIVRO: 1
-UNIDADES DISPONÍVEIS: 51
--------------------------------------------------
-
-2.
-TÍTULO: meu pé de laranja lima
-AUTOR: fulano de tal
-GÊNERO: Romance
+TÍTULO: memórias póstumas de brás cuba
+AUTOR: machado de assis
+GÊNERO: romance
 CÓDIGO DO LIVRO: 2
 UNIDADES DISPONÍVEIS: 9
 -------------------------------------------------
 
-3.
-TÍTULO: almanaque da ruth rocha
-AUTOR: ruth rocha
-GÊNERO: infantil
+2.
+TÍTULO: a hora da estrela
+AUTOR: clarice lispector
+GÊNERO: romance
 CÓDIGO DO LIVRO: 3
-UNIDADES DISPONÍVEIS: 21
+UNIDADES DISPONÍVEIS: 5
 -------------------------------------------------
 
-4.
-TÍTULO: Turma da mônica Jovem - Edição 2000
-AUTOR: maurício de sousa
-GÊNERO: quadrinhos
+3.
+TÍTULO: conectadas
+AUTOR: clara silva
+GÊNERO: romance
 CÓDIGO DO LIVRO: 4
-UNIDADES DISPONÍVEIS: 23
--------------------------------------------------
-
-5.
-TÍTULO: rei leão
-AUTOR: simba
-GÊNERO: infantojuvenil
-CÓDIGO DO LIVRO: 5
-UNIDADES DISPONÍVEIS: 1
+UNIDADES DISPONÍVEIS: 10
 -------------------------------------------------
 
