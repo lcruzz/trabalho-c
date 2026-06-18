@@ -317,7 +317,7 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
                 if ((*emprestimos)[i].idLivro == codigo) {
                     indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
             
-                    printf(VERDE "Código: " RESET "%d"
+                    printf(VERDE "\nCódigo: " RESET "%d"
                            NEGRITO BRANCO "\nTítulo do Livro: " RESET "%s"
                            NEGRITO BRANCO "\nNome do Usuário: " RESET "%s"
                            NEGRITO BRANCO "\nData de Empréstimo: " RESET "%d/%d"
