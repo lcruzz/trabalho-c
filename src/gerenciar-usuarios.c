@@ -73,7 +73,12 @@ int cadastrarUsuarios(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
     clearBuffer();
 
-    (*usuarios)[codigo].matricula = *quantidadeDeUsuarios + 999;
+    if(codigo > 0){
+        (*usuarios)[codigo].matricula = (*usuarios)[codigo - 1].matricula + 1;
+    } else{
+        (*usuarios)[codigo].matricula = *quantidadeDeUsuarios + 999;
+    }
+
 
     printf("Digite o nome do aluno: ");
     fgets((*usuarios)[codigo].nome, sizeof((*usuarios)[codigo].nome), stdin);
@@ -223,29 +228,41 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
             mensagem("Entrada inválida. Por favor, informe um código válido");
             continue;
         }
+        
 
         clearBuffer();
 
+        int indice = buscarMatricula(codigo, *quantidadeDeUsuarios, *usuarios);
+
+        if (indice == -1) {
+            mensagem("O usuário não foi encontrado ou não existe no sistema.");
+            continue;
+        }
+
         switch (resposta) {
             case 1:
-                printf("\nInforme o nome: ");
-                fgets((*usuarios)[codigo].nome, sizeof((*usuarios)[codigo].nome), stdin);
-                (*usuarios)[codigo].nome[strcspn((*usuarios)[codigo].nome, "\n")] = '\0';
+                printf("\nInforme o novo nome do usuário: ");
+                fgets((*usuarios)[indice].nome, sizeof((*usuarios)[indice].nome), stdin);
+                (*usuarios)[indice].nome[strcspn((*usuarios)[indice].nome, "\n")] = '\0';
 
-                clear();
+                tratarString((*usuarios)[indice].nome);
+                
+                mensagem("Nome atualizado com sucesso!");
                 continue;
             case 2:
-                printf("\nInforme o curso: ");
-                fgets((*usuarios)[codigo].curso, sizeof((*usuarios)[codigo].curso), stdin);
-                (*usuarios)[codigo].curso[strcspn((*usuarios)[codigo].curso, "\n")] = '\0';
+                printf("\nInforme o novo curso do usuário: ");
+                fgets((*usuarios)[indice].curso, sizeof((*usuarios)[indice].curso), stdin);
+                (*usuarios)[indice].curso[strcspn((*usuarios)[indice].curso, "\n")] = '\0';
+                
+                tratarString((*usuarios)[indice].curso);
 
-                clear();
+                mensagem("Curso atualizado com sucesso!");
                 continue;
             case 0:
                 clear();
                 return 0;
             default:
-                mensagem("Entrada inválida. Por favor, informe um número válido");
+                mensagem("Entrada inválida. Por favor, informe um código válido");
                 continue;
         }
     }
@@ -255,7 +272,7 @@ int atualizarUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
 
 // Função para remover um usuário do sistema
 int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
-    int codigo = 0, indice = -1;
+    int codigo = 0;
 
     while (1) {
         imprimirArquivo("menus/usuarios.txt");
@@ -263,13 +280,13 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
         printf("_________________________________________\n\n");
     
         printf("Informe a matricula do usuario: ");
-        if(!(scanf("%d", &codigo)) || codigo < 0 || codigo > *quantidadeDeUsuarios - 1) {
+        if(!(scanf("%d", &codigo)) || codigo < 0) {
             clearBuffer();
             mensagem("Entrada inválida. Por favor, insira um código válido.");
             continue;
         };
     
-        indice = buscarMatricula(codigo, *quantidadeDeUsuarios, *usuarios);
+        int indice = buscarMatricula(codigo, *quantidadeDeUsuarios, *usuarios);
 
         clearBuffer();
     
