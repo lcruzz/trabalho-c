@@ -142,8 +142,9 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
 
         mensagem("Emprestimo realizado com sucesso.");
 
-        return 0;
     }
+    
+    return 0;
 }
 
 int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {

@@ -98,11 +98,11 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
     
         printf("Digite o ano de publicação do livro: ");
     
-        if(!(scanf(" %d", &(*livros)[codigo].anoPublicacao)) || (*livros)[codigo].anoPublicacao < 0 || (*livros)[codigo].anoPublicacao > anoAtual) {
+        if(!(scanf("%d", &(*livros)[codigo].anoPublicacao)) || (*livros)[codigo].anoPublicacao < 0 || (*livros)[codigo].anoPublicacao > anoAtual) {
             clearBuffer();
     
             mensagem("Entrada inválida. Por favor, insira um número para o ano de publicação.");
-            continue;
+            return 0;
         }
     
         printf("Digite a quantidade disponível do livro: ");
@@ -111,9 +111,9 @@ int cadastrarLivro(int *quantidadeDeLivros, Livro **livros) {
             clearBuffer();
             
             mensagem("Entrada inválida. Por favor, insira um número para a quantidade disponível.\n");
-            continue;
+            return 0;
         }
-
+        
         break;
     }
 
