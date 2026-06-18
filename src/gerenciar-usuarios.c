@@ -283,7 +283,7 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
         if(!(scanf("%d", &codigo)) || codigo < 0) {
             clearBuffer();
             mensagem("Entrada inválida. Por favor, insira um código válido.");
-            continue;
+            break;
         };
     
         int indice = buscarMatricula(codigo, *quantidadeDeUsuarios, *usuarios);
@@ -302,7 +302,7 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
             }
         } else {
             mensagem("Entrada inválida. Por favor, insira uma matrícula válida.");
-            continue;
+            break;
         }
     
         (*quantidadeDeUsuarios)--;
@@ -317,7 +317,8 @@ int removerUsuario(int *quantidadeDeUsuarios, Usuarios **usuarios) {
         *usuarios = usuario;
     
         mensagem("Usuário removido com sucesso.");
-
-        return 0;
+        break;
     }
+
+    return 0;
 }

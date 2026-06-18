@@ -141,7 +141,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         (*usuarios)[indiceUsuario].emprestimosAtivos++;
 
         mensagem("Emprestimo realizado com sucesso.");
-
+        break;
     }
     
     return 0;
@@ -162,7 +162,7 @@ int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         if (!(scanf("%d", &codigoEmprestimo)) || codigoEmprestimo < 0) {
             clearBuffer();
             mensagem("Entrada inválida. Por favor, informe um código válido.");
-            continue;
+            break;
         }
 
         indiceEmprestimo = buscarCodigoEmprestimo(codigoEmprestimo, *quantidadeDeEmprestimos, *emprestimos);
@@ -172,7 +172,7 @@ int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         if (indiceEmprestimo > -1) {
             if ((*emprestimos)[indiceEmprestimo].devolvido == 's') {
                 mensagem("Livro já foi devolvido.");
-                continue;
+                break;
             } else {
                 indiceUsuario = buscarMatricula((*emprestimos)[indiceEmprestimo].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
                 indiceLivro = buscarCodigoLivro((*emprestimos)[indiceEmprestimo].idLivro, *quantidadeDeLivros, *livros);
@@ -185,13 +185,14 @@ int registrarDevolucao(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
             }
         } else {
             mensagem("Entrada inválida. Por favor, informe um código válido.");
-            continue;
+            break;
         }
 
         mensagem("Livro devolvido com sucesso.");
-
-        return 0;
+        break;
     }
+
+    return 0;
 }
 
 // Função para listar empréstimos em atraso
@@ -215,7 +216,7 @@ int listarEmprestimosEmAtraso(int *quantidadeDeEmprestimos, Emprestimo **emprest
             dataDevolucao.tm_mon = -1;
         }
 
-        if (difftime((*emprestimos)[i].dataPrevista, horario) < 0 && (*emprestimos)[i].dataDevolucao == 0) {
+        if (difftime((*emprestimos)[i].dataPrevista, horario) < 0 && (*emprestimos)[i].dataDevolucao == 0){
             indiceLivro = buscarCodigoLivro((*emprestimos)[i].idLivro, *quantidadeDeLivros, *livros);
             indiceUsuario = buscarMatricula((*emprestimos)[i].matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
     
@@ -294,7 +295,7 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
         if (!(scanf("%d", &codigo)) || codigo < 0) {
             clearBuffer();
             mensagem("Entrada inválida. Por favor, insirá um código válido.");
-            continue;
+            break;
         }
     
         indiceLivro = buscarCodigoLivro(codigo, *quantidadeDeLivros, *livros);
@@ -332,10 +333,12 @@ int listarEmprestimosDeUmLivro(int *quantidadeDeEmprestimos, Emprestimo **empres
             }
         } else {
             mensagem("Livro não existe ou não possui nenhum empréstimo.");
-            continue;
+            break;
         }
     
         mensagem("Todos os empréstimos do livro foram listados.");
-        return 0;
+        break;
     }
+
+    return 0;
 }
