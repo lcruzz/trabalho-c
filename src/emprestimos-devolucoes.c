@@ -57,11 +57,10 @@ int emprestimosDevolucoes(int *quantidadeDeEmprestimos, Emprestimo **emprestimos
 int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, int *quantidadeDeLivros, Livro **livros, int *quantidadeDeUsuarios, Usuarios **usuarios) {
     (*quantidadeDeEmprestimos)++;
     int codigoLivro, matriculaUsuario, indiceLivro, indiceUsuario;
-    int codigoEmprestimo = *quantidadeDeEmprestimos;
+    int codigoEmprestimo = *quantidadeDeEmprestimos - 1;
 
     time_t horario = time(NULL);
-    struct tm dataRetirada;
-    struct tm dataPrevista;
+    struct tm dataPrevista, dataRetirada = *localtime(&horario);
 
     // Realoca a memória do ponteiro *emprestimo com a memória necessária para alocar mais um emprestimo
     Emprestimo *emprestimo = (Emprestimo *) realloc(*emprestimos, *quantidadeDeEmprestimos * sizeof(Emprestimo));
@@ -83,7 +82,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         if (!(scanf("%d", &matriculaUsuario))) {
             clearBuffer();
             mensagem("Entrada inválida. Por favor, informe um código válido.");
-            continue;
+            break;
         }
 
         indiceUsuario = buscarMatricula(matriculaUsuario, *quantidadeDeUsuarios, *usuarios);
@@ -92,19 +91,19 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
 
         if (indiceUsuario == -1) {
             mensagem("Usuário não encontrado.");
-            continue;
+            break;
         }
 
         if((*usuarios)[indiceUsuario].emprestimosAtivos == 3){
             mensagem("O usuário atingiu o limite de empréstimos.");
-            continue;
+            break;
         }
 
         printf("Informar o código do livro: ");
 
         if (!(scanf("%d", &codigoLivro))) {
             mensagem("Entrada inválida. Por favor, informe um código válido.");
-            continue;
+            break;
         }
 
         indiceLivro = buscarCodigoLivro(codigoLivro, *quantidadeDeLivros, *livros);
@@ -113,12 +112,17 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     
         if (indiceLivro == -1) {
             mensagem("Livro não encontrado."); 
-            continue;
+            break;
         };
 
         if ((*livros)[indiceLivro].quantidadeDisponivel == 0) {
             mensagem("Livro não possui exemplares disponíveis.");
-            continue;
+            break;
+        }
+        if (codigoEmprestimo > 0) {
+            (*emprestimos)[codigoEmprestimo].id = (*emprestimos)[codigoEmprestimo - 1].id + 1;
+        } else {
+            (*emprestimos)[codigoEmprestimo].id = *quantidadeDeEmprestimos;
         }
 
         (*emprestimos)[codigoEmprestimo].dataRetirada = mktime(&dataRetirada);
@@ -127,7 +131,6 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
         dataPrevista.tm_mday += 14;
 
         (*emprestimos)[codigoEmprestimo].dataPrevista = mktime(&dataPrevista);
-        (*emprestimos)[codigoEmprestimo].id = codigoEmprestimo;
         (*emprestimos)[codigoEmprestimo].matriculaUsuario = matriculaUsuario;
         (*emprestimos)[codigoEmprestimo].idLivro = codigoLivro;
         (*emprestimos)[codigoEmprestimo].dataDevolucao = 0;
