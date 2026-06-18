@@ -63,7 +63,7 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
     struct tm dataRetirada;
     struct tm dataPrevista;
 
-    // Realoca a memória do ponteiro *emprestimo com a memória necessária para alocar mais um livro
+    // Realoca a memória do ponteiro *emprestimo com a memória necessária para alocar mais um emprestimo
     Emprestimo *emprestimo = (Emprestimo *) realloc(*emprestimos, *quantidadeDeEmprestimos * sizeof(Emprestimo));
 
     if (emprestimo == NULL) {
@@ -92,6 +92,11 @@ int realizarEmprestimo(int *quantidadeDeEmprestimos, Emprestimo **emprestimos, i
 
         if (indiceUsuario == -1) {
             mensagem("Usuário não encontrado.");
+            continue;
+        }
+
+        if((*usuarios)[indiceUsuario].emprestimosAtivos == 3){
+            mensagem("O usuário atingiu o limite de empréstimos.");
             continue;
         }
 
